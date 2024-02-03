@@ -8,6 +8,7 @@ public class Card : MonoBehaviour
     void Start()
     {
         
+        //Git test text
     }
 
     // Update is called once per frame
