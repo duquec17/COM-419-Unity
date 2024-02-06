@@ -10,19 +10,18 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         Debug.Log("BeginDrag");
         this.transform.SetParent(this.transform.parent.parent);
 
-        throw new System.NotImplementedException();
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         this.transform.position = eventData.position;
-        throw new System.NotImplementedException();
+       
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         Debug.Log("EndDrag");
-        throw new System.NotImplementedException();
+        
     }
 
 
