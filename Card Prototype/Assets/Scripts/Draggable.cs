@@ -13,6 +13,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     public void OnDrag(PointerEventData eventData)
     {
+        this.transform.position = eventData.position;
         throw new System.NotImplementedException();
     }
 
