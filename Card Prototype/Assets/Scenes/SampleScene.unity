@@ -287,6 +287,7 @@ GameObject:
   - component: {fileID: 323609827}
   - component: {fileID: 323609826}
   - component: {fileID: 323609825}
+  - component: {fileID: 323609828}
   m_Layer: 5
   m_Name: DropZone
   m_TagString: Untagged
@@ -379,6 +380,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 323609823}
   m_CullTransparentMesh: 1
+--- !u!114 &323609828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323609823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e89dd64b76fe3814ca2f5d388dafeb2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &400788262
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,6 +786,7 @@ GameObject:
   - component: {fileID: 814222548}
   - component: {fileID: 814222547}
   - component: {fileID: 814222549}
+  - component: {fileID: 814222550}
   m_Layer: 5
   m_Name: Hand
   m_TagString: Untagged
@@ -867,6 +881,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &814222550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814222545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e89dd64b76fe3814ca2f5d388dafeb2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &936406122
 GameObject:
   m_ObjectHideFlags: 0
