@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    private Transform parentToReturnTo = null;
+    Transform parentToReturnTo = null;
 
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -23,6 +23,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public void OnEndDrag(PointerEventData eventData)
     {
         Debug.Log("EndDrag");
+        this.transform.SetParent(parentToReturnTo);
     }
 
 
