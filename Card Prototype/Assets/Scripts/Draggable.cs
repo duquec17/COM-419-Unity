@@ -5,11 +5,14 @@ using UnityEngine.EventSystems;
 
 public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    Transform parentToReturnTo = null;
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         Debug.Log("BeginDrag");
-        this.transform.SetParent(this.transform.parent.parent);
 
+        parentToReturnTo = this.transform.parent;
+        this.transform.SetParent(this.transform.parent.parent);
     }
 
     public void OnDrag(PointerEventData eventData)
