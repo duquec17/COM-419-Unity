@@ -7,6 +7,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 {
     public void OnBeginDrag(PointerEventData eventData)
     {
+        Debug.Log("BeginDrag");
         throw new System.NotImplementedException();
     }
 
@@ -17,6 +18,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        Debug.Log("EndDrag");
         throw new System.NotImplementedException();
     }
 
