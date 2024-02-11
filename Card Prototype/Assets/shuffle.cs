@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class shuffle : MonoBehaviour 
 {
-    public list<Card> deck = new List<Card>();
-    public list<Card> container = new List<Card>();
+    public List<Card> deck = new List<Card>();
+    public List<Card> container = new List<Card>();
     public int x;
     public int deckSize;
 

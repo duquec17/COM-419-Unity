@@ -34,30 +34,29 @@ public class DisplayCard : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        /*displayCard[0] = CardDatabase.cardList[displayId];
-        id = displayCard[0].id;
-        cardName = displayCard[0].cardName;
-        cost = displayCard[0].cost;
-        power = displayCard[0].power;
-        health = displayCard[0].health;
-        cardDescription = displayCard[0].cardDescription;
-        spriteImage = displayCard[0].spriteImage;
+        if(displayId >= 0 && displayId < displayCard.Count)
+        {
+            id = displayCard[0].id;
+            cardName = displayCard[0].cardName;
+            cost = displayCard[0].cost;
+            power = displayCard[0].power;
+            health = displayCard[0].health;
+            cardDescription = displayCard[0].cardDescription;
+            spriteImage = displayCard[0].spriteImage;
 
 
-        nameText.text = " " + cardName;
-        costText.text = " " + cost;
-        powerText.text = " " + power;
-        healthText.text = " " + health;
-        descriptionText.text = " " + cardDescription;
-        artImage.sprite = spriteImage;
-        */
+            nameText.text = " " + cardName;
+            costText.text = " " + cost;
+            powerText.text = " " + power;
+            healthText.text = " " + health;
+            descriptionText.text = " " + cardDescription;
+            artImage.sprite = spriteImage;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
         staticCardBack = cardBack;
-
     }
 }

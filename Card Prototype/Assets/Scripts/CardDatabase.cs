@@ -9,7 +9,7 @@ using UnityEngine.EventSystems;
 public class CardDatabase : MonoBehaviour
 {
 
-    public List<Card> displayCard = new List<Card>();
+    public static List<Card> cardList = new List<Card>();
 
     public int displayId;
 
@@ -33,21 +33,21 @@ public class CardDatabase : MonoBehaviour
 
     private void Awake()
     {
-        displayCard.Add(new Card(0, "Example", 0, 0, 0, "broke", spriteImage));
+        cardList.Add(new Card(0, "Example", 0, 0, 0, "broke", spriteImage));
     }
 
 
     // Start is called before the first frame update
     void Start()
     {
-        displayCard[0] = CardDatabase.cardList[displayId];
-        id = displayCard[0].id;
-        cardName = displayCard[0].cardName;
-        cost = displayCard[0].cost;
-        power = displayCard[0].power;
-        health = displayCard[0].health;
-        cardDescription = displayCard[0].cardDescription;
-        spriteImage = displayCard[0].spriteImage;
+        displayId = 0;
+        id = cardList[0].id;
+        cardName = cardList[0].cardName;
+        cost = cardList[0].cost;
+        power = cardList[0].power;
+        health = cardList[0].health;
+        cardDescription = cardList[0].cardDescription;
+        spriteImage = cardList[0].spriteImage;
 
 
         nameText.text = " " + cardName;
