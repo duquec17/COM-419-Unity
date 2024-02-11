@@ -10,6 +10,7 @@ public class CardDatabase : MonoBehaviour
 {
 
     public List<Card> displayCard = new List<Card>();
+
     public int displayId;
 
     public int id;
@@ -30,14 +31,16 @@ public class CardDatabase : MonoBehaviour
     public bool cardBack;
     public static bool staticCardBack;
 
+    private void Awake()
+    {
+        displayCard.Add(new Card(0, "Example", 0, 0, 0, "broke", spriteImage));
+    }
+
 
     // Start is called before the first frame update
     void Start()
     {
-        Card newCard = new Card(0, "Example Card", 3, 2, 5, "This is an example card.", null);
-        displayCard.Add(newCard);
-
-        //displayCard[0] = CardDatabase.cardList[displayId];
+        displayCard[0] = CardDatabase.cardList[displayId];
         id = displayCard[0].id;
         cardName = displayCard[0].cardName;
         cost = displayCard[0].cost;

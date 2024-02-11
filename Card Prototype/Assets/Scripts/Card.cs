@@ -13,16 +13,11 @@ public class Card {
     public int health;
     public string cardDescription;
     public Sprite spriteImage;
+    
+    public Card(){
+    }
 
-
-
-public Card(){
-
-
-
-}
-
-public Card(int Id, string CardName, int Cost, int Power, int Health, string CardDescription, Sprite SpriteImage){
+    public Card(int Id, string CardName, int Cost, int Power, int Health, string CardDescription, Sprite SpriteImage){
 
     id = Id;
     cardName = CardName;
@@ -31,9 +26,5 @@ public Card(int Id, string CardName, int Cost, int Power, int Health, string Car
     cardDescription = CardDescription;
     health = Health;
     spriteImage = SpriteImage;
-
-
-}
-
-
+    }
 }
