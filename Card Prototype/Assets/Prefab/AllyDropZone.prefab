@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7875592528286856240}
   m_Layer: 5
   m_Name: AllyDropZone
-  m_TagString: Untagged
+  m_TagString: AllyDropZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
