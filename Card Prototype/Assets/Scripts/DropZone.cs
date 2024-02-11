@@ -17,24 +17,23 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
     
     public void OnDrop(PointerEventData eventData)
     {
+
+
         Debug.Log(eventData.pointerDrag.name + " was dropped on " + gameObject.name);
 
-        Draggable d = eventData.pointerDrag.GetComponent<Draggable>(); 
-        if(d != null)
+        Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
+       
+        if (d != null)
         {
-            d.parentToReturnTo = this.transform;
+            if (gameObject.CompareTag("AllyDropZone")) // Check if it's an ally dropzone and the card is an ally card
+            {
+                d.parentToReturnTo = this.transform;
+                Debug.Log(d.gameObject.name + " was dropped on " + gameObject.name);
+            }
+            else
+            {
+                Debug.Log("Cannot drop " + d.gameObject.name + " on " + gameObject.name + ". Only ally cards can be placed here.");
+            }
         }
-    }
-   
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
