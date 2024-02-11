@@ -505,7 +505,7 @@ GameObject:
   - component: {fileID: 500616084}
   - component: {fileID: 500616083}
   m_Layer: 5
-  m_Name: CurrentTurn
+  m_Name: Turn Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
