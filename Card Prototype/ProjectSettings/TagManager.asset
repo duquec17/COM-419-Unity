@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - AllyDropZone
+  - EnemyDropZone
   layers:
   - Default
   - TransparentFX
