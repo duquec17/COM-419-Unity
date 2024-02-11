@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 
-public class DisplayCard : MonoBehaviour
+public class CardDatabase : MonoBehaviour
 {
 
     public List<Card> displayCard = new List<Card>();
