@@ -34,7 +34,10 @@ public class CardDatabase : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        displayCard[0] = CardDatabase.cardList[displayId];
+        Card newCard = new Card(0, "Example Card", 3, 2, 5, "This is an example card.", null);
+        displayCard.Add(newCard);
+
+        //displayCard[0] = CardDatabase.cardList[displayId];
         id = displayCard[0].id;
         cardName = displayCard[0].cardName;
         cost = displayCard[0].cost;
@@ -51,6 +54,7 @@ public class CardDatabase : MonoBehaviour
         descriptionText.text = " " + cardDescription;
         artImage.sprite = spriteImage;
     }
+
 
     // Update is called once per frame
     void Update()

@@ -20,7 +20,7 @@ public class PlayerDeck : MonoBehaviour
 
         for(int i = 0; i < 10; i++){
             x = Random.Range(1, 10);
-            deck[i] = CardDatabase.cardList[x];
+            //deck[i] = CardDatabase.cardList[x];
         }
 
     }

@@ -6,7 +6,7 @@ using TMPro;
 public class CardDisplay : MonoBehaviour
 {
 
-    public Card2 card;
+    public Card card;
 
     public TMP_Text nameText;
     public TMP_Text descriptionText;
@@ -19,12 +19,12 @@ public class CardDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        nameText.text = card.name;
-        descriptionText.text = card.description;
+        nameText.text = card.cardName;
+        descriptionText.text = card.cardDescription;
         
 
-        manaText.text = card.manaCost.ToString();
-        attackText.text = card.attack.ToString();
+        manaText.text = card.cost.ToString();
+        attackText.text = card.power.ToString();
         healthText.text = card.health.ToString();
     }
 
