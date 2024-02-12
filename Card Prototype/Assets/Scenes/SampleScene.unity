@@ -505,7 +505,7 @@ GameObject:
   - component: {fileID: 500616084}
   - component: {fileID: 500616083}
   m_Layer: 5
-  m_Name: Turn Text
+  m_Name: TurnText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -765,7 +765,7 @@ GameObject:
   - component: {fileID: 586067123}
   - component: {fileID: 586067122}
   m_Layer: 5
-  m_Name: Opponent
+  m_Name: OpponentTurn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -835,7 +835,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 586067123}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 929202910}
+        m_TargetAssemblyTypeName: TurnSystem, Assembly-CSharp
+        m_MethodName: EndOpponentTurn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &586067123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1517,7 +1529,7 @@ MonoBehaviour:
   isYourTurn: 0
   yourTurn: 0
   isOpponentTurn: 0
-  turnText: {fileID: 0}
+  turnText: {fileID: 737035407}
   maxMana: 0
   currentMana: 0
   manaText: {fileID: 0}
@@ -1711,7 +1723,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1042373041}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 929202910}
+        m_TargetAssemblyTypeName: TurnSystem, Assembly-CSharp
+        m_MethodName: EndYourTurn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1042373041
 MonoBehaviour:
   m_ObjectHideFlags: 0
