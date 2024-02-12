@@ -40,7 +40,7 @@ public class TurnSystem : MonoBehaviour
   
     public void EndYourTurn()
     {
-        isYourTurn = true;
+        isYourTurn = false;
         isOpponentTurn += 1;
     }
 
