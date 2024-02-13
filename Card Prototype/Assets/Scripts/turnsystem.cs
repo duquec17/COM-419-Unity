@@ -13,6 +13,7 @@ public class TurnSystem : MonoBehaviour
     public int maxMana;
     public int currentMana;
     public Text manaText;
+    internal static bool startTurn;
 
     void Start()
     {
