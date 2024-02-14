@@ -967,10 +967,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 5928839128216832022, guid: d1446139b5fac0540be126c6557f0462, type: 3}
-      propertyPath: sceneId
-      value: 2473933506
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1446139b5fac0540be126c6557f0462, type: 3}
 --- !u!224 &642021739 stripped
@@ -1065,10 +1061,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1414836695}
     m_Modifications:
-    - target: {fileID: 1186091764336180775, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
-      propertyPath: sceneId
-      value: 1798640055
-      objectReference: {fileID: 0}
     - target: {fileID: 5947115346296771922, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1186,7 +1178,7 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7875592528286856240, guid: 62d36af4927cfcc4aa3e92b181f68c9b, type: 3}
     m_RemovedComponents:
-    - {fileID: 1186091764336180775, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
 --- !u!224 &779051164 stripped
 RectTransform:
@@ -1493,10 +1485,6 @@ PrefabInstance:
     - target: {fileID: 1325048244974266444, guid: d1446139b5fac0540be126c6557f0462, type: 3}
       propertyPath: m_Name
       value: Card (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 5928839128216832022, guid: d1446139b5fac0540be126c6557f0462, type: 3}
-      propertyPath: sceneId
-      value: 1538309999
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1446139b5fac0540be126c6557f0462, type: 3}
@@ -1950,10 +1938,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1414836695}
     m_Modifications:
-    - target: {fileID: 1186091764336180775, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
-      propertyPath: sceneId
-      value: 3355458935
-      objectReference: {fileID: 0}
     - target: {fileID: 5947115346296771922, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2071,7 +2055,7 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7875592528286856240, guid: 62d36af4927cfcc4aa3e92b181f68c9b, type: 3}
     m_RemovedComponents:
-    - {fileID: 1186091764336180775, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
 --- !u!224 &1307524716 stripped
 RectTransform:
@@ -2172,10 +2156,6 @@ PrefabInstance:
     - target: {fileID: 1325048244974266444, guid: d1446139b5fac0540be126c6557f0462, type: 3}
       propertyPath: m_Name
       value: Card (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 5928839128216832022, guid: d1446139b5fac0540be126c6557f0462, type: 3}
-      propertyPath: sceneId
-      value: 1962225463
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1446139b5fac0540be126c6557f0462, type: 3}
@@ -2467,12 +2447,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card (4)
       objectReference: {fileID: 0}
-    - target: {fileID: 5928839128216832022, guid: d1446139b5fac0540be126c6557f0462, type: 3}
-      propertyPath: sceneId
-      value: 1350555608
-      objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 5928839128216832022, guid: d1446139b5fac0540be126c6557f0462, type: 3}
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: d1446139b5fac0540be126c6557f0462, type: 3}
 --- !u!224 &1430758266 stripped
 RectTransform:
@@ -3403,12 +3379,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card (3)
       objectReference: {fileID: 0}
-    - target: {fileID: 5928839128216832022, guid: d1446139b5fac0540be126c6557f0462, type: 3}
-      propertyPath: sceneId
-      value: 3749722870
-      objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 5928839128216832022, guid: d1446139b5fac0540be126c6557f0462, type: 3}
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: d1446139b5fac0540be126c6557f0462, type: 3}
 --- !u!224 &1891502700 stripped
 RectTransform:
@@ -3502,10 +3474,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1414836695}
     m_Modifications:
-    - target: {fileID: 1186091764336180775, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
-      propertyPath: sceneId
-      value: 2128674536
-      objectReference: {fileID: 0}
     - target: {fileID: 5947115346296771922, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3799,10 +3767,6 @@ PrefabInstance:
     - target: {fileID: 1325048244974266444, guid: d1446139b5fac0540be126c6557f0462, type: 3}
       propertyPath: m_Name
       value: Card
-      objectReference: {fileID: 0}
-    - target: {fileID: 5928839128216832022, guid: d1446139b5fac0540be126c6557f0462, type: 3}
-      propertyPath: sceneId
-      value: 1888387819
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1446139b5fac0540be126c6557f0462, type: 3}
