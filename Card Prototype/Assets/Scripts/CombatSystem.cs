@@ -9,7 +9,7 @@ public class CombatSystem : MonoBehaviour
     public DropZone[] enemyDropZones; // Array to hold enemy drop zones
     public TurnSystem turnSystem;
 
-    void Update()
+    void Start()
     {
         // Find all ally and enemy drop zones in the scene and convert them to DropZone array
         allyDropZones = GameObject.FindGameObjectsWithTag("AllyDropZone").Select(obj => obj.GetComponent<DropZone>()).ToArray();
@@ -28,6 +28,7 @@ public class CombatSystem : MonoBehaviour
         // Check if the new phase is the battle phase
         if (newPhase == TurnSystem.TurnPhase.Battle)
         {
+            Debug.Log("Entering battle phase");
             // Start combat during the battle phase
             StartCombat();
         }
@@ -41,11 +42,17 @@ public class CombatSystem : MonoBehaviour
         bool allyHasCard = CheckDropZonesNotEmpty(allyDropZones);
         bool enemyHasCard = CheckDropZonesNotEmpty(enemyDropZones);
 
-        if (allyHasCard && enemyHasCard)
+        Debug.Log("Ally has card: " + allyHasCard);
+        Debug.Log("Enemy has card: " + enemyHasCard);
+
+        if (allyHasCard == true && enemyHasCard == true)
         {
             // Get cards from drop zones
             Card allyCard = GetRandomCardFromDropZones(allyDropZones);
             Card enemyCard = GetRandomCardFromDropZones(enemyDropZones);
+
+            Debug.Log("Ally card: " + allyCard.cardName + "temp name");
+            Debug.Log("Enemy card: " + enemyCard.cardName + "temp name");
 
             // Resolve combat between the two cards
             CombatResult result = CombatResolver.ResolveCombat(allyCard, enemyCard);
@@ -53,11 +60,9 @@ public class CombatSystem : MonoBehaviour
             // Apply the combat result
             ApplyCombatResult(result);
         }
-        else if (allyHasCard || enemyHasCard)
+        else if (allyHasCard == true || enemyHasCard == true)
         {
-
             Debug.Log("There is only one card on either drop zone");
-
             Debug.Log("Combat Ends");
 
             // If either drop zone is empty, end the turn
@@ -73,6 +78,7 @@ public class CombatSystem : MonoBehaviour
             {
                 return false;
             }
+
         }
         return true;
     }
