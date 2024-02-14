@@ -1383,14 +1383,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   row: 0
   col: 0
-  card:
-    id: 0
-    cardName: 
-    cost: 0
-    power: 0
-    health: 0
-    cardDescription: 
-    spriteImage: {fileID: 0}
 --- !u!1001 &868625733
 PrefabInstance:
   m_ObjectHideFlags: 0

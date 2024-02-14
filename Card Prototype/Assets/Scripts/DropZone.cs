@@ -44,7 +44,6 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         }
         else
         {
-            Debug.Log("Cannot drop " + draggable.gameObject.name + " on " + gameObject.name + ". Ally cards can only be ally zones.");
             return false;
         }
     }
