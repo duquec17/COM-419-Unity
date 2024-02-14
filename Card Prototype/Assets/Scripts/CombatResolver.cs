@@ -17,8 +17,8 @@ public static class CombatResolver
         // Create CombatResult object with the combat outcome
         CombatResult result = new CombatResult
         {
-            AttackerWins = allyDamage > enemyDamage, // Check who did more damage
-            DamageDealt = Mathf.Max(allyDamage, enemyDamage) // Get the maximum damage dealt
+            attackerWins = allyDamage > enemyDamage, // Check who did more damage
+            damageDealt = Mathf.Max(allyDamage, enemyDamage) // Get the maximum damage dealt
         };
 
         return result;
@@ -31,11 +31,4 @@ public static class CombatResolver
         // Ensure damage is non-negative
         return Mathf.Max(0, damage);
     }
-}
-
-[System.Serializable]
-public class CombatResult
-{
-    public bool AttackerWins;
-    public int DamageDealt;
 }
