@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class SomeClass : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
-        
-    }
+        // Example usage:
+        Card allyCard = CardDatabase.cardList[0]; // Assuming you want the first card in the list
+        Card enemyCard = CardDatabase.cardList[1]; // Assuming you want the second card in the list
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        CombatResult result = CombatResolver.ResolveCombat(allyCard, enemyCard);
+
+        Debug.Log("Combat Result - Attacker Wins: " + result.AttackerWins + ", Damage Dealt: " + result.DamageDealt);
     }
 }
