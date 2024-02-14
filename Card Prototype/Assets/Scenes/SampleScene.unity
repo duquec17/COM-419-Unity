@@ -1139,7 +1139,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5947115346296771923, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
       propertyPath: m_TagString
-      value: EnemyDropZone
+      value: AllyDropZone
       objectReference: {fileID: 0}
     - target: {fileID: 9114383660591714898, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
       propertyPath: m_Enabled
@@ -1284,6 +1284,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e89dd64b76fe3814ca2f5d388dafeb2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  row: 0
+  col: 0
   card:
     id: 0
     cardName: 
@@ -1929,7 +1931,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5947115346296771923, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
       propertyPath: m_TagString
-      value: EnemyDropZone
+      value: AllyDropZone
       objectReference: {fileID: 0}
     - target: {fileID: 9114383660591714898, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
       propertyPath: m_Enabled
@@ -3008,7 +3010,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5947115346296771923, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
       propertyPath: m_TagString
-      value: EnemyDropZone
+      value: AllyDropZone
       objectReference: {fileID: 0}
     - target: {fileID: 9114383660591714898, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
       propertyPath: m_Enabled
