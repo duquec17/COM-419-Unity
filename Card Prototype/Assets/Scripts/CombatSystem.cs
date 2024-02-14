@@ -11,8 +11,8 @@ public class CombatSystem : MonoBehaviour
     {
         // Assuming this script is attached to a GameObject in the scene,
         // you can get references to the DropZone components via the GameObjects' tags.
-        allyDropZone = GameObject.FindGameObjectWithTag("AllyDropZone").GetComponent<DropZone>();
-        enemyDropZone = GameObject.FindGameObjectWithTag("EnemyDropZone").GetComponent<DropZone>();
+       allyDropZone = GameObject.FindGameObjectWithTag("AllyDropZone").GetComponent<DropZone>();
+       enemyDropZone = GameObject.FindGameObjectWithTag("EnemyDropZone").GetComponent<DropZone>();
 
         // Start combat at the beginning of the turn
         StartCombat();
