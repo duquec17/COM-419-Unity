@@ -6,16 +6,22 @@ public class CombatSystem : MonoBehaviour
 {
     public DropZone allyDropZone;
     public DropZone enemyDropZone;
+    public TurnSystem turnSystem; // Reference to the TurnSystem script
 
     void Start()
     {
-        // Assuming this script is attached to a GameObject in the scene,
-        // you can get references to the DropZone components via the GameObjects' tags.
-       allyDropZone = GameObject.FindGameObjectWithTag("AllyDropZone").GetComponent<DropZone>();
-       enemyDropZone = GameObject.FindGameObjectWithTag("EnemyDropZone").GetComponent<DropZone>();
+        // Get references to DropZone components
+        allyDropZone = GameObject.FindGameObjectWithTag("AllyDropZone")?.GetComponent<DropZone>();
+        enemyDropZone = GameObject.FindGameObjectWithTag("EnemyDropZone")?.GetComponent<DropZone>();
 
-        // Start combat at the beginning of the turn
-        StartCombat();
+        // Get reference to the TurnSystem script
+        turnSystem = FindObjectOfType<TurnSystem>();
+
+        // Start combat only during the battle phase
+        if (turnSystem.currentPhase == TurnSystem.TurnPhase.Battle)
+        {
+            StartCombat();
+        }
     }
 
     void StartCombat()
@@ -33,10 +39,21 @@ public class CombatSystem : MonoBehaviour
             // Apply the combat result
             ApplyCombatResult(result);
         }
+        else
+        {
+            // If either drop zone is empty, end the turn
+            turnSystem.EndOpponentTurn();
+        }
     }
 
     void ApplyCombatResult(CombatResult result)
     {
         // Implement logic to apply the combat result
+
+        // For demonstration purposes, let's just print the result
+        Debug.Log("Combat Result - Attacker Wins: " + result.attackerWins + ", Damage Dealt: " + result.damageDealt);
+
+        // After applying the combat result, end the turn
+        turnSystem.EndOpponentTurn();
     }
 }
