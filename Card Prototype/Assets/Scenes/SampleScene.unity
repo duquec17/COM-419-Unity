@@ -3181,6 +3181,14 @@ PrefabInstance:
       propertyPath: enemyDropZone
       value: 
       objectReference: {fileID: 5947115346296771925, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
+    - target: {fileID: 3135383718897511692, guid: 62d36af4927cfcc4aa3e92b181f68c9b, type: 3}
+      propertyPath: allyDropZones.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3135383718897511692, guid: 62d36af4927cfcc4aa3e92b181f68c9b, type: 3}
+      propertyPath: enemyDropZones.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7875592528286856203, guid: 62d36af4927cfcc4aa3e92b181f68c9b, type: 3}
       propertyPath: m_Name
       value: AllyDropZone (1)

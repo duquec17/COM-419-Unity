@@ -55,12 +55,13 @@ public class CombatSystem : MonoBehaviour
         }
         else if (allyHasCard || enemyHasCard)
         {
-            // If either drop zone is empty, end the turn
-            turnSystem.EndOpponentTurn();
 
             Debug.Log("There is only one card on either drop zone");
 
             Debug.Log("Combat Ends");
+
+            // If either drop zone is empty, end the turn
+            turnSystem.EndOpponentTurn();
         }
     }
 
@@ -80,6 +81,7 @@ public class CombatSystem : MonoBehaviour
     {
         // Get a random drop zone
         DropZone dropZone = dropZones[Random.Range(0, dropZones.Length)];
+
         // Get the card from the drop zone
         return dropZone.GetCard();
     }
@@ -91,9 +93,8 @@ public class CombatSystem : MonoBehaviour
         // For demonstration purposes, let's just print the result
         Debug.Log("Combat Result: Damage Dealt: " + result.damageDealt);
 
+        Debug.Log("Combat Ends");
         // After applying the combat result, end the turn
         turnSystem.EndOpponentTurn();
-
-        Debug.Log("Combat Ends");
     }
 }
