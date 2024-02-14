@@ -9,7 +9,7 @@ public class CombatSystem : MonoBehaviour
     public DropZone[] enemyDropZones; // Array to hold enemy drop zones
     public TurnSystem turnSystem;
 
-    void Start()
+    void Update()
     {
         // Find all ally and enemy drop zones in the scene and convert them to DropZone array
         allyDropZones = GameObject.FindGameObjectsWithTag("AllyDropZone").Select(obj => obj.GetComponent<DropZone>()).ToArray();
