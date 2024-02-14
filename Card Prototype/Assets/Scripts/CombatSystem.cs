@@ -33,6 +33,8 @@ public class CombatSystem : MonoBehaviour
 
     void StartCombat()
     {
+        Debug.Log("There are supposed to be cards");
+
         // Check if both drop zones are not empty
         if (allyDropZone.HasCard() && enemyDropZone.HasCard())
         {
