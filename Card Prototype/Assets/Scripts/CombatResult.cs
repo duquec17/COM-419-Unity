@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class CombatResult : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public bool attackerWins;
+    public int damageDealt;
 
-    // Update is called once per frame
-    void Update()
+    public CombatResult(bool AttackerWins, int DamageDealt)
     {
-        
+        attackerWins = AttackerWins;
+        damageDealt = DamageDealt;
     }
 }
