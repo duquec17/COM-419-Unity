@@ -356,6 +356,10 @@ PrefabInstance:
       value: EnemyDropZone (2)
       objectReference: {fileID: 0}
     - target: {fileID: 9114383660591714898, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
+      propertyPath: turnSystem
+      value: 
+      objectReference: {fileID: 929202910}
+    - target: {fileID: 9114383660591714898, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
       propertyPath: allyDropZone
       value: 
       objectReference: {fileID: 5947115346296771925, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
@@ -1307,6 +1311,10 @@ PrefabInstance:
       value: EnemyDropZone (1)
       objectReference: {fileID: 0}
     - target: {fileID: 9114383660591714898, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
+      propertyPath: turnSystem
+      value: 
+      objectReference: {fileID: 929202910}
+    - target: {fileID: 9114383660591714898, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
       propertyPath: allyDropZone
       value: 
       objectReference: {fileID: 5947115346296771925, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
@@ -2007,6 +2015,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1414836695}
     m_Modifications:
     - target: {fileID: 3135383718897511692, guid: 62d36af4927cfcc4aa3e92b181f68c9b, type: 3}
+      propertyPath: turnSystem
+      value: 
+      objectReference: {fileID: 929202910}
+    - target: {fileID: 3135383718897511692, guid: 62d36af4927cfcc4aa3e92b181f68c9b, type: 3}
       propertyPath: allyDropZone
       value: 
       objectReference: {fileID: 7875592528286856240, guid: 62d36af4927cfcc4aa3e92b181f68c9b, type: 3}
@@ -2399,6 +2411,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1414836695}
     m_Modifications:
     - target: {fileID: 3135383718897511692, guid: 62d36af4927cfcc4aa3e92b181f68c9b, type: 3}
+      propertyPath: turnSystem
+      value: 
+      objectReference: {fileID: 929202910}
+    - target: {fileID: 3135383718897511692, guid: 62d36af4927cfcc4aa3e92b181f68c9b, type: 3}
       propertyPath: allyDropZone
       value: 
       objectReference: {fileID: 7875592528286856240, guid: 62d36af4927cfcc4aa3e92b181f68c9b, type: 3}
@@ -2513,6 +2529,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1414836695}
     m_Modifications:
+    - target: {fileID: 3135383718897511692, guid: 62d36af4927cfcc4aa3e92b181f68c9b, type: 3}
+      propertyPath: turnSystem
+      value: 
+      objectReference: {fileID: 929202910}
     - target: {fileID: 3135383718897511692, guid: 62d36af4927cfcc4aa3e92b181f68c9b, type: 3}
       propertyPath: allyDropZone
       value: 
@@ -2791,6 +2811,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyDropZone
       objectReference: {fileID: 0}
+    - target: {fileID: 9114383660591714898, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
+      propertyPath: turnSystem
+      value: 
+      objectReference: {fileID: 929202910}
     - target: {fileID: 9114383660591714898, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
       propertyPath: allyDropZone
       value: 
