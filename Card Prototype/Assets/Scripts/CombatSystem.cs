@@ -36,6 +36,10 @@ public class CombatSystem : MonoBehaviour
         Debug.Log("Interal code of StartCombat() Begins");
 
         // Check if both drop zones are not empty
+        Debug.Log("Ally Drop Zone has card: " + allyDropZone.HasCard());
+        Debug.Log("Enemy Drop Zone has card: " + enemyDropZone.HasCard());
+
+        // Check if both drop zones are not empty
         if (allyDropZone.HasCard() && enemyDropZone.HasCard())
         {
             // Get the cards from both drop zones
@@ -54,6 +58,8 @@ public class CombatSystem : MonoBehaviour
         {
             // If either drop zone is empty, end the turn
             turnSystem.EndOpponentTurn();
+
+            Debug.Log("End battle phase or attempted to be");
         }
     }
 
