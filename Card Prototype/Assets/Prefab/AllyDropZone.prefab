@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7875592528286856246}
   - component: {fileID: 7875592528286856245}
   - component: {fileID: 7875592528286856240}
+  - component: {fileID: 3135383718897511692}
   m_Layer: 5
   m_Name: AllyDropZone
   m_TagString: AllyDropZone
@@ -116,3 +117,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e89dd64b76fe3814ca2f5d388dafeb2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  card:
+    id: 0
+    cardName: 
+    cost: 0
+    power: 0
+    health: 0
+    cardDescription: 
+    spriteImage: {fileID: 0}
+--- !u!114 &3135383718897511692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7875592528286856203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9509195da4bde5f48aa079ebfd90e51b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allyDropZone: {fileID: 0}
+  enemyDropZone: {fileID: 0}
