@@ -13,16 +13,20 @@ public static class CombatResolver
         // For demonstration purposes, let's assume a simple comparison of power
         if (attacker.power > defender.health)
         {
+            Debug.Log("CombatResult");
+
             // Attacker wins
-            return new CombatResult(true, attacker.power - defender.health);
+            return new CombatResult(true, defender.health - attacker.power);
         }
         else if (attacker.power < defender.health)
         {
             // Defender wins
-            return new CombatResult(false, defender.health - attacker.power);
+            return new CombatResult(false, attacker.health - defender.power);
         }
         else
         {
+            Debug.Log("CombatResult");
+
             // It's a draw
             return new CombatResult(false, 0);
         }
