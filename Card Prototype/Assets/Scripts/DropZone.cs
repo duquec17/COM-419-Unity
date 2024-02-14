@@ -44,31 +44,8 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         }
         else
         {
-            Debug.Log("Cannot drop " + draggable.gameObject.name + " on " + gameObject.name + ". Only ally cards can be placed here.");
+            Debug.Log("Cannot drop " + draggable.gameObject.name + " on " + gameObject.name + ". Ally cards can only be ally zones.");
             return false;
         }
-    }
-
-    public Card card;
-
-    public bool HasCard()
-    {
-        return card != null;
-    }
-
-    public Card GetCard()
-    {
-        if (HasCard())
-        {
-            Card currentCard = card;
-            card = null; // Remove the card from the drop zone
-            return currentCard;
-        }
-        else
-        {
-            Debug.LogError("Trying to get a card from an empty drop zone!");
-            return null;
-        }
-
     }
 }
