@@ -30,33 +30,57 @@ public class DisplayCard : MonoBehaviour
     public bool cardBack;
     public static bool staticCardBack;
 
+    public GameObject Hand;
+    public int numberOfCardsInDeck;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        if(displayId >= 0 && displayId < displayCard.Count)
-        {
-            id = displayCard[0].id;
-            cardName = displayCard[0].cardName;
-            cost = displayCard[0].cost;
-            power = displayCard[0].power;
-            health = displayCard[0].health;
-            cardDescription = displayCard[0].cardDescription;
-            spriteImage = displayCard[0].spriteImage;
+        numberOfCardsInDeck = PlayerDeck.deckSize;
 
+        displayCard[0] = CardDatabase.cardList[displayId];
 
-            nameText.text = " " + cardName;
-            costText.text = " " + cost;
-            powerText.text = " " + power;
-            healthText.text = " " + health;
-            descriptionText.text = " " + cardDescription;
-            artImage.sprite = spriteImage;
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        id = displayCard[0].id;
+        cardName = displayCard[0].cardName;
+        cost = displayCard[0].cost;
+        power = displayCard[0].power;
+        health = displayCard[0].health;
+        cardDescription = displayCard[0].cardDescription;
+        spriteImage = displayCard[0].spriteImage;
+
+
+        nameText.text = " " + cardName;
+        costText.text = " " + cost;
+        powerText.text = " " + power;
+        healthText.text = " " + health;
+        descriptionText.text = " " + cardDescription;
+        artImage.sprite = spriteImage;
+
+
+        Hand = GameObject.Find("Hand");
+        if (this.transform.parent == Hand.transform.parent)
+        {
+            cardBack = false;
+        }
         staticCardBack = cardBack;
+
+        if (this.tag == "Clone")
+        {
+            displayCard[0] = PlayerDeck.staticDeck[numberOfCardsInDeck - 1];
+            numberOfCardsInDeck -= 1;
+            PlayerDeck.deckSize -= 1;
+            cardBack = false;
+            this.tag = "Untagged";
+        }
+
+
     }
+
+
 }
