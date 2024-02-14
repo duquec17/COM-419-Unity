@@ -87,7 +87,7 @@ public class CombatSystem : MonoBehaviour
         // Implement logic to apply the combat result
 
         // For demonstration purposes, let's just print the result
-        Debug.Log("Combat Result - Attacker Wins: " + result.attackerWins + ", Damage Dealt: " + result.damageDealt);
+        Debug.Log("Combat Result: Damage Dealt: " + result.damageDealt);
 
         // After applying the combat result, end the turn
         turnSystem.EndOpponentTurn();
