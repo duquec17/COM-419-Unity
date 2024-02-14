@@ -38,6 +38,9 @@ public class CombatSystem : MonoBehaviour
 
             // Apply the combat result
             ApplyCombatResult(result);
+
+            // For demonstration purposes, let's just print the result
+            Debug.Log("Combat should be happening");
         }
         else
         {
@@ -52,6 +55,9 @@ public class CombatSystem : MonoBehaviour
 
         // For demonstration purposes, let's just print the result
         Debug.Log("Combat Result - Attacker Wins: " + result.attackerWins + ", Damage Dealt: " + result.damageDealt);
+
+        // For demonstration purposes, let's just print the result
+        Debug.Log("Combat should be happening");
 
         // After applying the combat result, end the turn
         turnSystem.EndOpponentTurn();
