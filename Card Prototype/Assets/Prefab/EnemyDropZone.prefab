@@ -117,6 +117,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e89dd64b76fe3814ca2f5d388dafeb2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  row: 0
+  col: 0
   card:
     id: 0
     cardName: 
@@ -137,5 +139,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9509195da4bde5f48aa079ebfd90e51b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allyDropZone: {fileID: 0}
-  enemyDropZone: {fileID: 0}
+  allyDropZones: []
+  enemyDropZones: []
+  turnSystem: {fileID: 0}
