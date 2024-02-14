@@ -57,6 +57,8 @@ public class CombatSystem : MonoBehaviour
         {
             // If either drop zone is empty, end the turn
             turnSystem.EndOpponentTurn();
+
+            Debug.Log("Combat Ends");
         }
     }
 
@@ -89,5 +91,7 @@ public class CombatSystem : MonoBehaviour
 
         // After applying the combat result, end the turn
         turnSystem.EndOpponentTurn();
+
+        Debug.Log("Combat Ends");
     }
 }
