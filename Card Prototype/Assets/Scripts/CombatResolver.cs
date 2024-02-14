@@ -4,31 +4,38 @@ using UnityEngine;
 
 public static class CombatResolver
 {
-    public static CombatResult ResolveCombat(Card attacker, Card defender)
+    public static CombatResult ResolveCombat(Card allyCard, Card enemyCard)
     {
-        // Implement combat resolution logic here
-        // For example, compare attacker's power with defender's health, etc.
-        // Determine the outcome and return a CombatResult object indicating the result
+        // Calculate damage done by ally to enemy
+        int allyDamage = CalculateDamage(allyCard.power, enemyCard.health);
+        enemyCard.health -= allyDamage;
 
-        // For demonstration purposes, let's assume a simple comparison of power
-        if (attacker.power > defender.health)
-        {
-            Debug.Log("CombatResult");
+        // Calculate damage done by enemy to ally
+        int enemyDamage = CalculateDamage(enemyCard.power, allyCard.health);
+        allyCard.health -= enemyDamage;
 
-            // Attacker wins
-            return new CombatResult(true, defender.health - attacker.power);
-        }
-        else if (attacker.power < defender.health)
+        // Create CombatResult object with the combat outcome
+        CombatResult result = new CombatResult
         {
-            // Defender wins
-            return new CombatResult(false, attacker.health - defender.power);
-        }
-        else
-        {
-            Debug.Log("CombatResult");
+            AttackerWins = allyDamage > enemyDamage, // Check who did more damage
+            DamageDealt = Mathf.Max(allyDamage, enemyDamage) // Get the maximum damage dealt
+        };
 
-            // It's a draw
-            return new CombatResult(false, 0);
-        }
+        return result;
     }
+
+    private static int CalculateDamage(int attack, int defense)
+    {
+        // Calculate damage by subtracting defense from attack
+        int damage = attack - defense;
+        // Ensure damage is non-negative
+        return Mathf.Max(0, damage);
+    }
+}
+
+[System.Serializable]
+public class CombatResult
+{
+    public bool AttackerWins;
+    public int DamageDealt;
 }
