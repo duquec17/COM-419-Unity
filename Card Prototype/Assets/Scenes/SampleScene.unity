@@ -1362,6 +1362,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e89dd64b76fe3814ca2f5d388dafeb2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  card:
+    id: 0
+    cardName: 
+    cost: 0
+    power: 0
+    health: 0
+    cardDescription: 
+    spriteImage: {fileID: 0}
 --- !u!1 &929202909
 GameObject:
   m_ObjectHideFlags: 0
@@ -1391,7 +1399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f419eb8a2e860e458b0a989ebf3fa27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isYourTurn: 0
+  currentPhase: 0
   yourTurn: 0
   isOpponentTurn: 0
   turnText: {fileID: 1199398438}
