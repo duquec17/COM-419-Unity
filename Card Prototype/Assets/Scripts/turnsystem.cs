@@ -18,6 +18,12 @@ public class TurnSystem : MonoBehaviour
     internal static bool startTurn;
     private bool isPlayerFirst;
 
+    // Define delegate for the event
+    public delegate void PhaseChangeHandler(TurnPhase newPhase);
+
+    // Define event based on the delegate
+    public event PhaseChangeHandler OnPhaseChange;
+
     void Start()
     {
         yourTurn = 1;
@@ -52,6 +58,9 @@ public class TurnSystem : MonoBehaviour
         {
             currentPhase = TurnPhase.Opponent;
             isOpponentTurn++;
+            // Raise event when phase changes
+            if (OnPhaseChange != null)
+                OnPhaseChange(currentPhase);
         }
     }
 
@@ -60,6 +69,9 @@ public class TurnSystem : MonoBehaviour
         if (currentPhase == TurnPhase.Opponent)
         {
             currentPhase = TurnPhase.Battle;
+            // Raise event when phase changes
+            if (OnPhaseChange != null)
+                OnPhaseChange(currentPhase);
         }
         else if (currentPhase == TurnPhase.Battle)
         {
@@ -73,6 +85,9 @@ public class TurnSystem : MonoBehaviour
             {
                 currentPhase = TurnPhase.Opponent; // Switch to opponent's turn
                 isOpponentTurn++;
+                // Raise event when phase changes
+                if (OnPhaseChange != null)
+                    OnPhaseChange(currentPhase);
             }
         }
     }

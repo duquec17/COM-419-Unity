@@ -17,9 +17,16 @@ public class CombatSystem : MonoBehaviour
         // Get reference to the TurnSystem script
         turnSystem = FindObjectOfType<TurnSystem>();
 
-        // Start combat only during the battle phase
-        if (turnSystem.currentPhase == TurnSystem.TurnPhase.Battle)
+        // Subscribe to the OnPhaseChange event of the TurnSystem
+        turnSystem.OnPhaseChange += HandlePhaseChange;
+    }
+
+    void HandlePhaseChange(TurnSystem.TurnPhase newPhase)
+    {
+        // Check if the new phase is the battle phase
+        if (newPhase == TurnSystem.TurnPhase.Battle)
         {
+            // Start combat during the battle phase
             StartCombat();
         }
     }
@@ -38,9 +45,6 @@ public class CombatSystem : MonoBehaviour
 
             // Apply the combat result
             ApplyCombatResult(result);
-
-            // For demonstration purposes, let's just print the result
-            Debug.Log("Combat should be happening");
         }
         else
         {
@@ -55,9 +59,6 @@ public class CombatSystem : MonoBehaviour
 
         // For demonstration purposes, let's just print the result
         Debug.Log("Combat Result - Attacker Wins: " + result.attackerWins + ", Damage Dealt: " + result.damageDealt);
-
-        // For demonstration purposes, let's just print the result
-        Debug.Log("Combat should be happening");
 
         // After applying the combat result, end the turn
         turnSystem.EndOpponentTurn();
