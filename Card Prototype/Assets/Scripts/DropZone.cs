@@ -19,12 +19,14 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
     {
         Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
 
+        d.parentToReturnTo = this.transform;
+        Debug.Log(d.gameObject.name + " was dropped on " + gameObject.name);
+
         if (d != null)
         {
             if (gameObject.CompareTag("AllyDropZone")) // Check if it's an ally dropzone and the card is an ally card
             {
-                d.parentToReturnTo = this.transform;
-                Debug.Log(d.gameObject.name + " was dropped on " + gameObject.name);
+               
             }
             else
             {
