@@ -33,7 +33,7 @@ public class CombatSystem : MonoBehaviour
 
     void StartCombat()
     {
-        Debug.Log("There are supposed to be cards");
+        Debug.Log("Interal code of StartCombat() Begins");
 
         // Check if both drop zones are not empty
         if (allyDropZone.HasCard() && enemyDropZone.HasCard())
@@ -47,6 +47,8 @@ public class CombatSystem : MonoBehaviour
 
             // Apply the combat result
             ApplyCombatResult(result);
+
+            Debug.Log("CombatResults have been applied or attempted to be");
         }
         else
         {
