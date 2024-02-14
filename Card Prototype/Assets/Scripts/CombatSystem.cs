@@ -53,10 +53,12 @@ public class CombatSystem : MonoBehaviour
             // Apply the combat result
             ApplyCombatResult(result);
         }
-        else
+        else if (allyHasCard || enemyHasCard)
         {
             // If either drop zone is empty, end the turn
             turnSystem.EndOpponentTurn();
+
+            Debug.Log("There is only one card on either drop zone");
 
             Debug.Log("Combat Ends");
         }
