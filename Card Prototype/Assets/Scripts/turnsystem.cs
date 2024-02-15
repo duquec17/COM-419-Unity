@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Mirror;
 
-public class TurnSystem : MonoBehaviour
+public class TurnSystem : NetworkBehaviour
 {
     public enum TurnPhase { Player, Opponent, Battle };
 
+    [SyncVar(hook = nameof(OnCurrentPhaseChanged))]
     public TurnPhase currentPhase;
+    [SyncVar]
     public int yourTurn;
+    [SyncVar]
     public int isOpponentTurn;
     public Text turnText;
     public int maxMana;
+    [SyncVar]
     public int currentMana;
     public Text manaText;
     internal static bool startTurn;
@@ -36,6 +41,8 @@ public class TurnSystem : MonoBehaviour
 
     void Update()
     {
+        if (!isLocalPlayer) return;
+
         switch (currentPhase)
         {
             case TurnPhase.Player:
@@ -54,6 +61,8 @@ public class TurnSystem : MonoBehaviour
 
     public void EndYourTurn()
     {
+        if (!isServer) return;
+
         if (currentPhase == TurnPhase.Player)
         {
             currentPhase = TurnPhase.Opponent;
@@ -66,6 +75,8 @@ public class TurnSystem : MonoBehaviour
 
     public void EndOpponentTurn()
     {
+        if (!isServer) return;
+
         if (currentPhase == TurnPhase.Opponent)
         {
             currentPhase = TurnPhase.Battle;
@@ -95,5 +106,11 @@ public class TurnSystem : MonoBehaviour
     public void SetPlayerFirst(bool isFirst)
     {
         isPlayerFirst = isFirst;
+    }
+
+    void OnCurrentPhaseChanged(TurnPhase oldPhase, TurnPhase newPhase)
+    {
+        // Handle UI or other logic when current phase changes
+        // This hook function is called whenever the currentPhase SyncVar changes
     }
 }
