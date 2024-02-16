@@ -778,5 +778,21 @@ PrefabInstance:
       propertyPath: hp
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7175821268197108781, guid: 2b8b7ae4ed2c5ef4193b336f5c982abb, type: 3}
+      propertyPath: sceneId
+      value: 1619818844
+      objectReference: {fileID: 0}
+    - target: {fileID: 8211794088618574619, guid: 2b8b7ae4ed2c5ef4193b336f5c982abb, type: 3}
+      propertyPath: sceneId
+      value: 1318272404
+      objectReference: {fileID: 0}
+    - target: {fileID: 8211794088859424956, guid: 2b8b7ae4ed2c5ef4193b336f5c982abb, type: 3}
+      propertyPath: sceneId
+      value: 2180450638
+      objectReference: {fileID: 0}
+    - target: {fileID: 8211794089186430099, guid: 2b8b7ae4ed2c5ef4193b336f5c982abb, type: 3}
+      propertyPath: sceneId
+      value: 78571514
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b8b7ae4ed2c5ef4193b336f5c982abb, type: 3}
