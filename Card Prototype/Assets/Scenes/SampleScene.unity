@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!224 &268893854 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4608400469247823141, guid: f9ff09ec0d0ca46408d2fe3320175e2c, type: 3}
-  m_PrefabInstance: {fileID: 1266684871}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,13 +371,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1414836695}
     m_Modifications:
-    - target: {fileID: 0}
-      propertyPath: handContainer
-      value: 
-      objectReference: {fileID: 268893854}
-    - target: {fileID: 0}
-      propertyPath: m_Enabled
-      value: 0
+    - target: {fileID: 1651972228324583933, guid: f9ff09ec0d0ca46408d2fe3320175e2c, type: 3}
+      propertyPath: sceneId
+      value: 1367097383
+      objectReference: {fileID: 0}
+    - target: {fileID: 1651972228501965168, guid: f9ff09ec0d0ca46408d2fe3320175e2c, type: 3}
+      propertyPath: sceneId
+      value: 3758887920
+      objectReference: {fileID: 0}
+    - target: {fileID: 1651972228661399993, guid: f9ff09ec0d0ca46408d2fe3320175e2c, type: 3}
+      propertyPath: sceneId
+      value: 3977167862
       objectReference: {fileID: 0}
     - target: {fileID: 3285331486640819065, guid: f9ff09ec0d0ca46408d2fe3320175e2c, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1047,6 +1046,18 @@ PrefabInstance:
     - target: {fileID: 4659243258979114524, guid: 2b8b7ae4ed2c5ef4193b336f5c982abb, type: 3}
       propertyPath: sceneId
       value: 2008278267
+      objectReference: {fileID: 0}
+    - target: {fileID: 5069331184470512792, guid: 2b8b7ae4ed2c5ef4193b336f5c982abb, type: 3}
+      propertyPath: sceneId
+      value: 3808390797
+      objectReference: {fileID: 0}
+    - target: {fileID: 5069331184840038748, guid: 2b8b7ae4ed2c5ef4193b336f5c982abb, type: 3}
+      propertyPath: sceneId
+      value: 1091131070
+      objectReference: {fileID: 0}
+    - target: {fileID: 5069331185996945497, guid: 2b8b7ae4ed2c5ef4193b336f5c982abb, type: 3}
+      propertyPath: sceneId
+      value: 1480805253
       objectReference: {fileID: 0}
     - target: {fileID: 5965986742472470826, guid: 2b8b7ae4ed2c5ef4193b336f5c982abb, type: 3}
       propertyPath: sceneId
