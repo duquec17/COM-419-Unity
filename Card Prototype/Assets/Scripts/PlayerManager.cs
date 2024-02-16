@@ -15,6 +15,7 @@ public class PlayerManager : NetworkBehaviour
     {
         base.OnStartClient();
 
-        AllyDropZone = GameObject.Find("AllyDropZone");
+        AllyHand = GameObject.Find("AllyHand");
+        EnemyHand = GameObject.Find("EnemyHand");
     }
 }
