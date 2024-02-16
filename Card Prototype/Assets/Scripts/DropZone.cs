@@ -22,6 +22,8 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
 
         if (d != null)
         {
+            d.parentToReturnTo = this.transform;
+
             if (CanDropCard(d))
             {
                 d.parentToReturnTo = this.transform;
