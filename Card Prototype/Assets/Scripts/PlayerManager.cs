@@ -11,4 +11,10 @@ public class PlayerManager : NetworkBehaviour
     public GameObject EnemyDropZone;
     public GameObject EnemyHand;
 
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+
+        AllyDropZone = GameObject.Find("AllyDropZone");
+    }
 }
