@@ -829,6 +829,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Local Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4608400469247823142, guid: f9ff09ec0d0ca46408d2fe3320175e2c, type: 3}
+      propertyPath: m_Name
+      value: AllyHand
+      objectReference: {fileID: 0}
+    - target: {fileID: 5962742140985550481, guid: f9ff09ec0d0ca46408d2fe3320175e2c, type: 3}
+      propertyPath: m_Name
+      value: AllyDropZone
+      objectReference: {fileID: 0}
+    - target: {fileID: 5962742141947037212, guid: f9ff09ec0d0ca46408d2fe3320175e2c, type: 3}
+      propertyPath: m_Name
+      value: AllyDropZone
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9ff09ec0d0ca46408d2fe3320175e2c, type: 3}
 --- !u!224 &1266684872 stripped
@@ -1321,6 +1333,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4608400469247823142, guid: 2b8b7ae4ed2c5ef4193b336f5c982abb, type: 3}
+      propertyPath: m_Name
+      value: EnemyHand
+      objectReference: {fileID: 0}
     - target: {fileID: 4659243257405510036, guid: 2b8b7ae4ed2c5ef4193b336f5c982abb, type: 3}
       propertyPath: sceneId
       value: 102545909
@@ -1344,6 +1360,14 @@ PrefabInstance:
     - target: {fileID: 5069331185996945497, guid: 2b8b7ae4ed2c5ef4193b336f5c982abb, type: 3}
       propertyPath: sceneId
       value: 1480805253
+      objectReference: {fileID: 0}
+    - target: {fileID: 5947115344569665627, guid: 2b8b7ae4ed2c5ef4193b336f5c982abb, type: 3}
+      propertyPath: m_Name
+      value: EnemyDropZone
+      objectReference: {fileID: 0}
+    - target: {fileID: 5947115345524459870, guid: 2b8b7ae4ed2c5ef4193b336f5c982abb, type: 3}
+      propertyPath: m_Name
+      value: EnemyDropZone
       objectReference: {fileID: 0}
     - target: {fileID: 5965986742472470826, guid: 2b8b7ae4ed2c5ef4193b336f5c982abb, type: 3}
       propertyPath: sceneId

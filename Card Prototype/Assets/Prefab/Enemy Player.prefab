@@ -737,7 +737,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5947115346296771923, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
       propertyPath: m_Name
-      value: EnemyDropZone(1)
+      value: EnemyDropZone
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
@@ -949,7 +949,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5947115346296771923, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
       propertyPath: m_Name
-      value: EnemyDropZone(2)
+      value: EnemyDropZone
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
@@ -1051,7 +1051,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 893894855865603246, guid: 51bf89e4fc52c4741aea8f92f35e62e6, type: 3}
       propertyPath: m_Name
-      value: Enemy Hand
+      value: EnemyHand
       objectReference: {fileID: 0}
     - target: {fileID: 4152135069777333368, guid: 51bf89e4fc52c4741aea8f92f35e62e6, type: 3}
       propertyPath: _assetId

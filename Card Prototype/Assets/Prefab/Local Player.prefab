@@ -673,7 +673,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7875592528286856203, guid: 62d36af4927cfcc4aa3e92b181f68c9b, type: 3}
       propertyPath: m_Name
-      value: AllyDropZone (1)
+      value: AllyDropZone
       objectReference: {fileID: 0}
     - target: {fileID: 7875592528286856240, guid: 62d36af4927cfcc4aa3e92b181f68c9b, type: 3}
       propertyPath: col
@@ -925,7 +925,7 @@ PrefabInstance:
       objectReference: {fileID: 5947115346296771925, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
     - target: {fileID: 7875592528286856203, guid: 62d36af4927cfcc4aa3e92b181f68c9b, type: 3}
       propertyPath: m_Name
-      value: AllyDropZone (2)
+      value: AllyDropZone
       objectReference: {fileID: 0}
     - target: {fileID: 7875592528286856240, guid: 62d36af4927cfcc4aa3e92b181f68c9b, type: 3}
       propertyPath: col
@@ -1123,7 +1123,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6501471592668504214, guid: 44d63d050ced37c45a0e82a08856a5b7, type: 3}
       propertyPath: m_Name
-      value: Ally Hand
+      value: AllyHand
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44d63d050ced37c45a0e82a08856a5b7, type: 3}
