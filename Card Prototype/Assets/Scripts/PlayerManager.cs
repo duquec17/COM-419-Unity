@@ -5,7 +5,7 @@ using Mirror;
 
 public class PlayerManager : NetworkBehaviour
 {
-
+    //List of network shared objects
     public GameObject AllyDropZone;
     public GameObject AllyHand;
     public GameObject EnemyDropZone;
@@ -17,5 +17,7 @@ public class PlayerManager : NetworkBehaviour
 
         AllyHand = GameObject.Find("AllyHand");
         EnemyHand = GameObject.Find("EnemyHand");
+        AllyDropZone = GameObject.Find("AllyDropZone");
+        EnemyDropZone = GameObject.Find("EnemyDropZone");
     }
 }
