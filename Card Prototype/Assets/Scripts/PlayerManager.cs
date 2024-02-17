@@ -35,6 +35,4 @@ public class PlayerManager : NetworkBehaviour
         Debug.Log(cardList);
         Debug.Log("OnStartServer was activated");
     }
-
-
 }
