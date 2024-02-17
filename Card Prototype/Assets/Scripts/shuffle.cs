@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using Mirror;
+using UnityEngine; 
 
 public class shuffle : MonoBehaviour 
 {
-    public PlayerManager PlayerManager;
+
 
     public List<Card> deck = new List<Card>();
     public List<Card> container = new List<Card>();
@@ -30,9 +29,6 @@ public class shuffle : MonoBehaviour
 
     public void Shuffle()
     {
-        NetworkIdentity networkIdentity = NetworkClient.connection.identity;
-
-
         for(int i=0; i<deckSize; i++)
         {
             container[0] = deck[i];

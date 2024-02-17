@@ -13,6 +13,9 @@ public class PlayerManager : NetworkBehaviour
     public GameObject EnemyHand;
 
     public static List<Card> cardList = new List<Card>();
+    public static List<Card> deck = new List<Card>();
+
+    public static int deckSize;
 
     public override void OnStartClient()
     {
@@ -35,4 +38,6 @@ public class PlayerManager : NetworkBehaviour
         Debug.Log(cardList);
         Debug.Log("OnStartServer was activated");
     }
+
+
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class PlayerDeck : NetworkBehaviour
+public class PlayerDeck : MonoBehaviour
 {
 
     public int x;
