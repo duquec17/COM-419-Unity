@@ -22,6 +22,8 @@ public class PlayerManager : NetworkBehaviour
         EnemyHand = GameObject.Find("EnemyHand");
         AllyDropZone = GameObject.Find("AllyDropZone");
         EnemyDropZone = GameObject.Find("EnemyDropZone");
+
+        Debug.Log("OnStartClient was activated");
     }
 
     [Server]
@@ -31,6 +33,6 @@ public class PlayerManager : NetworkBehaviour
 
         cardList.Add(new Card(0, "Jester", 1, 1, 2, "+1 power for every other Jester card on the board", Resources.Load<Sprite>("placeHolder")));
         Debug.Log(cardList);
-        Debug.Log("OnStartServer was activated)");
+        Debug.Log("OnStartServer was activated");
     }
 }

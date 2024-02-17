@@ -1037,6 +1037,18 @@ PrefabInstance:
       propertyPath: _assetId
       value: 1111212488
       objectReference: {fileID: 0}
+    - target: {fileID: 6501471592668504212, guid: 44d63d050ced37c45a0e82a08856a5b7, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6501471592668504212, guid: 44d63d050ced37c45a0e82a08856a5b7, type: 3}
+      propertyPath: m_Color.g
+      value: 0.4204827
+      objectReference: {fileID: 0}
+    - target: {fileID: 6501471592668504212, guid: 44d63d050ced37c45a0e82a08856a5b7, type: 3}
+      propertyPath: m_Color.r
+      value: 0.12893075
+      objectReference: {fileID: 0}
     - target: {fileID: 6501471592668504213, guid: 44d63d050ced37c45a0e82a08856a5b7, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
