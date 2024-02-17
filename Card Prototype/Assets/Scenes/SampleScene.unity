@@ -1768,6 +1768,10 @@ PrefabInstance:
       propertyPath: sceneId
       value: 1856890533
       objectReference: {fileID: 0}
+    - target: {fileID: 3751917294523771779, guid: e278a435f0ce7ab478e5324d8cad5c12, type: 3}
+      propertyPath: PlayerManager
+      value: 
+      objectReference: {fileID: -5597192074402520679, guid: 5f6abc4a856b1aa4e9c2e9ea5072aa73, type: 3}
     - target: {fileID: 3751917294523771784, guid: e278a435f0ce7ab478e5324d8cad5c12, type: 3}
       propertyPath: m_Name
       value: DrawCardsButton

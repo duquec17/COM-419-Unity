@@ -43,6 +43,7 @@ public class PlayerManager : NetworkBehaviour
         for (int i = 0; i < 3; i++)
         {
             GameObject card = Instantiate(PlayerCard, new Vector2(0, 0), Quaternion.identity);
+            NetworkServer.Spawn(card, connectionToClient);
             Debug.Log("Drawing card" + i);
             RpcShowCard(card, "Dealt");
         }
