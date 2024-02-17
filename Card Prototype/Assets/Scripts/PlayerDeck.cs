@@ -83,14 +83,4 @@ public class PlayerDeck : MonoBehaviour
             Instantiate(CardToHand, transform.position, transform.rotation);
         }
     }
-
-    public void CmdDealCards()
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            GameObject card = Instantiate(PlayerCard, new Vector2(0, 0), Quaternion.identity);
-            card.transform.SetParent(AllyHand.transform, false);
-            Debug.Log("Drawing card" + i);
-        }
-    }
 }

@@ -43,8 +43,28 @@ public class PlayerManager : NetworkBehaviour
         for (int i = 0; i < 3; i++)
         {
             GameObject card = Instantiate(PlayerCard, new Vector2(0, 0), Quaternion.identity);
-            card.transform.SetParent(AllyHand.transform, false);
             Debug.Log("Drawing card" + i);
+            RpcShowCard(card, "Dealt");
+        }
+    }
+
+    [ClientRpc]
+    void RpcShowCard(GameObject card, string type)
+    {
+        if(type == "Dealt")
+        {
+            if (isOwned)
+            {
+                card.transform.SetParent(AllyHand.transform, false);
+            }
+            else
+            {
+                card.transform.SetParent(EnemyHand.transform, false);
+            }
+        }
+        else if(type == "Played")
+        {
+
         }
     }
 }
