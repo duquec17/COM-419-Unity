@@ -76,7 +76,14 @@ public class PlayerManager : NetworkBehaviour
         }
         else if(type == "Played")
         {
-            card.transform.SetParent(EnemyDropZone.transform, false);
+            if (isOwned)
+            {
+                card.transform.SetParent(AllyDropZone.transform, false);
+            }
+            else
+            {
+                card.transform.SetParent(EnemyDropZone.transform, false);
+            }
         }
     }
 }
