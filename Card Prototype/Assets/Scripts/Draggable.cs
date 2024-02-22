@@ -35,5 +35,7 @@ public class Draggable : NetworkBehaviour, IBeginDragHandler, IDragHandler, IEnd
         this.transform.SetParent(parentToReturnTo);    
         GetComponent<CanvasGroup>().blocksRaycasts = true;
         NetworkIdentity networkIdentity = NetworkClient.connection.identity;
+        PlayerManager = networkIdentity.GetComponent<PlayerManager>();
+        PlayerManager.PlayCard(gameObject);
     }
 }
