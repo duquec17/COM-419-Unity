@@ -92,6 +92,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72e37df56d89b214eb6906846d6d356d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  PlayerManager: {fileID: 0}
   parentToReturnTo: {fileID: 0}
 --- !u!225 &682172252517517314
 CanvasGroup:
