@@ -210,6 +210,18 @@ PrefabInstance:
       propertyPath: sceneId
       value: 1242345838
       objectReference: {fileID: 0}
+    - target: {fileID: 6501471592668504212, guid: 44d63d050ced37c45a0e82a08856a5b7, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6501471592668504212, guid: 44d63d050ced37c45a0e82a08856a5b7, type: 3}
+      propertyPath: m_Color.g
+      value: 0.08821261
+      objectReference: {fileID: 0}
+    - target: {fileID: 6501471592668504212, guid: 44d63d050ced37c45a0e82a08856a5b7, type: 3}
+      propertyPath: m_Color.r
+      value: 0.1509434
+      objectReference: {fileID: 0}
     - target: {fileID: 6501471592668504213, guid: 44d63d050ced37c45a0e82a08856a5b7, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -240,7 +252,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6501471592668504213, guid: 44d63d050ced37c45a0e82a08856a5b7, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -930.1
+      value: -964.8181
       objectReference: {fileID: 0}
     - target: {fileID: 6501471592668504213, guid: 44d63d050ced37c45a0e82a08856a5b7, type: 3}
       propertyPath: m_SizeDelta.y
@@ -276,7 +288,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6501471592668504213, guid: 44d63d050ced37c45a0e82a08856a5b7, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -54.950012
+      value: -72.30908
       objectReference: {fileID: 0}
     - target: {fileID: 6501471592668504213, guid: 44d63d050ced37c45a0e82a08856a5b7, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -756,6 +768,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1414836695}
     m_Modifications:
+    - target: {fileID: 893894855865603244, guid: 51bf89e4fc52c4741aea8f92f35e62e6, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 893894855865603244, guid: 51bf89e4fc52c4741aea8f92f35e62e6, type: 3}
+      propertyPath: m_Color.g
+      value: 0.09019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 893894855865603244, guid: 51bf89e4fc52c4741aea8f92f35e62e6, type: 3}
+      propertyPath: m_Color.r
+      value: 0.15294118
+      objectReference: {fileID: 0}
     - target: {fileID: 893894855865603245, guid: 51bf89e4fc52c4741aea8f92f35e62e6, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -786,7 +810,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 893894855865603245, guid: 51bf89e4fc52c4741aea8f92f35e62e6, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -604.1
+      value: -930.1
       objectReference: {fileID: 0}
     - target: {fileID: 893894855865603245, guid: 51bf89e4fc52c4741aea8f92f35e62e6, type: 3}
       propertyPath: m_SizeDelta.y
@@ -822,7 +846,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 893894855865603245, guid: 51bf89e4fc52c4741aea8f92f35e62e6, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 108.05005
+      value: -54.95
       objectReference: {fileID: 0}
     - target: {fileID: 893894855865603245, guid: 51bf89e4fc52c4741aea8f92f35e62e6, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1241,7 +1265,7 @@ GameObject:
   - component: {fileID: 1407211236}
   - component: {fileID: 1407211235}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: 'Deck '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1264,8 +1288,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 711.56, y: -477.83}
-  m_SizeDelta: {x: -1509.9, y: -887.65}
+  m_AnchoredPosition: {x: 739.3344, y: -477.82996}
+  m_SizeDelta: {x: -1565.449, y: -887.65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1407211235
 MonoBehaviour:
@@ -1280,7 +1304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.15294118, g: 0.09019608, b: 0, a: 0.392}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
