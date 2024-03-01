@@ -71,7 +71,7 @@ public class PlayerManager : NetworkBehaviour
             }
             else
             {
-                card.transform.SetParent(EnemyHand.transform, false);
+                //card.transform.SetParent(EnemyHand.transform, false);
             }
         }
         else if(type == "Played")
