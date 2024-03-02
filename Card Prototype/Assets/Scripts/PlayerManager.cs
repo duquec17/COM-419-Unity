@@ -7,9 +7,14 @@ public class PlayerManager : NetworkBehaviour
 {
     //List of network shared objects
     public GameObject PlayerCard;
-    public GameObject AllyDropZone;
 
+    public GameObject AllyDropZone;
+    public GameObject AllyDropZone1;
+    public GameObject AllyDropZone2;
+    public GameObject AllyDropZone3;
+    public GameObject AllyDropZone4;
     public GameObject AllyHand;
+
     public GameObject EnemyDropZone;
     public GameObject EnemyHand;
 
@@ -22,12 +27,19 @@ public class PlayerManager : NetworkBehaviour
 
         AllyHand = GameObject.Find("AllyHand");
         EnemyHand = GameObject.Find("EnemyHand");
+
         AllyDropZone = GameObject.Find("AllyDropZone");
+        AllyDropZone1 = GameObject.Find("AllyDropZone (1)");
+        AllyDropZone2 = GameObject.Find("AllyDropZone (2)");
+        AllyDropZone3 = GameObject.Find("AllyDropZone (3)");
+        AllyDropZone4 = GameObject.Find("AllyDropZone (4)");
+
         EnemyDropZone = GameObject.Find("EnemyDropZone");
 
         Debug.Log("OnStartClient was activated");
     }
 
+    //Starts server (Host + Client)
     [Server]
     public override void OnStartServer()
     {
@@ -38,7 +50,7 @@ public class PlayerManager : NetworkBehaviour
         Debug.Log("OnStartServer was activated");
     }
 
-
+    //Command that adds cards to players hands and grants authority
     [Command]
     public void CmdDealCards()
     {
@@ -51,6 +63,7 @@ public class PlayerManager : NetworkBehaviour
         }
     }
 
+    //Calls upon CmdPlayCard
     public void PlayCard(GameObject card)
     {
         CmdPlayCard(card);
@@ -80,11 +93,11 @@ public class PlayerManager : NetworkBehaviour
         {
             if (isOwned)
             {
-                //card.transform.SetParent(AllyDropZone.transform, false);
+                card.transform.SetParent(AllyDropZone.transform, false);
             }
             else
             {
-                //card.transform.SetParent(EnemyDropZone.transform, false);
+                card.transform.SetParent(EnemyDropZone.transform, false);
             }
         }
     }
