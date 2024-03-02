@@ -8,6 +8,7 @@ public class PlayerManager : NetworkBehaviour
     //List of network shared objects
     public GameObject PlayerCard;
     public GameObject AllyDropZone;
+
     public GameObject AllyHand;
     public GameObject EnemyDropZone;
     public GameObject EnemyHand;
