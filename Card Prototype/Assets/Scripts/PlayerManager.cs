@@ -15,6 +15,7 @@ public class PlayerManager : NetworkBehaviour
 
     public static List<Card> cardList = new List<Card>();
 
+    //Starts client
     public override void OnStartClient()
     {
         base.OnStartClient();
