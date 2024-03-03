@@ -16,6 +16,10 @@ public class PlayerManager : NetworkBehaviour
     public GameObject AllyHand;
 
     public GameObject EnemyDropZone;
+    public GameObject EnemyDropZone1;
+    public GameObject EnemyDropZone2;
+    public GameObject EnemyDropZone3;
+    public GameObject EnemyDropZone4;
     public GameObject EnemyHand;
 
     public static List<Card> cardList = new List<Card>();
@@ -35,6 +39,10 @@ public class PlayerManager : NetworkBehaviour
         AllyDropZone4 = GameObject.Find("AllyDropZone (4)");
 
         EnemyDropZone = GameObject.Find("EnemyDropZone");
+        EnemyDropZone1 = GameObject.Find("EnemyDropZone (1)");
+        EnemyDropZone2 = GameObject.Find("EnemyDropZone (2)");
+        EnemyDropZone3 = GameObject.Find("EnemyDropZone (3)");
+        EnemyDropZone4 = GameObject.Find("EnemyDropZone (4)");
 
         Debug.Log("OnStartClient was activated");
     }
