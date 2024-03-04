@@ -5,7 +5,7 @@ using Mirror;
 
 public class PlayerManager : NetworkBehaviour
 {
-    //List of network shared objects
+    //Start of all network shared objects & variables//
     public GameObject PlayerCard;
 
     //All ally objects
@@ -26,7 +26,7 @@ public class PlayerManager : NetworkBehaviour
     public GameObject EnemyHand;
     public GameObject EnemyDeck;
 
-    //Lists that holds game objects for ally and enemy
+    //Lists that will hold ally and enemy drop zones resepctively
     public List<GameObject> AllyDropZones = new List<GameObject>();
     public List<GameObject> EnemyDropZones = new List<GameObject>();
 
@@ -35,6 +35,14 @@ public class PlayerManager : NetworkBehaviour
 
     //Card list we are pulling from
     public static List<Card> cardList = new List<Card>();
+
+    //Variable tracking current player
+    public bool IsMyTurn = false;
+
+    //End of declaration//
+
+
+    //Start of actual code//
 
     //Runs the code below when Host+Client/Client button is selected
     public override void OnStartClient()
@@ -61,8 +69,24 @@ public class PlayerManager : NetworkBehaviour
         EnemyDropZone3 = GameObject.Find("EnemyDropZone (3)");
         EnemyDropZone4 = GameObject.Find("EnemyDropZone (4)");
 
+        //Fills Ally list with ally drop zones
+        AllyDropZones.Add(AllyDropZone);
+        AllyDropZones.Add(AllyDropZone1);
+        AllyDropZones.Add(AllyDropZone2);
+        AllyDropZones.Add(AllyDropZone3);
+        AllyDropZones.Add(AllyDropZone4);
+
+        //Fills Enemy list will enemy drop zones
+        EnemyDropZones.Add(EnemyDropZone);
+        EnemyDropZones.Add(EnemyDropZone1);
+        EnemyDropZones.Add(EnemyDropZone2);
+        EnemyDropZones.Add(EnemyDropZone3);
+        EnemyDropZones.Add(EnemyDropZone4);
+
         //Message to show that client is running; appears in console tab
         Debug.Log("OnStartClient was activated");
+
+
     }
 
     //Starts server (Host + Client)
