@@ -37,7 +37,7 @@ public class GameManager : NetworkBehaviour
         }
         else if (stateRequest == "Execute {}")
         {
-
+            GameState = "Execute {}";
         }
     }
 }

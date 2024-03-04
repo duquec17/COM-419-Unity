@@ -128,7 +128,7 @@ public class PlayerManager : NetworkBehaviour
             GameObject card = Instantiate(PlayerCard, new Vector2(0, 0), Quaternion.identity);
             NetworkServer.Spawn(card, connectionToClient);
 
-            //Tells with card has been drawn
+            //Tells which card has been drawn
             Debug.Log("Drawing card" + i);
 
             //Sets current status of the card to "Dealt" which makes it appear in hand for the Server
@@ -171,11 +171,11 @@ public class PlayerManager : NetworkBehaviour
         {
             if (isOwned)
             {
-                card.transform.SetParent(AllyDropZone.transform, false);
+                //card.transform.SetParent(AllyDropZone.transform, false);
             }
             else
             {
-                card.transform.SetParent(EnemyDropZone.transform, false);
+                //card.transform.SetParent(EnemyDropZone.transform, false);
             }
         }
     }
