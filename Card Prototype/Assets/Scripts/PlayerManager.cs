@@ -39,6 +39,12 @@ public class PlayerManager : NetworkBehaviour
     //Variable tracking current player
     public bool IsMyTurn = false;
 
+    //Variables that are constantly kept synced across the network; Think seeing health all the time
+    //Need to be used later combat system 
+    [SyncVar]
+    int cardsPlayed = 0;
+    int Health = 20;
+
     //End of declaration//
 
 
@@ -83,10 +89,14 @@ public class PlayerManager : NetworkBehaviour
         EnemyDropZones.Add(EnemyDropZone3);
         EnemyDropZones.Add(EnemyDropZone4);
 
+        //Determines which player goes first; Whoever presses "Client" button goes first
+        if (isClientOnly)
+        {
+            IsMyTurn = true;
+        }
+
         //Message to show that client is running; appears in console tab
         Debug.Log("OnStartClient was activated");
-
-
     }
 
     //Starts server (Host + Client)
