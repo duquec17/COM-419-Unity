@@ -31,7 +31,7 @@ public class DropZone : NetworkBehaviour, IDropHandler, IPointerEnterHandler, IP
             }
             else
             {
-                Debug.Log("Cannot drop " + d.gameObject.name + " on " + gameObject.name + ". Only ally cards can be placed here.");
+                Debug.Log("Cannot drop " + d.gameObject.name + " on " + gameObject.name + ". Incorrect placement.");
             }
         }
     }

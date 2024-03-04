@@ -171,11 +171,11 @@ public class PlayerManager : NetworkBehaviour
         {
             if (isOwned)
             {
-                card.transform.SetParent(AllyDropZone.transform, false);
+                //card.transform.SetParent(AllyDropZone.transform, false);
             }
             else
             {
-                card.transform.SetParent(EnemyDropZone.transform, false);
+                //card.transform.SetParent(EnemyDropZone.transform, false);
             }
         }
     }
