@@ -19,6 +19,25 @@ public class DrawCards : NetworkBehaviour
     {
         NetworkIdentity networkIdentity = NetworkClient.connection.identity;
         PlayerManager = networkIdentity.GetComponent<PlayerManager>();
+
+        if(GameManager.GameState == "Initialize {}")
+        {
+            
+        }
+        else if (GameManager.GameState == "Execute {}")
+        {
+
+        }
+       
+    }
+
+    void InitializeClick()
+    {
         PlayerManager.CmdDealCards();
+    }
+
+    void ExecuteClick()
+    {
+
     }
 }
