@@ -6,12 +6,20 @@ using Mirror;
 
 public class Draggable : NetworkBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    public GameManager GameManager;
     public PlayerManager PlayerManager;
     public Transform parentToReturnTo = null;
 
+    private void Start()
+    {
+        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        NetworkIdentity netWorkIdentity = NetworkClient.connection.identity;
+        PlayerManager = netWorkIdentity.GetComponent<PlayerManager>();
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("BeginDrag");
+        Debug.Log("Begin Drag");
 
         if (!isOwned) return;
 
@@ -31,11 +39,12 @@ public class Draggable : NetworkBehaviour, IBeginDragHandler, IDragHandler, IEnd
     {
         if (!isOwned) return;
         
-        Debug.Log("EndDrag");
-        this.transform.SetParent(parentToReturnTo);    
-        GetComponent<CanvasGroup>().blocksRaycasts = true;
-        NetworkIdentity networkIdentity = NetworkClient.connection.identity;
-        PlayerManager = networkIdentity.GetComponent<PlayerManager>();
-        PlayerManager.PlayCard(gameObject);
+            this.transform.SetParent(parentToReturnTo);    
+            GetComponent<CanvasGroup>().blocksRaycasts = true;
+            NetworkIdentity networkIdentity = NetworkClient.connection.identity;
+            PlayerManager = networkIdentity.GetComponent<PlayerManager>();
+            PlayerManager.PlayCard(gameObject);
+
+        Debug.Log("End Drag");
     }
 }

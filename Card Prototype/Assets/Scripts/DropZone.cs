@@ -23,7 +23,6 @@ public class DropZone : NetworkBehaviour, IDropHandler, IPointerEnterHandler, IP
 
         if (d != null)
         {
-            d.parentToReturnTo = this.transform;
 
             if (CanDropCard(d))
             {
@@ -32,17 +31,16 @@ public class DropZone : NetworkBehaviour, IDropHandler, IPointerEnterHandler, IP
             }
             else
             {
-                Debug.Log("Cannot drop " + d.gameObject.name + " on " + gameObject.name + ". Only ally cards can be placed here.");
+                Debug.Log("Cannot drop " + d.gameObject.name + " on " + gameObject.name + ". Incorrect placement.");
             }
         }
     }
 
     private bool CanDropCard(Draggable draggable)
     {
-        // Add your logic here to check if the card can be dropped on this spot
-        if (gameObject.CompareTag("AllyDropZone"))
+        // Checks to see if the card can be dropped on this spot
+        if (gameObject.CompareTag("AllyDropZone") && draggable.isOwned)
         {
-            // Check if it's an ally dropzone and the card is an ally card
             return true;
         }
         else
