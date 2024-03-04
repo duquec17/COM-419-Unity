@@ -143,17 +143,14 @@ public class PlayerManager : NetworkBehaviour
     [Command]
     void CmdPlayCard(GameObject card)
     {
-        //Sets current status of the card to "Played" which makes it appear in a drop zone for the Server
-        RpcShowCard(card, "Played");
+        RpcShowCard(card, "Played"); //Sets current status of the card to "Played" which makes it appear in a drop zone for the Server
     }
 
     //Actual function that moves the recently added card to hand and/or drop zone
     [ClientRpc]
     void RpcShowCard(GameObject card, string type)
     {
-        // "Dealt" cards are placed into player's hand and checking ownership allows for it mirror
-        // Mirror is to prevent cards add to one player's hand to appear on my hand as well
-        if(type == "Dealt")
+        if(type == "Dealt") // "Dealt" cards are placed into player's hand and checking ownership allows for it mirror
         {
             if (isOwned)
             {
