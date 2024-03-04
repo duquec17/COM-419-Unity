@@ -36,7 +36,7 @@ public class DropZone : NetworkBehaviour, IDropHandler, IPointerEnterHandler, IP
         }
     }
 
-    public bool CanDropCard(Draggable draggable)
+    private bool CanDropCard(Draggable draggable)
     {
         // Add your logic here to check if the card can be dropped on this spot
         if (gameObject.CompareTag("AllyDropZone") && draggable.isOwned)
