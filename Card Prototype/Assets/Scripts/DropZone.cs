@@ -9,6 +9,8 @@ public class DropZone : NetworkBehaviour, IDropHandler, IPointerEnterHandler, IP
     public int row;
     public int col;
 
+    private GameObject dropZoneObject; // Variable to store the drop zone object
+
     public void OnPointerEnter(PointerEventData eventData)
     {
     }
@@ -26,6 +28,9 @@ public class DropZone : NetworkBehaviour, IDropHandler, IPointerEnterHandler, IP
 
             if (CanDropCard(d))
             {
+                // Store the drop zone object
+                dropZoneObject = this.gameObject;
+
                 d.parentToReturnTo = this.transform;
                 Debug.Log(d.gameObject.name + " was dropped on " + gameObject.name);
             }
