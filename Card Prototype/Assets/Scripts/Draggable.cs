@@ -6,6 +6,7 @@ using Mirror;
 
 public class Draggable : NetworkBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    public GameManager Gamemanager;
     public PlayerManager PlayerManager;
     public Transform parentToReturnTo = null;
 
