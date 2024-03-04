@@ -19,7 +19,7 @@ public class Draggable : NetworkBehaviour, IBeginDragHandler, IDragHandler, IEnd
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("BeginDrag");
+        Debug.Log("Begin Drag");
 
         if (!isOwned) return;
 
@@ -39,11 +39,15 @@ public class Draggable : NetworkBehaviour, IBeginDragHandler, IDragHandler, IEnd
     {
         if (!isOwned) return;
         
-       Debug.Log("EndDrag");
-       this.transform.SetParent(parentToReturnTo);    
-       GetComponent<CanvasGroup>().blocksRaycasts = true;
-       NetworkIdentity networkIdentity = NetworkClient.connection.identity;
-       PlayerManager = networkIdentity.GetComponent<PlayerManager>();
-       PlayerManager.PlayCard(gameObject);
+        if (PlayerManager.IsMyTurn)
+        {
+            this.transform.SetParent(parentToReturnTo);    
+            GetComponent<CanvasGroup>().blocksRaycasts = true;
+            NetworkIdentity networkIdentity = NetworkClient.connection.identity;
+            PlayerManager = networkIdentity.GetComponent<PlayerManager>();
+            PlayerManager.PlayCard(gameObject);
+        }
+
+        Debug.Log("End Drag");
     }
 }
