@@ -18,9 +18,19 @@ public class GameManager : NetworkBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ChangeGameState(string stateRequest)
     {
-        
+        if (stateRequest == "Initialize {}")
+        {
+
+        }
+        else if (stateRequest == "Complie {}")
+        {
+
+        }
+        else if (stateRequest == "Execute {}")
+        {
+
+        }
     }
 }
