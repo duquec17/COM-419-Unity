@@ -6,6 +6,7 @@ using Mirror;
 public class PlayerManager : NetworkBehaviour
 {
     //Start of all network shared objects & variables//
+    public GameManager GameManager;
     public GameObject PlayerCard;
 
     //All ally objects
@@ -54,6 +55,8 @@ public class PlayerManager : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
+
+        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         //Connects hand and deck of both players to a variable by looking for objects with listed name 
         AllyHand = GameObject.Find("AllyHand");
@@ -131,6 +134,9 @@ public class PlayerManager : NetworkBehaviour
             //Sets current status of the card to "Dealt" which makes it appear in hand for the Server
             RpcShowCard(card, "Dealt");
         }
+
+        //Changes game manager current state
+        RpcGMChangeState("Compile");
     }
 
     //Calls upon CmdPlayCard
@@ -172,5 +178,11 @@ public class PlayerManager : NetworkBehaviour
                 card.transform.SetParent(EnemyDropZone.transform, false);
             }
         }
+    }
+
+    [ClientRpc]
+    void RpcGMChangeState(string stateRequest)
+    {
+        GameManager.ChangeGameState(stateRequest);
     }
 }
