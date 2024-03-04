@@ -30,6 +30,8 @@ public class PlayerManager : NetworkBehaviour
     public List<GameObject> AllyDropZones = new List<GameObject>();
     public List<GameObject> EnemyDropZones = new List<GameObject>();
 
+    //Possible alternative Card List; same purpose but better way of getting it
+    private List<GameObject> cards = new List<GameObject>();
 
     //Card list we are pulling from
     public static List<Card> cardList = new List<Card>();
