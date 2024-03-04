@@ -42,7 +42,7 @@ public class PlayerManager : NetworkBehaviour
     //Variables that are constantly kept synced across the network; Think seeing health all the time
     //Need to be used later combat system 
     [SyncVar]
-    int cardsPlayed = 0;
+    int CardsPlayed = 0;
     int Health = 20;
 
     //End of declaration//
