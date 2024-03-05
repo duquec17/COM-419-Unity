@@ -31,7 +31,6 @@ public class LocalPlayer : NetworkBehaviour
     // Example method to handle card drop event
     public void OnCardDropped(Draggable card, DropZone dropZone)
     {
-        // Perform card drop logic
-        Debug.Log("Card dropped in drop zone at row " + dropZone.row + ", col " + dropZone.col);
+        
     }
 }

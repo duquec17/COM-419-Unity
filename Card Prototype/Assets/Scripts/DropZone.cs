@@ -6,8 +6,7 @@ using Mirror;
 
 public class DropZone : NetworkBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    public int row;
-    public int col;
+    public DropZonePosition dropZonePosition;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -21,18 +20,14 @@ public class DropZone : NetworkBehaviour, IDropHandler, IPointerEnterHandler, IP
     {
         Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
 
-        if (d != null)
+        if (d != null && CanDropCard(d))
         {
-
-            if (CanDropCard(d))
-            {
-                d.parentToReturnTo = this.transform;
-                Debug.Log(d.gameObject.name + " was dropped on " + gameObject.name);
-            }
-            else
-            {
-                Debug.Log("Cannot drop " + d.gameObject.name + " on " + gameObject.name + ". Incorrect placement.");
-            }
+            d.parentToReturnTo = this.transform;
+            Debug.Log(d.gameObject.name + " was dropped on " + gameObject.name);
+        }
+        else
+        {
+            Debug.Log("Cannot drop " + d.gameObject.name + " on " + gameObject.name + ". Incorrect placement.");
         }
     }
 

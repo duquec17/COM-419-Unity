@@ -8,6 +8,7 @@ public class PlayerManager : NetworkBehaviour
     //Start of all network shared objects & variables//
     public GameManager GameManager;
     public GameObject PlayerCard;
+    public DropZonePosition dropZonePosition;
 
     //All ally objects
     public GameObject AllyDropZone;
