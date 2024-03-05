@@ -6,8 +6,6 @@ using Mirror;
 
 public class DropZone : NetworkBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    public DropZonePosition dropZonePosition;
-
     public void OnPointerEnter(PointerEventData eventData)
     {
     }
