@@ -93,6 +93,7 @@ public class PlayerManager : NetworkBehaviour
         EnemyDropZones.Add(EnemyDropZone3);
         EnemyDropZones.Add(EnemyDropZone4);
 
+
         //Determines which player goes first; Whoever presses "Client" button goes first
         if (isClientOnly)
         {
