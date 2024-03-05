@@ -50,6 +50,17 @@ public class PlayerManager : NetworkBehaviour
 
 
     //Start of actual code//
+     [Command]
+    public void CmdPlaceCard(GameObject card, GameObject dropZone)
+    {
+        RpcShowCardOnClients(card, dropZone);
+    }
+
+    [ClientRpc]
+    void RpcShowCardOnClients(GameObject card, GameObject dropZone)
+    {
+        card.transform.SetParent(dropZone.transform, false);
+    }
 
     //Runs the code below when Host+Client/Client button is selected
     public override void OnStartClient()
@@ -169,13 +180,65 @@ public class PlayerManager : NetworkBehaviour
         }
         else if(type == "Played") // "Played" cards are placed into a player's drop zone and check mirror condition
         {
+            DropZone dropZone = this.GetComponent<DropZone>();
+
             if (isOwned)
             {
-                //card.transform.SetParent(AllyDropZone.transform, false);
+                if (dropZone != null)
+                {
+                    Debug.Log("AllyDropZone detected");
+                    if (dropZone.name == "AllyDropZone")
+                    {
+                        card.transform.SetParent(AllyDropZone.transform, false);
+                    }
+                    else if (dropZone.name == "AllyDropZone(1)")
+                    {
+                        card.transform.SetParent(AllyDropZone1.transform, false);
+                    }
+                    else if (dropZone.name == "AllyDropZone(2)")
+                    {
+                        card.transform.SetParent(AllyDropZone2.transform, false);
+                    }
+                    else if (dropZone.name == "AllyDropZone(3)")
+                    {
+                        card.transform.SetParent(AllyDropZone3.transform, false);
+                    }
+                    else if (dropZone.name == "AllyDropZone(4)")
+                    {
+                        card.transform.SetParent(AllyDropZone4.transform, false);
+                    }
+                }
+                
+            
             }
             else
             {
+                if (dropZone != null)
+                {
+                    Debug.Log("EnemyDropZone detected");
+                    if (dropZone.name == "EnemyDropZone")
+                    {
+                        card.transform.SetParent(EnemyDropZone.transform, false);
+                    }
+                    else if (dropZone.name == "EnemyDropZone(1)")
+                    {
+                        card.transform.SetParent(EnemyDropZone1.transform, false);
+                    }
+                    else if (dropZone.name == "EnemyDropZone(2)")
+                    {
+                        card.transform.SetParent(EnemyDropZone2.transform, false);
+                    }
+                    else if (dropZone.name == "EnemyDropZone(3)")
+                    {
+                        card.transform.SetParent(EnemyDropZone3.transform, false);
+                    }
+                    else if (dropZone.name == "EnemyDropZone(4)")
+                    {
+                        card.transform.SetParent(EnemyDropZone4.transform, false);
+                    }
+                }
                 //card.transform.SetParent(EnemyDropZone.transform, false);
+                
             }
         }
     }
