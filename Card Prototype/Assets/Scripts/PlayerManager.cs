@@ -173,7 +173,7 @@ public class PlayerManager : NetworkBehaviour
         {
             if (isOwned)
             {
-               // card.transform.SetParent(AllyDropZone.transform, false);
+                //card.transform.SetParent(AllyDropZone.transform, false);
             }
             else
             {
