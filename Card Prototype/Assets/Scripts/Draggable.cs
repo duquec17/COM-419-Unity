@@ -41,7 +41,6 @@ public class Draggable : NetworkBehaviour, IBeginDragHandler, IDragHandler, IEnd
         
             this.transform.SetParent(parentToReturnTo);    
             GetComponent<CanvasGroup>().blocksRaycasts = true;
-
         // Get the drop zone name
         string dropZoneName = parentToReturnTo.gameObject.name;
 
