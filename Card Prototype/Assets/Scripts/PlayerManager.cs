@@ -134,7 +134,7 @@ public class PlayerManager : NetworkBehaviour
             Debug.Log("Drawing card" + i);
 
             //Sets current status of the card to "Dealt" which makes it appear in hand for the Server
-            RpcShowCard(card, "Dealt");
+            RpcShowCard(card, "Dealt", "");
         }
 
         //Changes game manager current state
@@ -142,21 +142,21 @@ public class PlayerManager : NetworkBehaviour
     }
 
     //Calls upon CmdPlayCard
-    public void PlayCard(GameObject card)
+    public void PlayCard(GameObject card, string dropZoneName)
     {
-        CmdPlayCard(card);
+        CmdPlayCard(card, dropZoneName);
     }
 
     //Calls upon RocShowCard
     [Command]
-    void CmdPlayCard(GameObject card)
+    void CmdPlayCard(GameObject card, string dropZoneName)
     {
-        RpcShowCard(card, "Played"); //Sets current status of the card to "Played" which makes it appear in a drop zone for the Server
+        RpcShowCard(card, "Played", dropZoneName); //Sets current status of the card to "Played" which makes it appear in a drop zone for the Server
     }
 
     //Actual function that moves the recently added card to hand and/or drop zone
     [ClientRpc]
-    void RpcShowCard(GameObject card, string type)
+    public void RpcShowCard(GameObject card, string type, string dropZoneName)
     {
         if(type == "Dealt") // "Dealt" cards are placed into player's hand and checking ownership allows for it mirror
         {
@@ -171,16 +171,63 @@ public class PlayerManager : NetworkBehaviour
         }
         else if(type == "Played") // "Played" cards are placed into a player's drop zone and check mirror condition
         {
-            if (isOwned)
+            // Find the drop zone GameObject by its name
+            GameObject dropZoneObject = GameObject.Find(dropZoneName);
+
+            // Ensure the drop zone object is found
+            if (dropZoneObject != null)
             {
-                //card.transform.SetParent(AllyDropZone.transform, false);
-            }
-            else
-            {
-                //card.transform.SetParent(EnemyDropZone.transform, false);
+                if (isOwned)
+                {
+                    // Find the drop zone GameObject by its name
+                    GameObject allyDropZoneObject = GameObject.Find(dropZoneName);
+
+                    // Ensure the drop zone object is found
+                    if (allyDropZoneObject != null)
+                    {
+                        card.transform.SetParent(allyDropZoneObject.transform, false);
+                        Debug.Log("Placed on " + dropZoneName);
+                    }
+                    else
+                    {
+                        Debug.Log("Drop zone object is null. Cannot place card.");
+                    }
+                }
+                else
+                {
+                    // Determine the corresponding enemy drop zone name based on the ally drop zone name
+                    string enemyDropZoneName = GetEnemyDropZoneName(dropZoneName);
+
+                    // Find the corresponding enemy drop zone GameObject
+                    GameObject enemyDropZoneObject = GameObject.Find(enemyDropZoneName);
+
+                    // Ensure the enemy drop zone object is found
+                    if (enemyDropZoneObject != null)
+                    {
+                        card.transform.SetParent(enemyDropZoneObject.transform, false);
+                        Debug.Log("Placed on " + enemyDropZoneName);
+                    }
+                    else
+                    {
+                        Debug.Log("Enemy drop zone object is null. Cannot place card.");
+                    }
+                }
+
+                Debug.Log("Placed on " + dropZoneName);
             }
 
         }
+    }
+
+    // Helper method to get the corresponding enemy drop zone name based on the ally drop zone name
+    private string GetEnemyDropZoneName(string allyDropZoneName)
+    {
+        // Assuming the ally drop zone name follows the pattern "AllyDropZone (N)", 
+        // where N is a number, we can extract the number and use it to construct the corresponding enemy drop zone name.
+        // For example, "AllyDropZone (1)" corresponds to "EnemyDropZone (1)"
+        string[] split = allyDropZoneName.Split(' ');
+        int number = int.Parse(split[1].Trim('(', ')'));
+        return "EnemyDropZone (" + number + ")";
     }
 
     [ClientRpc]

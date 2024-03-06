@@ -41,9 +41,12 @@ public class Draggable : NetworkBehaviour, IBeginDragHandler, IDragHandler, IEnd
         
             this.transform.SetParent(parentToReturnTo);    
             GetComponent<CanvasGroup>().blocksRaycasts = true;
-            NetworkIdentity networkIdentity = NetworkClient.connection.identity;
-            PlayerManager = networkIdentity.GetComponent<PlayerManager>();
-            PlayerManager.PlayCard(gameObject);
+
+        // Get the drop zone name
+        string dropZoneName = parentToReturnTo.gameObject.name;
+
+        // Call the RpcShowCard method with the drop zone name
+        PlayerManager.RpcShowCard(gameObject, "Played", dropZoneName);
 
         Debug.Log("End Drag");
     }
