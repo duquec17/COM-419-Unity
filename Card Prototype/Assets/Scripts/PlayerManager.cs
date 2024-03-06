@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using System;
 
 public class PlayerManager : NetworkBehaviour
 {
@@ -158,7 +159,27 @@ public class PlayerManager : NetworkBehaviour
     [ClientRpc]
     public void RpcShowCard(GameObject card, string type, string dropZoneName)
     {
-        if(type == "Dealt") // "Dealt" cards are placed into player's hand and checking ownership allows for it mirror
+        // Check if the current instance is running on the server
+        if (isServer)
+        {
+            // Execute the method on the server side
+            ExecuteRpcShowCard(card, type, dropZoneName);
+        }
+        else
+        {
+            // Execute the method locally on the client side
+            ExecuteRpcShowCardLocally(card, type, dropZoneName);
+        }
+    }
+
+    // Method to execute RpcShowCard on the server side
+    [Server]
+    void ExecuteRpcShowCard(GameObject card, string type, string dropZoneName)
+    {
+        // Actual implementation of RpcShowCard for the server
+        // This method will be executed on the server side
+
+        if (type == "Dealt")
         {
             if (isOwned)
             {
@@ -169,7 +190,7 @@ public class PlayerManager : NetworkBehaviour
                 card.transform.SetParent(EnemyHand.transform, false);
             }
         }
-        else if(type == "Played") // "Played" cards are placed into a player's drop zone and check mirror condition
+        else if (type == "Played")
         {
             // Find the drop zone GameObject by its name
             GameObject dropZoneObject = GameObject.Find(dropZoneName);
@@ -179,19 +200,7 @@ public class PlayerManager : NetworkBehaviour
             {
                 if (isOwned)
                 {
-                    // Find the drop zone GameObject by its name
-                    GameObject allyDropZoneObject = GameObject.Find(dropZoneName);
-
-                    // Ensure the drop zone object is found
-                    if (allyDropZoneObject != null)
-                    {
-                        card.transform.SetParent(allyDropZoneObject.transform, false);
-                        Debug.Log("Placed on " + dropZoneName);
-                    }
-                    else
-                    {
-                        Debug.Log("Drop zone object is null. Cannot place card.");
-                    }
+                    card.transform.SetParent(dropZoneObject.transform, false);
                 }
                 else
                 {
@@ -205,17 +214,73 @@ public class PlayerManager : NetworkBehaviour
                     if (enemyDropZoneObject != null)
                     {
                         card.transform.SetParent(enemyDropZoneObject.transform, false);
-                        Debug.Log("Placed on " + enemyDropZoneName);
                     }
                     else
                     {
-                        Debug.Log("Enemy drop zone object is null. Cannot place card.");
+                        Debug.LogError("Enemy drop zone object is null. Cannot place card.");
                     }
                 }
-
-                Debug.Log("Placed on " + dropZoneName);
             }
+            else
+            {
+                Debug.LogError("Drop zone object is null. Cannot place card.");
+            }
+        }
+    }
 
+    // Method to execute RpcShowCard on the client side
+    void ExecuteRpcShowCardLocally(GameObject card, string type, string dropZoneName)
+    {
+        // Actual implementation of RpcShowCard for the client
+        // This method will be executed on the client side
+
+        if (type == "Dealt")
+        {
+            if (isOwned)
+            {
+                card.transform.SetParent(AllyHand.transform, false);
+            }
+            else
+            {
+                card.transform.SetParent(EnemyHand.transform, false);
+            }
+        }
+        else if (type == "Played")
+        {
+            // Determine if the card is owned by the local player
+            if (isOwned)
+            {
+                // Find the drop zone GameObject by its name
+                GameObject dropZoneObject = GameObject.Find(dropZoneName);
+
+                // Ensure the drop zone object is found
+                if (dropZoneObject != null)
+                {
+                    card.transform.SetParent(dropZoneObject.transform, false);
+                }
+                else
+                {
+                    Debug.LogError("Drop zone object is null. Cannot place card.");
+                }
+            }
+            else
+            {
+                // Determine the corresponding enemy drop zone name based on the local player's ally drop zone name
+                string enemyDropZoneName = GetEnemyDropZoneName(dropZoneName);
+
+                // Find the corresponding enemy drop zone GameObject
+                GameObject enemyDropZoneObject = GameObject.Find(enemyDropZoneName);
+
+                // Ensure the enemy drop zone object is found
+                if (enemyDropZoneObject != null)
+                {
+                    card.transform.SetParent(enemyDropZoneObject.transform, false);
+                }
+                else
+                {
+                    Debug.LogError("Enemy drop zone object is null. Cannot place card.");
+                }
+            }
         }
     }
 
