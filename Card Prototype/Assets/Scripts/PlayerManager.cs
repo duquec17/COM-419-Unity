@@ -165,17 +165,19 @@ public class PlayerManager : NetworkBehaviour
 
     //Actual function that moves the recently added card to hand and/or drop zone
     [ClientRpc]
-    void RpcShowCard(GameObject card, string type)
+    public void RpcShowCard(GameObject card, string type)
     {
         if(type == "Dealt") // "Dealt" cards are placed into player's hand and checking ownership allows for it mirror
         {
             if (isOwned)
             {
                 card.transform.SetParent(AllyHand.transform, false);
+                type = "Played";
             }
             else
             {
                 card.transform.SetParent(EnemyHand.transform, false);
+                type = "Played";
             }
         }
         else if(type == "Played") // "Played" cards are placed into a player's drop zone and check mirror condition
@@ -184,6 +186,7 @@ public class PlayerManager : NetworkBehaviour
 
             if (isOwned)
             {
+<<<<<<< Updated upstream
                 if (dropZone != null)
                 {
                     Debug.Log("AllyDropZone detected");
@@ -210,9 +213,43 @@ public class PlayerManager : NetworkBehaviour
                 }
                 
             
+=======
+                
+                
+                    //card.transform.SetParent(AllyDropZone.transform, false);
+                    //card.transform.SetParent(ClientIsHost() ? EnemyDropZone.transform : AllyDropZone.transform, false);
+                    //card.transform.SetParent(GetEnemyDropZone(AllyDropZone.tag).transform, false);
+                
+                 
+                
+                if (card.transform.parent.name == "AllyDropZone")
+                {
+                    card.transform.SetParent(ClientIsHost() ? EnemyDropZone.transform : AllyDropZone.transform, false);
+                }
+                else if (card.transform.parent.name == "AllyDropZone (1)")
+                {
+                    card.transform.SetParent(ClientIsHost() ? EnemyDropZone1.transform : AllyDropZone1.transform, false);
+                }
+                else if (card.transform.parent.name == "AllyDropZone (2)")
+                {
+                    card.transform.SetParent(ClientIsHost() ? EnemyDropZone2.transform : AllyDropZone2.transform, false);
+                }
+                else if (card.transform.parent.name == "AllyDropZone (3)")
+                {
+                    card.transform.SetParent(ClientIsHost() ? EnemyDropZone3.transform : AllyDropZone3.transform, false);
+                }
+                else if (card.transform.parent.name == "AllyDropZone (4)")
+                {
+                    card.transform.SetParent(ClientIsHost() ? EnemyDropZone4.transform : AllyDropZone4.transform, false);
+                }
+               
+                
+>>>>>>> Stashed changes
             }
+            
             else
             {
+<<<<<<< Updated upstream
                 if (dropZone != null)
                 {
                     Debug.Log("EnemyDropZone detected");
@@ -239,8 +276,53 @@ public class PlayerManager : NetworkBehaviour
                 }
                 //card.transform.SetParent(EnemyDropZone.transform, false);
                 
+=======
+                //card.transform.SetParent(ClientIsHost() ? AllyDropZone.transform : EnemyDropZone.transform, false);
+                  
+               if (card.transform.parent.name == "EnemyDropZone")
+                {
+                    card.transform.SetParent(!ClientIsHost() ? AllyDropZone.transform : EnemyDropZone.transform, false);
+                    Debug.Log("This shit even doing anything?");
+                }
+                else if (card.transform.parent.name == "EnemyDropZone (1)")
+                {
+                   card.transform.SetParent(!ClientIsHost() ? AllyDropZone1.transform : EnemyDropZone1.transform, false);
+                }
+                else if (card.transform.parent.name == "EnemyDropZone (2)")
+                {
+                    card.transform.SetParent(!ClientIsHost() ? AllyDropZone2.transform : EnemyDropZone2.transform, false);
+                }
+                else if (card.transform.parent.name == "EnemyDropZone (3)")
+                {
+                    card.transform.SetParent(!ClientIsHost() ? AllyDropZone3.transform : EnemyDropZone3.transform, false);
+                }
+                else if (card.transform.parent.name == "EnemyDropZone (4)")
+                {
+                    card.transform.SetParent(!ClientIsHost() ? AllyDropZone4.transform : EnemyDropZone4.transform, false);
+                }
+                
+
+>>>>>>> Stashed changes
             }
+            
         }
+    }
+
+    // Define methods to get specific drop zones based on tag
+    GameObject GetAllyDropZone(string tag)
+    {
+    return GameObject.FindGameObjectWithTag(tag);
+    }
+
+    GameObject GetEnemyDropZone(string tag)
+    {
+    return GameObject.FindGameObjectWithTag(tag);
+    }
+
+    // Define a method to check if the client is the host
+    bool ClientIsHost()
+    {
+    return isServer && connectionToClient == null;
     }
 
     [ClientRpc]
