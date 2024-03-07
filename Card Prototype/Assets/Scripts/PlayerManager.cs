@@ -182,7 +182,7 @@ public class PlayerManager : NetworkBehaviour
         }
         else if(type == "Played") // "Played" cards are placed into a player's drop zone and check mirror condition
         {
-            DropZone dropZone = this.GetComponent<DropZone>();
+            //DropZone dropZone = this.GetComponent<DropZone>();
 
             if (isOwned)
             {
@@ -196,23 +196,24 @@ public class PlayerManager : NetworkBehaviour
                 
                 if (card.transform.parent.name == "AllyDropZone")
                 {
-                    card.transform.SetParent(ClientIsHost() ? EnemyDropZone.transform : AllyDropZone.transform, false);
+                     card.transform.SetParent(AllyDropZone.transform, false);
+                     Debug.Log("Whats good wit u");
                 }
                 else if (card.transform.parent.name == "AllyDropZone (1)")
                 {
-                    card.transform.SetParent(ClientIsHost() ? EnemyDropZone1.transform : AllyDropZone1.transform, false);
+                     card.transform.SetParent(AllyDropZone1.transform, false);
                 }
                 else if (card.transform.parent.name == "AllyDropZone (2)")
                 {
-                    card.transform.SetParent(ClientIsHost() ? EnemyDropZone2.transform : AllyDropZone2.transform, false);
+                     card.transform.SetParent(AllyDropZone2.transform, false);
                 }
                 else if (card.transform.parent.name == "AllyDropZone (3)")
                 {
-                    card.transform.SetParent(ClientIsHost() ? EnemyDropZone3.transform : AllyDropZone3.transform, false);
+                    card.transform.SetParent(AllyDropZone3.transform, false);
                 }
                 else if (card.transform.parent.name == "AllyDropZone (4)")
                 {
-                    card.transform.SetParent(ClientIsHost() ? EnemyDropZone4.transform : AllyDropZone4.transform, false);
+                     card.transform.SetParent(AllyDropZone4.transform, false);
                 }
                
                 
@@ -222,30 +223,31 @@ public class PlayerManager : NetworkBehaviour
             {
                 //card.transform.SetParent(ClientIsHost() ? AllyDropZone.transform : EnemyDropZone.transform, false);
                   
-               if (card.transform.parent.name == "EnemyDropZone")
+               if (card.transform.parent.name == "AllyDropZone")
                 {
-                    card.transform.SetParent(!ClientIsHost() ? AllyDropZone.transform : EnemyDropZone.transform, false);
+                     card.transform.SetParent(EnemyDropZone.transform, false);
                     Debug.Log("This shit even doing anything?");
                 }
-                else if (card.transform.parent.name == "EnemyDropZone (1)")
+                else if (card.transform.parent.name == "AllyDropZone (1)")
                 {
-                   card.transform.SetParent(!ClientIsHost() ? AllyDropZone1.transform : EnemyDropZone1.transform, false);
+                     card.transform.SetParent(EnemyDropZone1.transform, false);
                 }
-                else if (card.transform.parent.name == "EnemyDropZone (2)")
+                else if (card.transform.parent.name == "AllyDropZone (2)")
                 {
-                    card.transform.SetParent(!ClientIsHost() ? AllyDropZone2.transform : EnemyDropZone2.transform, false);
+                     card.transform.SetParent(EnemyDropZone2.transform, false);
                 }
-                else if (card.transform.parent.name == "EnemyDropZone (3)")
+                else if (card.transform.parent.name == "AllyDropZone (3)")
                 {
-                    card.transform.SetParent(!ClientIsHost() ? AllyDropZone3.transform : EnemyDropZone3.transform, false);
+                     card.transform.SetParent(EnemyDropZone3.transform, false);
                 }
-                else if (card.transform.parent.name == "EnemyDropZone (4)")
+                else if (card.transform.parent.name == "AllyDropZone (4)")
                 {
-                    card.transform.SetParent(!ClientIsHost() ? AllyDropZone4.transform : EnemyDropZone4.transform, false);
+                     card.transform.SetParent(EnemyDropZone4.transform, false);
                 }
                 
 
             }
+            
             
         }
     }
