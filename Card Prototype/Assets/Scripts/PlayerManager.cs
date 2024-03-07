@@ -171,7 +171,7 @@ public class PlayerManager : NetworkBehaviour
             }
             else if (!isOwned)
             {
-                //card.transform.SetParent(EnemyDropZones[CardsPlayed].transform, false);
+                card.transform.SetParent(EnemyDropZones[CardsPlayed].transform, false);
             }
 
             CardsPlayed++;
