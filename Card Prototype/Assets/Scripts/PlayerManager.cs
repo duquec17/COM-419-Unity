@@ -159,10 +159,6 @@ public class PlayerManager : NetworkBehaviour
         }
         else if(type == "Played") // "Played" cards are placed into a player's drop zone and check mirror condition
         {
-            if(CardsPlayed == 5)
-            {
-                CardsPlayed = 0;
-            }
 
             if (isOwned)
             {
