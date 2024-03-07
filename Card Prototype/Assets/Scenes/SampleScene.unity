@@ -492,6 +492,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AllyDropZone (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7532209865781003508, guid: 32ffcb3a58bc0e140aedcc0b420c06d2, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32ffcb3a58bc0e140aedcc0b420c06d2, type: 3}
 --- !u!224 &323748238 stripped
@@ -513,6 +517,10 @@ PrefabInstance:
     - target: {fileID: 6854576339912750664, guid: 6ff56e27afeea3444a442c3c94e832d1, type: 3}
       propertyPath: m_Name
       value: EnemyDropZone (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6854576339912750664, guid: 6ff56e27afeea3444a442c3c94e832d1, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6854576339912750665, guid: 6ff56e27afeea3444a442c3c94e832d1, type: 3}
       propertyPath: m_Pivot.x
@@ -615,6 +623,10 @@ PrefabInstance:
     - target: {fileID: 7152971164058033356, guid: 6d27e0ed050ca1d4b9fdf9895e0b112b, type: 3}
       propertyPath: m_Name
       value: EnemyDropZone (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7152971164058033356, guid: 6d27e0ed050ca1d4b9fdf9895e0b112b, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7152971164058033357, guid: 6d27e0ed050ca1d4b9fdf9895e0b112b, type: 3}
       propertyPath: m_Pivot.x
@@ -740,7 +752,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1414836695}
-  m_RootOrder: 10
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -841,6 +853,10 @@ PrefabInstance:
     - target: {fileID: 274755762948742840, guid: 7ef1941c390f3584baee6d9c889dfe96, type: 3}
       propertyPath: m_Name
       value: AllyDropZone (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 274755762948742840, guid: 7ef1941c390f3584baee6d9c889dfe96, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5153016784748851545, guid: 7ef1941c390f3584baee6d9c889dfe96, type: 3}
       propertyPath: sceneId
@@ -1077,6 +1093,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AllyDropZone (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 9000123704214848439, guid: 4bdf24f02851a5c4993a8f11aa3b5d06, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4bdf24f02851a5c4993a8f11aa3b5d06, type: 3}
 --- !u!224 &596609602 stripped
@@ -1192,6 +1212,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyDropZone
       objectReference: {fileID: 0}
+    - target: {fileID: 5947115346296771923, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
 --- !u!224 &786100463 stripped
@@ -1285,6 +1309,10 @@ PrefabInstance:
     - target: {fileID: 2984804467110797970, guid: 71109a2775c2344469ecdd81068b3d6c, type: 3}
       propertyPath: m_Name
       value: AllyDropZone (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2984804467110797970, guid: 71109a2775c2344469ecdd81068b3d6c, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2984804467110797997, guid: 71109a2775c2344469ecdd81068b3d6c, type: 3}
       propertyPath: m_Pivot.x
@@ -1480,6 +1508,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyDropZone (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 8257739611076864503, guid: 2317e89799db4914ab2cb1a6a9cf0192, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2317e89799db4914ab2cb1a6a9cf0192, type: 3}
 --- !u!224 &1037520072 stripped
@@ -1602,7 +1634,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1414836695}
-  m_RootOrder: 11
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1660,7 +1692,7 @@ GameObject:
   - component: {fileID: 1414836693}
   - component: {fileID: 1414836692}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Main Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1747,12 +1779,12 @@ RectTransform:
   - {fileID: 842729007}
   - {fileID: 546178981}
   - {fileID: 1532891077}
-  - {fileID: 296850781}
-  - {fileID: 1919916933}
   - {fileID: 410272132}
   - {fileID: 1407211234}
   - {fileID: 1905822989}
   - {fileID: 1460571751}
+  - {fileID: 296850781}
+  - {fileID: 1919916933}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1792,7 +1824,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1414836695}
-  m_RootOrder: 13
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2074,6 +2106,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyDropZone (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6731537674048678941, guid: c365926dcfe5d8e488b6cd0b9f6f6195, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c365926dcfe5d8e488b6cd0b9f6f6195, type: 3}
 --- !u!224 &1510844003 stripped
@@ -2205,6 +2241,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AllyDropZone
       objectReference: {fileID: 0}
+    - target: {fileID: 7875592528286856203, guid: 62d36af4927cfcc4aa3e92b181f68c9b, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7875592528286856244, guid: 62d36af4927cfcc4aa3e92b181f68c9b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2327,7 +2367,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1414836695}
-  m_RootOrder: 12
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

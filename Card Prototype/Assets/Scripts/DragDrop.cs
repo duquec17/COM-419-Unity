@@ -20,7 +20,7 @@ public class DragDrop : NetworkBehaviour
     private void Start()
     {
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        Canvas = GameObject.Find("Canvas");
+        Canvas = GameObject.Find("Main Canvas");
         NetworkIdentity netWorkIdentity = NetworkClient.connection.identity;
         PlayerManager = netWorkIdentity.GetComponent<PlayerManager>();
 

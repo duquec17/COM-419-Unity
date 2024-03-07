@@ -31,9 +31,6 @@ public class PlayerManager : NetworkBehaviour
     public List<GameObject> AllyDropZones = new List<GameObject>();
     public List<GameObject> EnemyDropZones = new List<GameObject>();
 
-    //Possible alternative Card List; same purpose but better way of getting it
-    private List<GameObject> cards = new List<GameObject>();
-
     //Card list we are pulling from
     public static List<Card> cardList = new List<Card>();
 
@@ -41,12 +38,15 @@ public class PlayerManager : NetworkBehaviour
     public int CardsPlayed = 0;
     public bool IsMyTurn = false;
 
+    //Possible alternative Card List; same purpose but better way of getting it
+    private List<GameObject> cards = new List<GameObject>();
 
     //Runs the code below when Host+Client/Client button is selected
     public override void OnStartClient()
     {
         base.OnStartClient();
 
+        //Connect to GameManager
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         //Connects hand and deck of both players to a variable by looking for objects with listed name 
@@ -99,12 +99,9 @@ public class PlayerManager : NetworkBehaviour
     public override void OnStartServer()
     {
         base.OnStartServer();
-
-        //Adds a card to current card list
-        cardList.Add(new Card(0, "Jester", 1, 1, 2, "+1 power for every other Jester card on the board", Resources.Load<Sprite>("placeHolder")));
         
         //Should output current card list to console
-        Debug.Log(cardList);
+        Debug.Log(cardList + ", this is cardList");
 
         //Tells us that the server is running
         Debug.Log("OnStartServer was activated");
@@ -161,15 +158,23 @@ public class PlayerManager : NetworkBehaviour
         }
         else if(type == "Played") // "Played" cards are placed into a player's drop zone and check mirror condition
         {
-            if (isOwned)
+            if(CardsPlayed == 5)
             {
-                //card.transform.SetParent(AllyDropZone.transform, false);
-            }
-            else
-            {
-                //card.transform.SetParent(EnemyDropZone.transform, false);
+                CardsPlayed = 0;
             }
 
+            if (isOwned)
+            {
+                card.transform.SetParent(AllyDropZones[CardsPlayed].transform, false);
+            }
+            else if (!isOwned)
+            {
+                card.transform.SetParent(EnemyDropZones[CardsPlayed].transform, false);
+            }
+
+            CardsPlayed++;
+            PlayerManager pm = NetworkClient.connection.identity.GetComponent<PlayerManager>();
+            pm.IsMyTurn = !pm.IsMyTurn;
         }
     }
 
