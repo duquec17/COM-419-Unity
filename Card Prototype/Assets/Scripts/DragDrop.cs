@@ -44,11 +44,8 @@ public class DragDrop : NetworkBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject == PlayerManager.AllyDropZones[PlayerManager.CardsPlayed])
-        {
             isOverDropZone = true;
             dropZone = collision.gameObject;
-        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
