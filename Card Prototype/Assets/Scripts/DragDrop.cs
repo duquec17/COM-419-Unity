@@ -27,6 +27,7 @@ public class DragDrop : NetworkBehaviour
         if (!isOwned)
         {
             isDraggable = false;
+            Debug.Log("Isn't owned");
         }
     }
 
@@ -76,11 +77,13 @@ public class DragDrop : NetworkBehaviour
             transform.SetParent(dropZone.transform, false);
             isDraggable = false;
             PlayerManager.PlayCard(gameObject);
+            Debug.Log("Can drop and my turn");
         }
         else
         {
             transform.position = startPosition;
             transform.SetParent(startParent.transform, false);
+            Debug.Log("Can't drop not my turn");
         }
     }   
 }

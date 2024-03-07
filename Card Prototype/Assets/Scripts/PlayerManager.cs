@@ -165,16 +165,15 @@ public class PlayerManager : NetworkBehaviour
 
             if (isOwned)
             {
-                card.transform.SetParent(AllyDropZones[CardsPlayed].transform, false);
+                //card.transform.SetParent(AllyDropZones[CardsPlayed].transform, false);
+                card.transform.SetParent(AllyDropZone1.transform, false);
             }
             else if (!isOwned)
             {
-                card.transform.SetParent(EnemyDropZones[CardsPlayed].transform, false);
+                //card.transform.SetParent(EnemyDropZones[CardsPlayed].transform, false);
             }
 
             CardsPlayed++;
-            PlayerManager pm = NetworkClient.connection.identity.GetComponent<PlayerManager>();
-            pm.IsMyTurn = !pm.IsMyTurn;
         }
     }
 
