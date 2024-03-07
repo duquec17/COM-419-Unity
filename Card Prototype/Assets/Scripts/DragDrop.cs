@@ -1,13 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class DragDrop : MonoBehaviour
+public class DragDrop : NetworkBehaviour
 {
+    public GameObject Canvas;
+    public GameObject DropZone;
+
     private bool isDragging = false;
     private bool isOverDropZone = false;
+    private bool isDraggable = true;
     private GameObject dropZone;
+    private GameObject startParent;
     private Vector2 startPosition;
+
+    private void Awake()
+    {
+        Canvas = GameObject.Find("Main Canvas");
+    }
 
     // Update is called once per frame
     void Update()
@@ -39,6 +50,8 @@ public class DragDrop : MonoBehaviour
 
     public void EndDrag()
     {
+        if (!isDraggable) return;
+
         isDragging = false;
         if (isOverDropZone)
         {
