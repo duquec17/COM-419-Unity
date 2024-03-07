@@ -5,8 +5,10 @@ using Mirror;
 
 public class DragDrop : NetworkBehaviour
 {
+    public GameManager GameManager;
     public GameObject Canvas;
-    public GameObject DropZone;
+    public PlayerManager PlayerManager;
+    
 
     private bool isDragging = false;
     private bool isOverDropZone = false;
@@ -15,9 +17,17 @@ public class DragDrop : NetworkBehaviour
     private GameObject startParent;
     private Vector2 startPosition;
 
-    private void Awake()
+    private void Start()
     {
+        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         Canvas = GameObject.Find("Main Canvas");
+        NetworkIdentity netWorkIdentity = NetworkClient.connection.identity;
+        PlayerManager = netWorkIdentity.GetComponent<PlayerManager>();
+
+        if (!isOwned)
+        {
+            isDraggable = false;
+        }
     }
 
     // Update is called once per frame
@@ -26,13 +36,17 @@ public class DragDrop : NetworkBehaviour
         if (isDragging)
         {
             transform.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+            transform.SetParent(Canvas.transform, true);
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        isOverDropZone = true;
-        dropZone = collision.gameObject;
+        if (collision.gameObject == PlayerManager.AllyDropZones[PlayerManager.CardsPlayed])
+        {
+            isOverDropZone = true;
+            dropZone = collision.gameObject;
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -44,6 +58,9 @@ public class DragDrop : NetworkBehaviour
     // Start is called before the first frame update
     public void StartDrag()
     {
+        if (!isDraggable) return;
+
+        startParent = transform.parent.gameObject;
         startPosition = transform.position;
         isDragging = true;
     }
@@ -53,14 +70,17 @@ public class DragDrop : NetworkBehaviour
         if (!isDraggable) return;
 
         isDragging = false;
-        if (isOverDropZone)
+
+        if (isOverDropZone && PlayerManager.IsMyTurn)
         {
             transform.SetParent(dropZone.transform, false);
+            isDraggable = false;
+            PlayerManager.PlayCard(gameObject);
         }
         else
         {
             transform.position = startPosition;
+            transform.SetParent(startParent.transform, false);
         }
-    }
-    
+    }   
 }

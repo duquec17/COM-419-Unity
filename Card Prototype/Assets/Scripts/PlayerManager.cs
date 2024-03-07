@@ -8,7 +8,6 @@ public class PlayerManager : NetworkBehaviour
     //Start of all network shared objects & variables//
     public GameManager GameManager;
     public GameObject PlayerCard;
-    public DropZonePosition dropZonePosition;
 
     //All ally objects
     public GameObject AllyDropZone;
@@ -39,18 +38,9 @@ public class PlayerManager : NetworkBehaviour
     public static List<Card> cardList = new List<Card>();
 
     //Variable tracking current player
+    public int CardsPlayed = 0;
     public bool IsMyTurn = false;
 
-    //Variables that are constantly kept synced across the network; Think seeing health all the time
-    //Need to be used later combat system 
-    [SyncVar]
-    int CardsPlayed = 0;
-    int Health = 20;
-
-    //End of declaration//
-
-
-    //Start of actual code//
 
     //Runs the code below when Host+Client/Client button is selected
     public override void OnStartClient()
