@@ -10,20 +10,20 @@ public class PlayerManager : NetworkBehaviour
     public GameObject PlayerCard;
 
     //All ally objects
-    public GameObject AllyDropZone;
     public GameObject AllyDropZone1;
     public GameObject AllyDropZone2;
     public GameObject AllyDropZone3;
     public GameObject AllyDropZone4;
+    public GameObject AllyDropZone5;
     public GameObject AllyHand;
     public GameObject AllyDeck;
     
     //All enemy object
-    public GameObject EnemyDropZone;
     public GameObject EnemyDropZone1;
     public GameObject EnemyDropZone2;
     public GameObject EnemyDropZone3;
     public GameObject EnemyDropZone4;
+    public GameObject EnemyDropZone5;
     public GameObject EnemyHand;
     public GameObject EnemyDeck;
 
@@ -56,32 +56,32 @@ public class PlayerManager : NetworkBehaviour
         EnemyDeck = GameObject.Find("EnemyDeck");
 
         //Connects each ally drop zones to each variable by looking for objects with listed name 
-        AllyDropZone = GameObject.Find("AllyDropZone");
-        AllyDropZone1 = GameObject.Find("AllyDropZone (1)");
-        AllyDropZone2 = GameObject.Find("AllyDropZone (2)");
-        AllyDropZone3 = GameObject.Find("AllyDropZone (3)");
-        AllyDropZone4 = GameObject.Find("AllyDropZone (4)");
+        AllyDropZone1 = GameObject.Find("AllyDropZone");
+        AllyDropZone2 = GameObject.Find("AllyDropZone (1)");
+        AllyDropZone3 = GameObject.Find("AllyDropZone (2)");
+        AllyDropZone4 = GameObject.Find("AllyDropZone (3)");
+        AllyDropZone5 = GameObject.Find("AllyDropZone (4)");
 
         //Connects each enemy drop zones to each variable by looking for objects with listed name 
-        EnemyDropZone = GameObject.Find("EnemyDropZone");
-        EnemyDropZone1 = GameObject.Find("EnemyDropZone (1)");
-        EnemyDropZone2 = GameObject.Find("EnemyDropZone (2)");
-        EnemyDropZone3 = GameObject.Find("EnemyDropZone (3)");
-        EnemyDropZone4 = GameObject.Find("EnemyDropZone (4)");
+        EnemyDropZone1 = GameObject.Find("EnemyDropZone");
+        EnemyDropZone2 = GameObject.Find("EnemyDropZone (1)");
+        EnemyDropZone3 = GameObject.Find("EnemyDropZone (2)");
+        EnemyDropZone4 = GameObject.Find("EnemyDropZone (3)");
+        EnemyDropZone5 = GameObject.Find("EnemyDropZone (4)");
 
         //Fills Ally list with ally drop zones
-        AllyDropZones.Add(AllyDropZone);
         AllyDropZones.Add(AllyDropZone1);
         AllyDropZones.Add(AllyDropZone2);
         AllyDropZones.Add(AllyDropZone3);
         AllyDropZones.Add(AllyDropZone4);
+        AllyDropZones.Add(AllyDropZone5);
 
         //Fills Enemy list will enemy drop zones
-        EnemyDropZones.Add(EnemyDropZone);
         EnemyDropZones.Add(EnemyDropZone1);
         EnemyDropZones.Add(EnemyDropZone2);
         EnemyDropZones.Add(EnemyDropZone3);
         EnemyDropZones.Add(EnemyDropZone4);
+        EnemyDropZones.Add(EnemyDropZone5);
 
 
         //Determines which player goes first; Whoever presses "Client" button goes first
@@ -132,6 +132,7 @@ public class PlayerManager : NetworkBehaviour
     public void PlayCard(GameObject card)
     {
         CmdPlayCard(card);
+        Debug.Log(CardsPlayed);
     }
 
     //Calls upon RocShowCard
@@ -172,8 +173,6 @@ public class PlayerManager : NetworkBehaviour
             {
                 //card.transform.SetParent(EnemyDropZones[CardsPlayed].transform, false);
             }
-
-            CardsPlayed++;
         }
     }
 
