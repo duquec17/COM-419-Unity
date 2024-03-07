@@ -26,7 +26,6 @@ public class DropZone : NetworkBehaviour, IDropHandler, IPointerEnterHandler, IP
 
             if (CanDropCard(d))
             {
-<<<<<<< Updated upstream
             
                     PlayerManager playerManager = FindObjectOfType<PlayerManager>();
                     playerManager.CmdPlaceCard(d.gameObject, this.gameObject);
@@ -34,12 +33,10 @@ public class DropZone : NetworkBehaviour, IDropHandler, IPointerEnterHandler, IP
               
                 //d.parentToReturnTo = this.transform;
                 //Debug.Log(d.gameObject.name + " was dropped on " + gameObject.name);
-=======
                 d.parentToReturnTo = this.transform;
                 Debug.Log(d.gameObject.name + " was dropped on " + gameObject.name);
                
                 
->>>>>>> Stashed changes
             }
             else
             {

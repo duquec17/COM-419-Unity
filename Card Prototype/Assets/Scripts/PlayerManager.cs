@@ -186,34 +186,6 @@ public class PlayerManager : NetworkBehaviour
 
             if (isOwned)
             {
-<<<<<<< Updated upstream
-                if (dropZone != null)
-                {
-                    Debug.Log("AllyDropZone detected");
-                    if (dropZone.name == "AllyDropZone")
-                    {
-                        card.transform.SetParent(AllyDropZone.transform, false);
-                    }
-                    else if (dropZone.name == "AllyDropZone(1)")
-                    {
-                        card.transform.SetParent(AllyDropZone1.transform, false);
-                    }
-                    else if (dropZone.name == "AllyDropZone(2)")
-                    {
-                        card.transform.SetParent(AllyDropZone2.transform, false);
-                    }
-                    else if (dropZone.name == "AllyDropZone(3)")
-                    {
-                        card.transform.SetParent(AllyDropZone3.transform, false);
-                    }
-                    else if (dropZone.name == "AllyDropZone(4)")
-                    {
-                        card.transform.SetParent(AllyDropZone4.transform, false);
-                    }
-                }
-                
-            
-=======
                 
                 
                     //card.transform.SetParent(AllyDropZone.transform, false);
@@ -244,39 +216,10 @@ public class PlayerManager : NetworkBehaviour
                 }
                
                 
->>>>>>> Stashed changes
             }
             
             else
             {
-<<<<<<< Updated upstream
-                if (dropZone != null)
-                {
-                    Debug.Log("EnemyDropZone detected");
-                    if (dropZone.name == "EnemyDropZone")
-                    {
-                        card.transform.SetParent(EnemyDropZone.transform, false);
-                    }
-                    else if (dropZone.name == "EnemyDropZone(1)")
-                    {
-                        card.transform.SetParent(EnemyDropZone1.transform, false);
-                    }
-                    else if (dropZone.name == "EnemyDropZone(2)")
-                    {
-                        card.transform.SetParent(EnemyDropZone2.transform, false);
-                    }
-                    else if (dropZone.name == "EnemyDropZone(3)")
-                    {
-                        card.transform.SetParent(EnemyDropZone3.transform, false);
-                    }
-                    else if (dropZone.name == "EnemyDropZone(4)")
-                    {
-                        card.transform.SetParent(EnemyDropZone4.transform, false);
-                    }
-                }
-                //card.transform.SetParent(EnemyDropZone.transform, false);
-                
-=======
                 //card.transform.SetParent(ClientIsHost() ? AllyDropZone.transform : EnemyDropZone.transform, false);
                   
                if (card.transform.parent.name == "EnemyDropZone")
@@ -302,7 +245,6 @@ public class PlayerManager : NetworkBehaviour
                 }
                 
 
->>>>>>> Stashed changes
             }
             
         }
