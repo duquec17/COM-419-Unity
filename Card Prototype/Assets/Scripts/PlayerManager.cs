@@ -10,20 +10,20 @@ public class PlayerManager : NetworkBehaviour
     public GameObject PlayerCard;
 
     //All ally objects
-    public GameObject AllyDropZone;
     public GameObject AllyDropZone1;
     public GameObject AllyDropZone2;
     public GameObject AllyDropZone3;
     public GameObject AllyDropZone4;
+    public GameObject AllyDropZone5;
     public GameObject AllyHand;
     public GameObject AllyDeck;
     
     //All enemy object
-    public GameObject EnemyDropZone;
     public GameObject EnemyDropZone1;
     public GameObject EnemyDropZone2;
     public GameObject EnemyDropZone3;
     public GameObject EnemyDropZone4;
+    public GameObject EnemyDropZone5;
     public GameObject EnemyHand;
     public GameObject EnemyDeck;
 
@@ -31,42 +31,20 @@ public class PlayerManager : NetworkBehaviour
     public List<GameObject> AllyDropZones = new List<GameObject>();
     public List<GameObject> EnemyDropZones = new List<GameObject>();
 
-    //Possible alternative Card List; same purpose but better way of getting it
-    private List<GameObject> cards = new List<GameObject>();
-
     //Card list we are pulling from
     public static List<Card> cardList = new List<Card>();
 
     //Variable tracking current player
+    public int CardsPlayed = 0;
     public bool IsMyTurn = false;
 
-    //Variables that are constantly kept synced across the network; Think seeing health all the time
-    //Need to be used later combat system 
-    [SyncVar]
-    int CardsPlayed = 0;
-    int Health = 20;
-
-    //End of declaration//
-
-
-    //Start of actual code//
-     [Command]
-    public void CmdPlaceCard(GameObject card, GameObject dropZone)
-    {
-        RpcShowCardOnClients(card, dropZone);
-    }
-
-    [ClientRpc]
-    void RpcShowCardOnClients(GameObject card, GameObject dropZone)
-    {
-        card.transform.SetParent(dropZone.transform, false);
-    }
 
     //Runs the code below when Host+Client/Client button is selected
     public override void OnStartClient()
     {
         base.OnStartClient();
 
+        //Connect to GameManager
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         //Connects hand and deck of both players to a variable by looking for objects with listed name 
@@ -76,32 +54,33 @@ public class PlayerManager : NetworkBehaviour
         EnemyDeck = GameObject.Find("EnemyDeck");
 
         //Connects each ally drop zones to each variable by looking for objects with listed name 
-        AllyDropZone = GameObject.Find("AllyDropZone");
-        AllyDropZone1 = GameObject.Find("AllyDropZone (1)");
-        AllyDropZone2 = GameObject.Find("AllyDropZone (2)");
-        AllyDropZone3 = GameObject.Find("AllyDropZone (3)");
-        AllyDropZone4 = GameObject.Find("AllyDropZone (4)");
+        AllyDropZone1 = GameObject.Find("AllyDropZone");
+        AllyDropZone2 = GameObject.Find("AllyDropZone (1)");
+        AllyDropZone3 = GameObject.Find("AllyDropZone (2)");
+        AllyDropZone4 = GameObject.Find("AllyDropZone (3)");
+        AllyDropZone5 = GameObject.Find("AllyDropZone (4)");
 
         //Connects each enemy drop zones to each variable by looking for objects with listed name 
-        EnemyDropZone = GameObject.Find("EnemyDropZone");
-        EnemyDropZone1 = GameObject.Find("EnemyDropZone (1)");
-        EnemyDropZone2 = GameObject.Find("EnemyDropZone (2)");
-        EnemyDropZone3 = GameObject.Find("EnemyDropZone (3)");
-        EnemyDropZone4 = GameObject.Find("EnemyDropZone (4)");
+        EnemyDropZone1 = GameObject.Find("EnemyDropZone");
+        EnemyDropZone2 = GameObject.Find("EnemyDropZone (1)");
+        EnemyDropZone3 = GameObject.Find("EnemyDropZone (2)");
+        EnemyDropZone4 = GameObject.Find("EnemyDropZone (3)");
+        EnemyDropZone5 = GameObject.Find("EnemyDropZone (4)");
 
         //Fills Ally list with ally drop zones
-        AllyDropZones.Add(AllyDropZone);
         AllyDropZones.Add(AllyDropZone1);
         AllyDropZones.Add(AllyDropZone2);
         AllyDropZones.Add(AllyDropZone3);
         AllyDropZones.Add(AllyDropZone4);
+        AllyDropZones.Add(AllyDropZone5);
 
         //Fills Enemy list will enemy drop zones
-        EnemyDropZones.Add(EnemyDropZone);
         EnemyDropZones.Add(EnemyDropZone1);
         EnemyDropZones.Add(EnemyDropZone2);
         EnemyDropZones.Add(EnemyDropZone3);
         EnemyDropZones.Add(EnemyDropZone4);
+        EnemyDropZones.Add(EnemyDropZone5);
+
 
         //Determines which player goes first; Whoever presses "Client" button goes first
         if (isClientOnly)
@@ -118,12 +97,9 @@ public class PlayerManager : NetworkBehaviour
     public override void OnStartServer()
     {
         base.OnStartServer();
-
-        //Adds a card to current card list
-        cardList.Add(new Card(0, "Jester", 1, 1, 2, "+1 power for every other Jester card on the board", Resources.Load<Sprite>("placeHolder")));
         
         //Should output current card list to console
-        Debug.Log(cardList);
+        Debug.Log(cardList + ", this is cardList");
 
         //Tells us that the server is running
         Debug.Log("OnStartServer was activated");
@@ -154,6 +130,7 @@ public class PlayerManager : NetworkBehaviour
     public void PlayCard(GameObject card)
     {
         CmdPlayCard(card);
+        Debug.Log(CardsPlayed);
     }
 
     //Calls upon RocShowCard
@@ -186,73 +163,7 @@ public class PlayerManager : NetworkBehaviour
         }
         else if(type == "Played") // "Played" cards are placed into a player's drop zone and check mirror condition
         {
-            //DropZone dropZone = this.GetComponent<DropZone>();
 
-            if (isOwned)
-            {
-                
-                
-                    //card.transform.SetParent(AllyDropZone.transform, false);
-                    //card.transform.SetParent(ClientIsHost() ? EnemyDropZone.transform : AllyDropZone.transform, false);
-                    //card.transform.SetParent(GetEnemyDropZone(AllyDropZone.tag).transform, false);
-                
-                 
-                
-                if (card.transform.parent.name == "AllyDropZone")
-                {
-                     card.transform.SetParent(AllyDropZone.transform, false);
-                     Debug.Log("Whats good wit u");
-                }
-                else if (card.transform.parent.name == "AllyDropZone (1)")
-                {
-                     card.transform.SetParent(AllyDropZone1.transform, false);
-                }
-                else if (card.transform.parent.name == "AllyDropZone (2)")
-                {
-                     card.transform.SetParent(AllyDropZone2.transform, false);
-                }
-                else if (card.transform.parent.name == "AllyDropZone (3)")
-                {
-                    card.transform.SetParent(AllyDropZone3.transform, false);
-                }
-                else if (card.transform.parent.name == "AllyDropZone (4)")
-                {
-                     card.transform.SetParent(AllyDropZone4.transform, false);
-                }
-               
-                
-            }
-            
-            else
-            {
-                //card.transform.SetParent(ClientIsHost() ? AllyDropZone.transform : EnemyDropZone.transform, false);
-                  
-               if (card.transform.parent.name == "AllyDropZone")
-                {
-                     card.transform.SetParent(EnemyDropZone.transform, false);
-                    Debug.Log("This shit even doing anything?");
-                }
-                else if (card.transform.parent.name == "AllyDropZone (1)")
-                {
-                     card.transform.SetParent(EnemyDropZone1.transform, false);
-                }
-                else if (card.transform.parent.name == "AllyDropZone (2)")
-                {
-                     card.transform.SetParent(EnemyDropZone2.transform, false);
-                }
-                else if (card.transform.parent.name == "AllyDropZone (3)")
-                {
-                     card.transform.SetParent(EnemyDropZone3.transform, false);
-                }
-                else if (card.transform.parent.name == "AllyDropZone (4)")
-                {
-                     card.transform.SetParent(EnemyDropZone4.transform, false);
-                }
-                
-
-            }
-            
-            
         }
     }
 

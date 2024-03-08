@@ -6,9 +6,6 @@ using Mirror;
 
 public class DropZone : NetworkBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    public int row;
-    public int col;
-
     public void OnPointerEnter(PointerEventData eventData)
     {
     }
@@ -21,31 +18,13 @@ public class DropZone : NetworkBehaviour, IDropHandler, IPointerEnterHandler, IP
     {
         Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
 
-        if (d != null)
+        if (d != null && CanDropCard(d))
         {
 
-            if (CanDropCard(d))
-            {
-            
-                    PlayerManager playerManager = FindObjectOfType<PlayerManager>();
-                    playerManager.CmdPlaceCard(d.gameObject, this.gameObject);
-                
-              
-                //d.parentToReturnTo = this.transform;
-                //Debug.Log(d.gameObject.name + " was dropped on " + gameObject.name);
-                d.parentToReturnTo = this.transform;
-                Debug.Log(d.gameObject.name + " was dropped on " + gameObject.name);
-               
-                
-            }
-            else
-            {
-                Debug.Log("Cannot drop " + d.gameObject.name + " on " + gameObject.name + ". Incorrect placement.");
-            }
         }
     }
 
-    private bool CanDropCard(Draggable draggable)
+    public bool CanDropCard(Draggable draggable)
     {
         // Checks to see if the card can be dropped on this spot
         if (gameObject.CompareTag("AllyDropZone") && draggable.isOwned)
