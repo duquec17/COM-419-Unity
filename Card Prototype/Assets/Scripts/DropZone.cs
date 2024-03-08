@@ -33,6 +33,10 @@ public class DropZone : NetworkBehaviour, IDropHandler, IPointerEnterHandler, IP
               
                 //d.parentToReturnTo = this.transform;
                 //Debug.Log(d.gameObject.name + " was dropped on " + gameObject.name);
+                d.parentToReturnTo = this.transform;
+                Debug.Log(d.gameObject.name + " was dropped on " + gameObject.name);
+               
+                
             }
             else
             {
