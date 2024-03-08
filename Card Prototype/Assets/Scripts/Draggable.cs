@@ -38,13 +38,22 @@ public class Draggable : NetworkBehaviour, IBeginDragHandler, IDragHandler, IEnd
     public void OnEndDrag(PointerEventData eventData)
     {
         if (!isOwned) return;
+
+
         
+    
             this.transform.SetParent(parentToReturnTo);    
             GetComponent<CanvasGroup>().blocksRaycasts = true;
             NetworkIdentity networkIdentity = NetworkClient.connection.identity;
             PlayerManager = networkIdentity.GetComponent<PlayerManager>();
             PlayerManager.PlayCard(gameObject);
-
+        
+        
         Debug.Log("End Drag");
+    }
+
+    GameObject GetEnemyDropZone(string tag)
+    {
+    return GameObject.FindGameObjectWithTag(tag);
     }
 }

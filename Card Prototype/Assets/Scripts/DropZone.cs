@@ -20,12 +20,7 @@ public class DropZone : NetworkBehaviour, IDropHandler, IPointerEnterHandler, IP
 
         if (d != null && CanDropCard(d))
         {
-            d.parentToReturnTo = this.transform;
-            Debug.Log(d.gameObject.name + " was dropped on " + gameObject.name);
-        }
-        else
-        {
-            Debug.Log("Cannot drop " + d.gameObject.name + " on " + gameObject.name + ". Incorrect placement.");
+
         }
     }
 

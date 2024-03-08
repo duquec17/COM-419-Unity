@@ -38,8 +38,6 @@ public class PlayerManager : NetworkBehaviour
     public int CardsPlayed = 0;
     public bool IsMyTurn = false;
 
-    //Possible alternative Card List; same purpose but better way of getting it
-    private List<GameObject> cards = new List<GameObject>();
 
     //Runs the code below when Host+Client/Client button is selected
     public override void OnStartClient()
@@ -144,38 +142,46 @@ public class PlayerManager : NetworkBehaviour
 
     //Actual function that moves the recently added card to hand and/or drop zone
     [ClientRpc]
-    void RpcShowCard(GameObject card, string type)
+    public void RpcShowCard(GameObject card, string type)
     {
         if(type == "Dealt") // "Dealt" cards are placed into player's hand and checking ownership allows for it mirror
         {
+
+            card.transform.SetParent(isLocalPlayer ? AllyHand.transform : EnemyHand.transform, false);
+            /*
             if (isOwned)
             {
                 card.transform.SetParent(AllyHand.transform, false);
+                type = "Played";
             }
             else
             {
                 card.transform.SetParent(EnemyHand.transform, false);
+                type = "Played";
             }
+            */
         }
         else if(type == "Played") // "Played" cards are placed into a player's drop zone and check mirror condition
         {
-            if (CardsPlayed == 5)
-            {
-                CardsPlayed = 0;
-            }
 
-            if (isOwned)
-            {
-                //card.transform.SetParent(AllyDropZones[CardsPlayed].transform, false);
-                card.transform.SetParent(AllyDropZones[CardsPlayed].transform, false);
-            }
-            else if (!isOwned)
-            {
-                card.transform.SetParent(EnemyDropZones[CardsPlayed].transform, false);
-            }
-
-            CardsPlayed++;
         }
+    }
+
+    // Define methods to get specific drop zones based on tag
+    GameObject GetAllyDropZone(string tag)
+    {
+    return GameObject.FindGameObjectWithTag(tag);
+    }
+
+    GameObject GetEnemyDropZone(string tag)
+    {
+    return GameObject.FindGameObjectWithTag(tag);
+    }
+
+    // Define a method to check if the client is the host
+    bool ClientIsHost()
+    {
+    return isServer && connectionToClient == null;
     }
 
     [ClientRpc]
