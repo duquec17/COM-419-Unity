@@ -132,7 +132,7 @@ public class PlayerManager : NetworkBehaviour
     public void PlayCard(GameObject card)
     {
         CmdPlayCard(card);
-        Debug.Log(CardsPlayed);
+        Debug.Log("Cards Played counter: " + CardsPlayed);
     }
 
     //Calls upon RocShowCard
