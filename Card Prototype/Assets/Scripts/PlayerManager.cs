@@ -100,9 +100,6 @@ public class PlayerManager : NetworkBehaviour
     {
         base.OnStartServer();
         
-        //Should output current card list to console
-        Debug.Log(cardList + ", this is cardList");
-
         //Tells us that the server is running
         Debug.Log("OnStartServer was activated");
     }
@@ -168,7 +165,6 @@ public class PlayerManager : NetworkBehaviour
             {
                 //card.transform.SetParent(AllyDropZones[CardsPlayed].transform, false);
                 card.transform.SetParent(AllyDropZones[CardsPlayed].transform, false);
-                CmdGMCardPlayed();
             }
             else if (!isOwned)
             {
@@ -188,15 +184,4 @@ public class PlayerManager : NetworkBehaviour
         GameManager.ChangeGameState(stateRequest);
     }
 
-    [Command]
-    void CmdGMCardPlayed()
-    {
-        RpcGMCardPlayed();
-    }
-
-    [ClientRpc]
-    void RpcGMCardPlayed()
-    {
-        GameManager.CardPlayed();
-    }
 }

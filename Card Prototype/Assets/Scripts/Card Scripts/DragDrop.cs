@@ -49,7 +49,6 @@ public class DragDrop : NetworkBehaviour
         {
             isOverDropZone = true;
             dropZone = collision.gameObject;
-            Debug.Log("Colliding with " + dropZone);
         }
     }
 
@@ -81,13 +80,13 @@ public class DragDrop : NetworkBehaviour
             transform.SetParent(dropZone.transform, false);
             isDraggable = false;
             PlayerManager.PlayCard(gameObject);
-            Debug.Log("Can drop and IS my turn");
+            Debug.Log("Is Over:" + dropZone + " and turn isMyTurn is: " + PlayerManager.IsMyTurn);
         }
         else
         {
             transform.position = startPosition;
             transform.SetParent(startParent.transform, false);
-            Debug.Log("Can't drop and NOT my turn");
+            Debug.Log("Is Over:" + dropZone + " and turn isMyTurn is: " + PlayerManager.IsMyTurn);
         }
     }   
 }

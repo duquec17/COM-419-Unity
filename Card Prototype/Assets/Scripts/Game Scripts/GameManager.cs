@@ -31,6 +31,7 @@ public class GameManager : NetworkBehaviour
         }
         else if (stateRequest == "Compile {}")
         {
+            ReadyClicks = 1;
             if (ReadyClicks == 1)
             {
                 GameState = "Compile {}";
