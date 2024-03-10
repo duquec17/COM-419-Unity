@@ -26,6 +26,10 @@ public class DrawCards : NetworkBehaviour
         {
             InitializeClick();
         }
+        else if (GameManager.GameState == "Compile {}")
+        {
+            CompileClick();
+        }
         else if (GameManager.GameState == "Execute {}")
         {
             ExecuteClick();
@@ -39,6 +43,12 @@ public class DrawCards : NetworkBehaviour
         Debug.Log("Executing CmdDealCards");
     }
 
+    //Prevents the button from being pressed during other states of the game
+    void CompileClick()
+    {
+
+    }
+    
     //Prevents the button from being pressed during other states of the game
     void ExecuteClick()
     {

@@ -29,7 +29,7 @@ public class GameManager : NetworkBehaviour
             GameState = "Initialize {}";
             Debug.Log("Current gameState: " + GameState);
         }
-        else if (stateRequest == "Complie {}")
+        else if (stateRequest == "Compile {}")
         {
             if (ReadyClicks == 1)
             {

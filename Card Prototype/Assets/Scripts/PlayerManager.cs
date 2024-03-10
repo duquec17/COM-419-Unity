@@ -178,7 +178,7 @@ public class PlayerManager : NetworkBehaviour
             //Increases card counter
             CardsPlayed++;
             PlayerManager pm = NetworkClient.connection.identity.GetComponent<PlayerManager>();
-            pm.IsMyTurn = !pm.IsMyTurn;
+            //pm.IsMyTurn = !pm.IsMyTurn;
         }
     }
 
