@@ -119,8 +119,8 @@ public class PlayerManager : NetworkBehaviour
         }
 
         //Changes game manager current state
-        RpcGMChangeState("Compile");
-        Debug.Log("Should be in compile state");
+        RpcGMChangeState("Compile {}");
+        Debug.Log("Should be in compile");
     }
 
     //Calls upon CmdPlayCard

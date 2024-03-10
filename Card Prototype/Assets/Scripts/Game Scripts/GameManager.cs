@@ -23,10 +23,12 @@ public class GameManager : NetworkBehaviour
 
     public void ChangeGameState(string stateRequest)
     {
+
         if (stateRequest == "Initialize {}")
         {
             ReadyClicks = 0;
             GameState = "Initialize {}";
+            Debug.Log("Current gameState: " + GameState);
         }
         else if (stateRequest == "Compile {}")
         {
@@ -38,6 +40,9 @@ public class GameManager : NetworkBehaviour
             GameState = "Execute {}";
             Debug.Log("Current gameState: " + GameState);
         }
+
+        Debug.Log("Current gameState: " + GameState);
+
     }
 
     public void CardPlayed()
