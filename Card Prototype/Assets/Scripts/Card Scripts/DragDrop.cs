@@ -24,8 +24,6 @@ public class DragDrop : NetworkBehaviour
         NetworkIdentity networkIdentity = NetworkClient.connection.identity;
         PlayerManager = networkIdentity.GetComponent<PlayerManager>();
 
-        Debug.Log("Canvas var. is " + Canvas);
-
         if (!isOwned)
         {
             isDraggable = false;

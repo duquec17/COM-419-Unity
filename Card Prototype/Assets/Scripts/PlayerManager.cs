@@ -114,9 +114,6 @@ public class PlayerManager : NetworkBehaviour
             GameObject card = Instantiate(PlayerCard, new Vector2(0, 0), Quaternion.identity);
             NetworkServer.Spawn(card, connectionToClient);
 
-            //Tells which card has been drawn
-            Debug.Log("Drawing card" + i);
-
             //Sets current status of the card to "Dealt" which makes it appear in hand for the Server
             RpcShowCard(card, "Dealt");
         }
@@ -170,6 +167,7 @@ public class PlayerManager : NetworkBehaviour
             {
                 card.transform.SetParent(EnemyDropZones[CardsPlayed].transform, false);
             }
+
             //Increases card counter
             CardsPlayed++;
             PlayerManager pm = NetworkClient.connection.identity.GetComponent<PlayerManager>();
