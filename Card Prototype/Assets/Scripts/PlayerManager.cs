@@ -36,6 +36,8 @@ public class PlayerManager : NetworkBehaviour
 
     //Variable tracking current player
     public int CardsPlayed = 0;
+
+    [SyncVar]
     public bool IsMyTurn = false;
 
     //Possible alternative Card List; same purpose but better way of getting it
@@ -141,7 +143,6 @@ public class PlayerManager : NetworkBehaviour
     {
         PlayerManager pm = NetworkClient.connection.identity.GetComponent<PlayerManager>();
         pm.IsMyTurn = !pm.IsMyTurn;
-        Debug.Log("Ending Turn: " + IsMyTurn);
     }
 
     //Actual function that moves the recently added card to hand and/or drop zone
@@ -178,8 +179,8 @@ public class PlayerManager : NetworkBehaviour
 
             //Increases card counter
             CardsPlayed++;
-            //PlayerManager pm = NetworkClient.connection.identity.GetComponent<PlayerManager>();
-            //pm.IsMyTurn = !pm.IsMyTurn;
+            PlayerManager pm = NetworkClient.connection.identity.GetComponent<PlayerManager>();
+            pm.IsMyTurn = !pm.IsMyTurn;
         }
     }
 
