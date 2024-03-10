@@ -18,7 +18,7 @@ public class GameManager : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Debug.Log("Current gameState: " + GameState);
     }
 
     public void ChangeGameState(string stateRequest)
@@ -27,17 +27,20 @@ public class GameManager : NetworkBehaviour
         {
             ReadyClicks = 0;
             GameState = "Initialize {}";
+            Debug.Log("Current gameState: " + GameState);
         }
         else if (stateRequest == "Complie {}")
         {
             if (ReadyClicks == 1)
             {
                 GameState = "Compile {}";
+                Debug.Log("Current gameState: " + GameState);
             }
         }
         else if (stateRequest == "Execute {}")
         {
             GameState = "Execute {}";
+            Debug.Log("Current gameState: " + GameState);
         }
     }
 }
