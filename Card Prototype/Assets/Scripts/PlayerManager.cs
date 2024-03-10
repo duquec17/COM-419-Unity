@@ -170,7 +170,6 @@ public class PlayerManager : NetworkBehaviour
             {
                 card.transform.SetParent(EnemyDropZones[CardsPlayed].transform, false);
             }
-
             //Increases card counter
             CardsPlayed++;
             PlayerManager pm = NetworkClient.connection.identity.GetComponent<PlayerManager>();
