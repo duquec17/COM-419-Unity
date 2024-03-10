@@ -27,16 +27,11 @@ public class GameManager : NetworkBehaviour
         {
             ReadyClicks = 0;
             GameState = "Initialize {}";
-            Debug.Log("Current gameState: " + GameState);
         }
         else if (stateRequest == "Compile {}")
         {
-            ReadyClicks = 1;
-            if (ReadyClicks == 1)
-            {
                 GameState = "Compile {}";
                 Debug.Log("Current gameState: " + GameState);
-            }
         }
         else if (stateRequest == "Execute {}")
         {
@@ -55,4 +50,5 @@ public class GameManager : NetworkBehaviour
             Debug.Log("Current gameState: " + GameState);
         }
     }
+
 }

@@ -27,7 +27,6 @@ public class DragDrop : NetworkBehaviour
         if (!isOwned)
         {
             isDraggable = false;
-            Debug.Log("Isn't owned");
         }
     }
 
@@ -73,7 +72,7 @@ public class DragDrop : NetworkBehaviour
         isDragging = false;
 
 
-        if (isOverDropZone && PlayerManager.IsMyTurn)
+        if (isOverDropZone) //&& PlayerManager.IsMyTurn
         {
             transform.SetParent(dropZone.transform, false);
             isDraggable = false;
