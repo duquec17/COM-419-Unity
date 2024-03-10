@@ -120,7 +120,6 @@ public class PlayerManager : NetworkBehaviour
 
         //Changes game manager current state
         RpcGMChangeState("Compile {}");
-        Debug.Log("Should be in compile");
     }
 
     //Calls upon CmdPlayCard
@@ -180,6 +179,10 @@ public class PlayerManager : NetworkBehaviour
     void RpcGMChangeState(string stateRequest)
     {
         GameManager.ChangeGameState(stateRequest);
+        if (stateRequest == "Compile {}")
+        {
+            GameManager.ChangeReadyClicks();
+        }
     }
 
 }

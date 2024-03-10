@@ -28,21 +28,31 @@ public class GameManager : NetworkBehaviour
         {
             ReadyClicks = 0;
             GameState = "Initialize {}";
-            Debug.Log("Current gameState: " + GameState);
+            Debug.Log("Initialize gameState: " + GameState);
         }
         else if (stateRequest == "Compile {}")
         {
+            if (ReadyClicks == 1)
+            {
                 GameState = "Compile {}";
-                Debug.Log("Current gameState: " + GameState);
+            }
+            
+            Debug.Log("Compile gameState: " + GameState);
         }
         else if (stateRequest == "Execute {}")
         {
             GameState = "Execute {}";
-            Debug.Log("Current gameState: " + GameState);
+            Debug.Log("Execute gameState: " + GameState);
         }
+        else
+        {
+            Debug.Log("ERROR state: " + GameState);
+        }
+    }
 
-        Debug.Log("Current gameState: " + GameState);
-
+    public void ChangeReadyClicks()
+    {
+        ReadyClicks++;
     }
 
     public void CardPlayed()
@@ -51,7 +61,7 @@ public class GameManager : NetworkBehaviour
         Debug.Log("Current TurnOrder: " + TurnOrder);
         if (TurnOrder == 6)
         {
-            ChangeGameState("Execute");
+            ChangeGameState("Execute {}");
             Debug.Log("Current gameState: " + GameState);
         }
     }
