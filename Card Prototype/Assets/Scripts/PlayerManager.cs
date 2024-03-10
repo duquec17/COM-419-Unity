@@ -168,13 +168,17 @@ public class PlayerManager : NetworkBehaviour
             {
                 //card.transform.SetParent(AllyDropZones[CardsPlayed].transform, false);
                 card.transform.SetParent(AllyDropZones[CardsPlayed].transform, false);
+                CmdGMCardPlayed();
             }
             else if (!isOwned)
             {
                 card.transform.SetParent(EnemyDropZones[CardsPlayed].transform, false);
             }
 
+            //Increases card counter
             CardsPlayed++;
+            PlayerManager pm = NetworkClient.connection.identity.GetComponent<PlayerManager>();
+            pm.IsMyTurn = !pm.IsMyTurn;
         }
     }
 
@@ -182,5 +186,17 @@ public class PlayerManager : NetworkBehaviour
     void RpcGMChangeState(string stateRequest)
     {
         GameManager.ChangeGameState(stateRequest);
+    }
+
+    [Command]
+    void CmdGMCardPlayed()
+    {
+        RpcGMCardPlayed();
+    }
+
+    [ClientRpc]
+    void RpcGMCardPlayed()
+    {
+        GameManager.CardPlayed();
     }
 }

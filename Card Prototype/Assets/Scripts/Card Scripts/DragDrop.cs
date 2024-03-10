@@ -7,7 +7,6 @@ public class DragDrop : NetworkBehaviour
 {
     public GameManager GameManager;
     public GameObject Canvas;
-    public GameObject DropZone;
     public PlayerManager PlayerManager;
     
 
@@ -20,10 +19,12 @@ public class DragDrop : NetworkBehaviour
 
     private void Start()
     {
+        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         Canvas = GameObject.Find("Main Canvas");
+        NetworkIdentity networkIdentity = NetworkClient.connection.identity;
+        PlayerManager = networkIdentity.GetComponent<PlayerManager>();
+
         Debug.Log("Canvas var. is " + Canvas);
-        DropZone = GameObject.Find("DropZone");
-        Debug.Log("DropZone var. is " + DropZone);
 
         if (!isOwned)
         {
@@ -44,8 +45,12 @@ public class DragDrop : NetworkBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if(collision.gameObject == PlayerManager.AllyDropZones[PlayerManager.CardsPlayed])
+        {
             isOverDropZone = true;
             dropZone = collision.gameObject;
+            Debug.Log("Colliding with " + dropZone);
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -70,12 +75,11 @@ public class DragDrop : NetworkBehaviour
 
         isDragging = false;
 
-        if (isOverDropZone)
+
+        if (isOverDropZone && PlayerManager.IsMyTurn)
         {
             transform.SetParent(dropZone.transform, false);
             isDraggable = false;
-            NetworkIdentity networkIdentity = NetworkClient.connection.identity;
-            PlayerManager = networkIdentity.GetComponent<PlayerManager>();
             PlayerManager.PlayCard(gameObject);
             Debug.Log("Can drop and IS my turn");
         }

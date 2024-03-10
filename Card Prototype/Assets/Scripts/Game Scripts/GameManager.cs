@@ -43,4 +43,15 @@ public class GameManager : NetworkBehaviour
             Debug.Log("Current gameState: " + GameState);
         }
     }
+
+    public void CardPlayed()
+    {
+        TurnOrder++;
+        Debug.Log("Current TurnOrder: " + TurnOrder);
+        if (TurnOrder == 6)
+        {
+            ChangeGameState("Execute");
+            Debug.Log("Current gameState: " + GameState);
+        }
+    }
 }
