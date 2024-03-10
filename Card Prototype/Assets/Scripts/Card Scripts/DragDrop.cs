@@ -72,7 +72,7 @@ public class DragDrop : NetworkBehaviour
         isDragging = false;
 
 
-        if (isOverDropZone) //&& PlayerManager.IsMyTurn
+        if (isOverDropZone && PlayerManager.IsMyTurn)
         {
             transform.SetParent(dropZone.transform, false);
             isDraggable = false;

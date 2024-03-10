@@ -47,6 +47,8 @@ public class DrawCards : NetworkBehaviour
     void CompileClick()
     {
 
+        // Toggle the IsMyTurn flag for the current player
+        PlayerManager.CmdEndTurn();
     }
     
     //Prevents the button from being pressed during other states of the game

@@ -136,6 +136,14 @@ public class PlayerManager : NetworkBehaviour
         RpcShowCard(card, "Played"); //Sets current status of the card to "Played" which makes it appear in a drop zone for the Server
     }
 
+    [Command]
+    public void CmdEndTurn()
+    {
+        PlayerManager pm = NetworkClient.connection.identity.GetComponent<PlayerManager>();
+        pm.IsMyTurn = !pm.IsMyTurn;
+        Debug.Log("Ending Turn: " + IsMyTurn);
+    }
+
     //Actual function that moves the recently added card to hand and/or drop zone
     [ClientRpc]
     void RpcShowCard(GameObject card, string type)
@@ -170,7 +178,7 @@ public class PlayerManager : NetworkBehaviour
 
             //Increases card counter
             CardsPlayed++;
-            PlayerManager pm = NetworkClient.connection.identity.GetComponent<PlayerManager>();
+            //PlayerManager pm = NetworkClient.connection.identity.GetComponent<PlayerManager>();
             //pm.IsMyTurn = !pm.IsMyTurn;
         }
     }
@@ -183,6 +191,11 @@ public class PlayerManager : NetworkBehaviour
         {
             GameManager.ChangeReadyClicks();
         }
+    }
+
+    public void EndTurn()
+    {
+        IsMyTurn = false;
     }
 
 }
