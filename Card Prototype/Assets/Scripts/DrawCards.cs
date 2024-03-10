@@ -36,6 +36,7 @@ public class DrawCards : NetworkBehaviour
     void InitializeClick()
     {
         PlayerManager.CmdDealCards();
+        Debug.Log("Executing CmdDealCards");
     }
 
     //Prevents the button from being pressed during other states of the game
