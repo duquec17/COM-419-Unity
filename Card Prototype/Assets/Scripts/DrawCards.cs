@@ -26,6 +26,10 @@ public class DrawCards : NetworkBehaviour
         {
             InitializeClick();
         }
+        else if (GameManager.GameState == "Compile {}")
+        {
+            CompileClick();
+        }
         else if (GameManager.GameState == "Execute {}")
         {
             ExecuteClick();
@@ -36,8 +40,17 @@ public class DrawCards : NetworkBehaviour
     void InitializeClick()
     {
         PlayerManager.CmdDealCards();
+        Debug.Log("Executing CmdDealCards");
     }
 
+    //Prevents the button from being pressed during other states of the game
+    void CompileClick()
+    {
+        //Toggle the IsMyTurn flag for the current player
+        PlayerManager.CmdEndTurn();
+        Debug.Log("Ending Turn: " + PlayerManager.IsMyTurn);
+    }
+    
     //Prevents the button from being pressed during other states of the game
     void ExecuteClick()
     {
