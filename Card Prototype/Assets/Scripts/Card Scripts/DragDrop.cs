@@ -7,7 +7,6 @@ public class DragDrop : NetworkBehaviour
 {
     public GameManager GameManager;
     public GameObject Canvas;
-    public GameObject DropZone;
     public PlayerManager PlayerManager;
     
 
@@ -20,15 +19,14 @@ public class DragDrop : NetworkBehaviour
 
     private void Start()
     {
+        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         Canvas = GameObject.Find("Main Canvas");
-        Debug.Log("Canvas var. is " + Canvas);
-        DropZone = GameObject.Find("DropZone");
-        Debug.Log("DropZone var. is " + DropZone);
+        NetworkIdentity networkIdentity = NetworkClient.connection.identity;
+        PlayerManager = networkIdentity.GetComponent<PlayerManager>();
 
         if (!isOwned)
         {
             isDraggable = false;
-            Debug.Log("Isn't owned");
         }
     }
 
@@ -44,8 +42,11 @@ public class DragDrop : NetworkBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if(collision.gameObject == PlayerManager.AllyDropZones[PlayerManager.CardsPlayed])
+        {
             isOverDropZone = true;
             dropZone = collision.gameObject;
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -70,20 +71,19 @@ public class DragDrop : NetworkBehaviour
 
         isDragging = false;
 
-        if (isOverDropZone)
+
+        if (isOverDropZone && PlayerManager.IsMyTurn)
         {
             transform.SetParent(dropZone.transform, false);
             isDraggable = false;
-            NetworkIdentity networkIdentity = NetworkClient.connection.identity;
-            PlayerManager = networkIdentity.GetComponent<PlayerManager>();
             PlayerManager.PlayCard(gameObject);
-            Debug.Log("Can drop and IS my turn");
+            Debug.Log("Is Over:" + dropZone + " and turn isMyTurn is: " + PlayerManager.IsMyTurn);
         }
         else
         {
             transform.position = startPosition;
             transform.SetParent(startParent.transform, false);
-            Debug.Log("Can't drop and NOT my turn");
+            Debug.Log("Is Over:" + dropZone + " and turn isMyTurn is: " + PlayerManager.IsMyTurn);
         }
     }   
 }

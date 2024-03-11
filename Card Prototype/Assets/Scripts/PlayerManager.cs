@@ -36,6 +36,8 @@ public class PlayerManager : NetworkBehaviour
 
     //Variable tracking current player
     public int CardsPlayed = 0;
+
+
     public bool IsMyTurn = false;
 
     //Possible alternative Card List; same purpose but better way of getting it
@@ -100,9 +102,6 @@ public class PlayerManager : NetworkBehaviour
     {
         base.OnStartServer();
         
-        //Should output current card list to console
-        Debug.Log(cardList + ", this is cardList");
-
         //Tells us that the server is running
         Debug.Log("OnStartServer was activated");
     }
@@ -117,22 +116,19 @@ public class PlayerManager : NetworkBehaviour
             GameObject card = Instantiate(PlayerCard, new Vector2(0, 0), Quaternion.identity);
             NetworkServer.Spawn(card, connectionToClient);
 
-            //Tells which card has been drawn
-            Debug.Log("Drawing card" + i);
-
             //Sets current status of the card to "Dealt" which makes it appear in hand for the Server
             RpcShowCard(card, "Dealt");
         }
 
         //Changes game manager current state
-        RpcGMChangeState("Compile");
+        RpcGMChangeState("Compile {}");
     }
 
     //Calls upon CmdPlayCard
     public void PlayCard(GameObject card)
     {
         CmdPlayCard(card);
-        Debug.Log(CardsPlayed);
+        Debug.Log("Cards Played counter: " + CardsPlayed);
     }
 
     //Calls upon RocShowCard
@@ -140,6 +136,19 @@ public class PlayerManager : NetworkBehaviour
     void CmdPlayCard(GameObject card)
     {
         RpcShowCard(card, "Played"); //Sets current status of the card to "Played" which makes it appear in a drop zone for the Server
+    }
+
+    [Command]
+    public void CmdEndTurn()
+    {
+        RpcEndTurn();
+    }
+
+    [ClientRpc]
+    public void RpcEndTurn()
+    {
+        PlayerManager pm = NetworkClient.connection.identity.GetComponent<PlayerManager>();
+        pm.IsMyTurn = !pm.IsMyTurn;
     }
 
     //Actual function that moves the recently added card to hand and/or drop zone
@@ -174,6 +183,7 @@ public class PlayerManager : NetworkBehaviour
                 card.transform.SetParent(EnemyDropZones[CardsPlayed].transform, false);
             }
 
+            //Increases card counter
             CardsPlayed++;
         }
     }
@@ -182,5 +192,10 @@ public class PlayerManager : NetworkBehaviour
     void RpcGMChangeState(string stateRequest)
     {
         GameManager.ChangeGameState(stateRequest);
+        if (stateRequest == "Compile {}")
+        {
+            GameManager.ChangeReadyClicks();
+        }
     }
+
 }
