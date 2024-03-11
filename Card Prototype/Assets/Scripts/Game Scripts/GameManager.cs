@@ -12,7 +12,7 @@ public class GameManager : NetworkBehaviour
     public int EnemyMana = 0;
     public int AllyVariables = 0;
     public int EnemyVariables = 0;
-
+    
     private int ReadyClicks = 0;
 
     // Start is called before the first frame update
@@ -36,7 +36,7 @@ public class GameManager : NetworkBehaviour
             {
                 GameState = "Compile {}";
             }
-            
+
             Debug.Log("Compile gameState: " + GameState);
         }
         else if (stateRequest == "Execute {}")

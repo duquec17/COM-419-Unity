@@ -37,7 +37,7 @@ public class PlayerManager : NetworkBehaviour
     //Variable tracking current player
     public int CardsPlayed = 0;
 
-    [SyncVar]
+
     public bool IsMyTurn = false;
 
     //Possible alternative Card List; same purpose but better way of getting it
@@ -141,6 +141,12 @@ public class PlayerManager : NetworkBehaviour
     [Command]
     public void CmdEndTurn()
     {
+        RpcEndTurn();
+    }
+
+    [ClientRpc]
+    public void RpcEndTurn()
+    {
         PlayerManager pm = NetworkClient.connection.identity.GetComponent<PlayerManager>();
         pm.IsMyTurn = !pm.IsMyTurn;
     }
@@ -179,8 +185,6 @@ public class PlayerManager : NetworkBehaviour
 
             //Increases card counter
             CardsPlayed++;
-            PlayerManager pm = NetworkClient.connection.identity.GetComponent<PlayerManager>();
-            pm.IsMyTurn = !pm.IsMyTurn;
         }
     }
 
@@ -192,11 +196,6 @@ public class PlayerManager : NetworkBehaviour
         {
             GameManager.ChangeReadyClicks();
         }
-    }
-
-    public void EndTurn()
-    {
-        IsMyTurn = false;
     }
 
 }
