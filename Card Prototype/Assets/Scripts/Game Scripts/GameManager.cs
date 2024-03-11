@@ -65,5 +65,4 @@ public class GameManager : NetworkBehaviour
             Debug.Log("Current gameState: " + GameState);
         }
     }
-
 }
