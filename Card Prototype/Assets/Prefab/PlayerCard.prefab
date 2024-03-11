@@ -168,7 +168,7 @@ MonoBehaviour:
   power: 0
   health: 0
   cardDescription: 
-  spriteImage: {fileID: 0}
+  spriteImage: {fileID: 21300000, guid: f564fad100208464f8c46539c07c4be1, type: 3}
   nameText: {fileID: 0}
   costText: {fileID: 0}
   powerText: {fileID: 0}
@@ -190,6 +190,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0adb169777618624788e10766f4d6a6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  GameManager: {fileID: 0}
+  Canvas: {fileID: 0}
+  PlayerManager: {fileID: 0}
 --- !u!114 &3962577098412413819
 MonoBehaviour:
   m_ObjectHideFlags: 0
