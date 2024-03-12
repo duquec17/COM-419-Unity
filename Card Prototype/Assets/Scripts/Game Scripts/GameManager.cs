@@ -41,7 +41,11 @@ public class GameManager : NetworkBehaviour
         }
         else if (stateRequest == "Execute {}")
         {
-            GameState = "Execute {}";
+            if (ReadyClicks == 2)
+            {
+                GameState = "Execute {}";
+            }
+
             Debug.Log("Execute gameState: " + GameState);
         }
         else
@@ -50,11 +54,14 @@ public class GameManager : NetworkBehaviour
         }
     }
 
+    //Increase Ready Clicks used to check if both players have pressed a button
+    //Switches from Initialize phase to compile phase
     public void ChangeReadyClicks()
     {
         ReadyClicks++;
     }
 
+    //Not using leave alone
     public void CardPlayed()
     {
         TurnOrder++;
