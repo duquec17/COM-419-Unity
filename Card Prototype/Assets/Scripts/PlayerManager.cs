@@ -36,6 +36,7 @@ public class PlayerManager : NetworkBehaviour
 
     //Variable tracking current player
     public int CardsPlayed = 0;
+    [SyncVar]
     public int TurnsEnded = 0;
 
 
@@ -143,12 +144,15 @@ public class PlayerManager : NetworkBehaviour
     [Command]
     public void CmdEndTurn()
     {
+        Debug.Log("TurnsEnded = " + TurnsEnded);
         RpcEndTurn();
-        if(TurnsEnded == 2)
+
+        if (TurnsEnded == 1)
         {
             //Changes game manager current state
             RpcGMChangeState("Execute {}");
         }
+        Debug.Log("TurnsEnded = " + TurnsEnded);
     }
 
     [ClientRpc]
@@ -156,7 +160,7 @@ public class PlayerManager : NetworkBehaviour
     {
         PlayerManager pm = NetworkClient.connection.identity.GetComponent<PlayerManager>();
         pm.IsMyTurn = !pm.IsMyTurn;
-        TurnsEnded++;
+        Debug.Log("Ran RpcEndTurn");
     }
 
     //Actual function that moves the recently added card to hand and/or drop zone
