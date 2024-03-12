@@ -48,12 +48,13 @@ public class DrawCards : NetworkBehaviour
     {
         //Toggle the IsMyTurn flag for the current player
         PlayerManager.CmdEndTurn();
-        Debug.Log("Ending Turn: " + PlayerManager.IsMyTurn);
+        Debug.Log("Executing CmdEndTurn & isMyTurn: " + PlayerManager.IsMyTurn);
     }
     
     //Prevents the button from being pressed during other states of the game
     void ExecuteClick()
     {
 
+        Debug.Log("Executing BattlePhase");
     }
 }

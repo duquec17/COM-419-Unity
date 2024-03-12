@@ -54,8 +54,7 @@ public class GameManager : NetworkBehaviour
         }
     }
 
-    //Increase Ready Clicks used to check if both players have pressed a button
-    //Switches from Initialize phase to compile phase
+    //Not using leave alone or find way to make use
     public void ChangeReadyClicks()
     {
         ReadyClicks++;

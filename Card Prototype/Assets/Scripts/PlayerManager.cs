@@ -36,6 +36,7 @@ public class PlayerManager : NetworkBehaviour
 
     //Variable tracking current player
     public int CardsPlayed = 0;
+    public int TurnsEnded = 0;
 
 
     public bool IsMyTurn = false;
@@ -138,10 +139,16 @@ public class PlayerManager : NetworkBehaviour
         RpcShowCard(card, "Played"); //Sets current status of the card to "Played" which makes it appear in a drop zone for the Server
     }
 
+    //Command to call function that checks if player ends their turn
     [Command]
     public void CmdEndTurn()
     {
         RpcEndTurn();
+        if(TurnsEnded == 2)
+        {
+            //Changes game manager current state
+            RpcGMChangeState("Execute {}");
+        }
     }
 
     [ClientRpc]
@@ -149,6 +156,7 @@ public class PlayerManager : NetworkBehaviour
     {
         PlayerManager pm = NetworkClient.connection.identity.GetComponent<PlayerManager>();
         pm.IsMyTurn = !pm.IsMyTurn;
+        TurnsEnded++;
     }
 
     //Actual function that moves the recently added card to hand and/or drop zone
@@ -188,11 +196,18 @@ public class PlayerManager : NetworkBehaviour
         }
     }
 
+    //Changes GameState by passing Game State name and calling function
+    //Check Gamemanger to see function def. (TLDR: ReadyClicks var +1)
     [ClientRpc]
     void RpcGMChangeState(string stateRequest)
     {
         GameManager.ChangeGameState(stateRequest);
         if (stateRequest == "Compile {}")
+        {
+            GameManager.ChangeReadyClicks();
+        }
+
+        if(stateRequest == "Execute {}")
         {
             GameManager.ChangeReadyClicks();
         }
