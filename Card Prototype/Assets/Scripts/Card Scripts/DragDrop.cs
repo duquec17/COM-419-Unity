@@ -76,7 +76,7 @@ public class DragDrop : NetworkBehaviour
             transform.SetParent(dropZone.transform, false);
             isDraggable = false;
             PlayerManager.PlayCard(gameObject);
-            Debug.Log("Is Over:" + dropZone + " and turn isMyTurn is: " + PlayerManager.IsMyTurn);
+            Debug.Log("Is Over:" + dropZone + " and turn isMyTurn is: " + PlayerManager.IsMyTurn + " GameState is: " + GameManager.GameState);
         }
         else
         {

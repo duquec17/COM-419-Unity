@@ -57,6 +57,6 @@ public class DrawCards : NetworkBehaviour
     void ExecuteClick()
     {
 
-        Debug.Log("Executing BattlePhase");
+        Debug.Log("In BattlePhase: button won't work!");
     }
 }
