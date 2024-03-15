@@ -71,8 +71,7 @@ public class DragDrop : NetworkBehaviour
 
         isDragging = false;
 
-
-        if (isOverDropZone && PlayerManager.IsMyTurn)
+        if (isOverDropZone && PlayerManager.IsMyTurn && GameManager.GameState == "Compile {}")
         {
             transform.SetParent(dropZone.transform, false);
             isDraggable = false;
@@ -83,7 +82,8 @@ public class DragDrop : NetworkBehaviour
         {
             transform.position = startPosition;
             transform.SetParent(startParent.transform, false);
-            Debug.Log("Is Over:" + dropZone + " and turn isMyTurn is: " + PlayerManager.IsMyTurn);
+            Debug.Log("Is Over:" + dropZone + "isMyTurn is: " + PlayerManager.IsMyTurn + " GameState is: " + GameManager.GameState);
         }
+       
     }   
 }
