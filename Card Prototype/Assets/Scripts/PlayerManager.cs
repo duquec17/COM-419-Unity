@@ -10,6 +10,7 @@ public class PlayerManager : NetworkBehaviour
     public GameObject PlayerCard;
 
     //All ally objects
+    public int AllyHealth;
     public GameObject AllyDropZone1;
     public GameObject AllyDropZone2;
     public GameObject AllyDropZone3;
@@ -19,6 +20,7 @@ public class PlayerManager : NetworkBehaviour
     public GameObject AllyDeck;
     
     //All enemy object
+    public int EnemyHealth;
     public GameObject EnemyDropZone1;
     public GameObject EnemyDropZone2;
     public GameObject EnemyDropZone3;

@@ -37,7 +37,7 @@ public class DisplayCard : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        numberOfCardsInDeck = PlayerDeck.deckSize;
+        // numberOfCardsInDeck = PlayerDeck.deckSize;
 
         displayCard[0] = CardDatabase.cardList[displayId];
 
