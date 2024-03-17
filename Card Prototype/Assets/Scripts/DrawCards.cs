@@ -46,14 +46,17 @@ public class DrawCards : NetworkBehaviour
     //Prevents the button from being pressed during other states of the game
     void CompileClick()
     {
+        PlayerManager.GetComponent<PlayerManager>().TurnsEnded++;
+
         //Toggle the IsMyTurn flag for the current player
         PlayerManager.CmdEndTurn();
-        Debug.Log("Ending Turn: " + PlayerManager.IsMyTurn);
+        Debug.Log("Executing CmdEndTurn & isMyTurn: " + PlayerManager.IsMyTurn);
     }
     
     //Prevents the button from being pressed during other states of the game
     void ExecuteClick()
     {
 
+        Debug.Log("In BattlePhase: button won't work!");
     }
 }

@@ -11,10 +11,10 @@ public class CardDatabase : MonoBehaviour
     void Awake()
     {
 
-        cardList.Add(new Card(0, "Jester", 1, 1, 2, "+1 power for every other Jester card on the board", Resources.Load<Sprite>("placeHolder")));
-        cardList.Add(new Card(1, "Jester", 1, 1, 2, "+1 power for every other Jester card on the board", Resources.Load<Sprite>("placeHolder")));
-        cardList.Add(new Card(2, "Jester", 1, 1, 2, "+1 power for every other Jester card on the board", Resources.Load<Sprite>("placeHolder")));
-        cardList.Add(new Card(3, "One Man Circus", 4, 0, 4, "Players health cannot be damaged until this card is destroyed", Resources.Load<Sprite>("placeHolder")));
+        cardList.Add(new Card(0, "Jester", 1, 1, 2, "+1 power for every other Jester card on the board", Resources.Load<Sprite>("Jester")));
+        cardList.Add(new Card(1, "Jester", 1, 1, 2, "+1 power for every other Jester card on the board", Resources.Load<Sprite>("Jester")));
+        cardList.Add(new Card(2, "Jester", 1, 1, 2, "+1 power for every other Jester card on the board", Resources.Load<Sprite>("Jester")));
+        cardList.Add(new Card(3, "One Man Circus", 4, 0, 4, "Players health cannot be damaged until this card is destroyed", Resources.Load<Sprite>("One Man Circus")));
         cardList.Add(new Card(4, "Knife Thrower", 3, 1, 2, "Attacks three seperate lanes", Resources.Load<Sprite>("placeHolder")));
         cardList.Add(new Card(5, "Psycho Clown", 3, 4, 1, "+1 power every time an ally card is destroyed", Resources.Load<Sprite>("placeHolder")));
         cardList.Add(new Card(6, "Volunteer", 1, 1, 1, "Moves to an empty lane to protect from incoming damage", Resources.Load<Sprite>("placeHolder")));

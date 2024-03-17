@@ -41,7 +41,11 @@ public class GameManager : NetworkBehaviour
         }
         else if (stateRequest == "Execute {}")
         {
-            GameState = "Execute {}";
+            if (ReadyClicks == 2)
+            {
+                GameState = "Execute {}";
+            }
+
             Debug.Log("Execute gameState: " + GameState);
         }
         else
@@ -50,11 +54,13 @@ public class GameManager : NetworkBehaviour
         }
     }
 
+    //Not using leave alone or find way to make use
     public void ChangeReadyClicks()
     {
         ReadyClicks++;
     }
 
+    //Not using leave alone
     public void CardPlayed()
     {
         TurnOrder++;
@@ -65,5 +71,4 @@ public class GameManager : NetworkBehaviour
             Debug.Log("Current gameState: " + GameState);
         }
     }
-
 }
