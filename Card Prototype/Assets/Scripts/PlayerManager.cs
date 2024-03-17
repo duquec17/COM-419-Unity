@@ -9,6 +9,7 @@ public class PlayerManager : NetworkBehaviour
     public GameManager GameManager;
     public GameObject PlayerCard;
 
+
     //All ally objects
     public int AllyHealth;
     public GameObject AllyDropZone1;
@@ -126,6 +127,74 @@ public class PlayerManager : NetworkBehaviour
 
         //Changes game manager current state
         RpcGMChangeState("Compile {}");
+    }
+
+    [Command]
+    public void CmdCompareCards()
+    {
+        // Iterate through each drop zone
+        for (int i = 0; i < AllyDropZones.Count; i++)
+        {
+            // Get the cards in the specified drop zones
+            Card allyCard = GetCardInDropZone(i);
+            Card enemyCard = GetCardInEnemyDropZone(i);
+
+            // Compare the cards if they exist
+            if (allyCard != null && enemyCard != null)
+            {
+                // Perform comparison based on card attributes
+                if (allyCard.power > enemyCard.health)
+                {
+                    // Destroy the enemy card
+                    DestroyCardInEnemyDropZone(i, allyCard.power);
+
+                    // Decrease the health of the ally card by the attack value
+                    DamageAllyCard(i, enemyCard.power);
+                }
+                // Handle other comparison scenarios if needed
+            }
+        }
+    }
+
+    // Method to retrieve card from ally drop zone
+    private Card GetCardInDropZone(int index)
+    {
+        if (AllyDropZones[index].transform.childCount > 0)
+        {
+            return AllyDropZones[index].transform.GetChild(0).GetComponent<CardDisplay>().card;
+        }
+        return null;
+    }
+
+    // Method to retrieve card from enemy drop zone
+    private Card GetCardInEnemyDropZone(int index)
+    {
+        if (EnemyDropZones[index].transform.childCount > 0)
+        {
+            return EnemyDropZones[index].transform.GetChild(0).GetComponent<CardDisplay>().card;
+        }
+        return null;
+    }
+
+    // Method to destroy card in enemy drop zone
+    private void DestroyCardInEnemyDropZone(int index, int damage)
+    {
+        if (EnemyDropZones[index].transform.childCount > 0)
+        {
+            CardDisplay cardDisplay = AllyDropZones[index].transform.GetChild(0).GetComponent<CardDisplay>();
+            cardDisplay.card.health -= damage;
+        }
+    }
+
+    // Method to damage ally card in drop zone
+    private void DamageAllyCard(int index, int damage)
+    {
+        if (AllyDropZones[index].transform.childCount > 0)
+        {
+            CardDisplay cardDisplay = AllyDropZones[index].transform.GetChild(0).GetComponent<CardDisplay>();
+            cardDisplay.card.health -= damage;
+            // Update UI or perform other actions if needed
+        }
     }
 
     //Calls upon CmdPlayCard

@@ -56,7 +56,7 @@ public class DrawCards : NetworkBehaviour
     //Prevents the button from being pressed during other states of the game
     void ExecuteClick()
     {
-
-        Debug.Log("In BattlePhase: button won't work!");
+        PlayerManager.CmdCompareCards();
+        Debug.Log("In BattlePhase: ready up to fight!");
     }
 }
