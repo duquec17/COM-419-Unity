@@ -10,6 +10,7 @@ public class GameManager : NetworkBehaviour
     public string GameState = "Initialize {}";
     public int AllyMana = 2;
     public int EnemyMana = 2;
+
     public int AllyVariables = 0;
     public int EnemyVariables = 0;
     
