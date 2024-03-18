@@ -139,9 +139,12 @@ public class PlayerManager : NetworkBehaviour
             Card allyCard = GetCardInDropZone(i);
             Card enemyCard = GetCardInEnemyDropZone(i);
 
-            // Compare the cards if they exist
-            if (allyCard != null && enemyCard != null)
+            // Skip comparison if either card is null
+            if (allyCard == null || enemyCard == null)
             {
+                continue;
+            }
+
                 // Perform comparison based on card attributes
                 if (allyCard.power > enemyCard.health)
                 {
@@ -151,8 +154,6 @@ public class PlayerManager : NetworkBehaviour
                     // Decrease the health of the ally card by the attack value
                     DamageAllyCard(i, enemyCard.power);
                 }
-                // Handle other comparison scenarios if needed
-            }
         }
     }
 
