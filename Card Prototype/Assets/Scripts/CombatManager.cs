@@ -9,6 +9,10 @@ public class CombatManager : NetworkBehaviour
     public PlayerManager playerManagerAlly;
     public PlayerManager playerManagerEnemy;
 
+    //Start of all network shared objects & variables//
+    public GameManager GameManager;
+    public GameObject PlayerCard;
+
     // Start is called before the first frame update
     void Start()
     {

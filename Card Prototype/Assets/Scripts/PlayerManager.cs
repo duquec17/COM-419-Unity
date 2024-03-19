@@ -170,8 +170,10 @@ public class PlayerManager : NetworkBehaviour
     [Command]
     public void CmdCombatSystem()
     {
+        // Method to retrieve card from a drop zone by index
 
     }
+
 
     //Actual function that moves the recently added card to hand and/or drop zone
     [ClientRpc]
