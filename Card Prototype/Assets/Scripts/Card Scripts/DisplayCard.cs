@@ -32,15 +32,15 @@ public class DisplayCard : MonoBehaviour
     void Start()
     {
         // numberOfCardsInDeck = PlayerDeck.deckSize;
-        displayCard[5] = CardDatabase.cardList[5];
+        displayCard[0] = CardDatabase.cardList[0];
 
-        id = displayCard[5].id;
-        cardName = displayCard[5].cardName;
-        cost = displayCard[5].cost;
-        power = displayCard[5].power;
-        health = displayCard[5].health;
-        cardDescription = displayCard[5].cardDescription;
-        spriteImage = displayCard[5].spriteImage;
+        id = displayCard[0].id;
+        cardName = displayCard[0].cardName;
+        cost = displayCard[0].cost;
+        power = displayCard[0].power;
+        health = displayCard[0].health;
+        cardDescription = displayCard[0].cardDescription;
+        spriteImage = displayCard[9].spriteImage;
         artImage.sprite = spriteImage;
     }
 

@@ -324,4 +324,4 @@ MonoBehaviour:
   artImage: {fileID: 1325048244974266434}
   cardBack: 0
   Hand: {fileID: 0}
-  numberOfCardsInDeck: 11
+  numberOfCardsInDeck: 10
