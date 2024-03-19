@@ -24,6 +24,7 @@ public class GameManager : NetworkBehaviour
         Debug.Log("Current gameState: " + GameState);
     }
 
+    //Checks and Switches which state the game is in
     public void ChangeGameState(string stateRequest)
     {
 

@@ -56,7 +56,8 @@ public class DrawCards : NetworkBehaviour
     //Prevents the button from being pressed during other states of the game
     void ExecuteClick()
     {
-        PlayerManager.CmdCompareCards();
+       //Have both players Ready up for battle phase
+
         Debug.Log("In BattlePhase: ready up to fight!");
     }
 }
