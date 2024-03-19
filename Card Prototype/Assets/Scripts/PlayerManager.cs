@@ -171,7 +171,7 @@ public class PlayerManager : NetworkBehaviour
     [Command]
     public void CmdCombatSystem()
     {
-        CombatManager.CompareCards();
+        
     }
 
 
@@ -209,6 +209,7 @@ public class PlayerManager : NetworkBehaviour
 
             //Increases card counter
             CardsPlayed++;
+            Debug.Log("Card ID: " + card.name);
         }
     }
 
