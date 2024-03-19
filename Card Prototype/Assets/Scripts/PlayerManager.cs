@@ -8,6 +8,7 @@ public class PlayerManager : NetworkBehaviour
     //Start of all network shared objects & variables//
     public GameManager GameManager;
     public GameObject PlayerCard;
+    public CombatManager CombatManager;
 
 
     //All ally objects
@@ -170,8 +171,7 @@ public class PlayerManager : NetworkBehaviour
     [Command]
     public void CmdCombatSystem()
     {
-        // Method to retrieve card from a drop zone by index
-
+        CombatManager.CompareCards();
     }
 
 
