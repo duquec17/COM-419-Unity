@@ -41,11 +41,6 @@ public class DisplayCard : MonoBehaviour
 
         displayCard[0] = CardDatabase.cardList[displayId];
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
         id = displayCard[0].id;
         cardName = displayCard[0].cardName;
         cost = displayCard[0].cost;
@@ -61,5 +56,10 @@ public class DisplayCard : MonoBehaviour
         healthText.text = " " + health;
         descriptionText.text = " " + cardDescription;
         artImage.sprite = spriteImage;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
     }
 }
