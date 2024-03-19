@@ -10,6 +10,7 @@ public class GameManager : NetworkBehaviour
     public string GameState = "Initialize {}";
     public int AllyMana = 2;
     public int EnemyMana = 2;
+
     // Reference to the player manager scripts of both players
     public PlayerManager playerManagerAlly;
     public PlayerManager playerManagerEnemy;
