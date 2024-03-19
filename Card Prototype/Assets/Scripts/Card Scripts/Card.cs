@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 [System.Serializable]
 
-public class Card {
+public class Card 
+{
     
     public int id;
     public string cardName;

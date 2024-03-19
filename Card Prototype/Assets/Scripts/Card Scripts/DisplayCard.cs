@@ -39,7 +39,7 @@ public class DisplayCard : MonoBehaviour
     {
         // numberOfCardsInDeck = PlayerDeck.deckSize;
 
-        displayCard[0] = CardDatabase.cardList[displayId];
+        displayCard[0] = CardDatabase.cardList[0];
 
         id = displayCard[0].id;
         cardName = displayCard[0].cardName;
@@ -48,14 +48,6 @@ public class DisplayCard : MonoBehaviour
         health = displayCard[0].health;
         cardDescription = displayCard[0].cardDescription;
         spriteImage = displayCard[0].spriteImage;
-
-
-        nameText.text = " " + cardName;
-        costText.text = " " + cost;
-        powerText.text = " " + power;
-        healthText.text = " " + health;
-        descriptionText.text = " " + cardDescription;
-        artImage.sprite = spriteImage;
     }
 
     // Update is called once per frame

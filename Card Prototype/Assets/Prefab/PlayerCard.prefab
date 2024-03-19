@@ -37,8 +37,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 152445255327836405}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -271,7 +270,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72fcf9bae0df33346a89011a74c9752c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayCard: []
+  displayCard:
+  - id: 0
+    cardName: 
+    cost: 0
+    power: 0
+    health: 0
+    cardDescription: 
+    spriteImage: {fileID: 0}
   displayId: 0
   id: 0
   cardName: 
@@ -288,79 +294,4 @@ MonoBehaviour:
   artImage: {fileID: 0}
   cardBack: 0
   Hand: {fileID: 0}
-  numberOfCardsInDeck: 0
---- !u!1 &4618870100648413427
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 152445255327836405}
-  - component: {fileID: 260471042744292969}
-  m_Layer: 8
-  m_Name: PlayerMain
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &152445255327836405
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4618870100648413427}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1325048244974266435}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &260471042744292969
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4618870100648413427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8adaf11b0a6d7b4db4930f3c1c72b33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ID: 0100000002000000030000000400000005000000060000000700000008000000090000000a000000
-  names:
-  - Jester
-  - Jester
-  - Jester
-  - One Man Circus
-  - Knife Thrower
-  - Psycho Clown
-  - Volunteer
-  - Liton Tamer
-  - Ring Leader
-  - Trapeze Artist
-  Mana: 01000000010000000100000004000000030000000300000001000000080000000a00000006000000
-  Power: 01000000010000000100000000000000010000000100000001000000020000000400000002000000
-  Health: 02000000020000000200000004000000020000000400000001000000020000000400000004000000
-  Ability:
-  - '"+1 power for every other Jester card on the board'
-  - '"+1 power for every other Jester card on the board'
-  - '"+1 power for every other Jester card on the board'
-  - Players health cannot be damaged until this card is destroyed
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  numberOfCardsInDeck: 10
