@@ -61,26 +61,5 @@ public class DisplayCard : MonoBehaviour
         healthText.text = " " + health;
         descriptionText.text = " " + cardDescription;
         artImage.sprite = spriteImage;
-
-
-        Hand = GameObject.Find("Hand");
-        if (this.transform.parent == Hand.transform.parent)
-        {
-            cardBack = false;
-        }
-        staticCardBack = cardBack;
-
-        if (this.tag == "Clone")
-        {
-            displayCard[0] = PlayerDeck.staticDeck[numberOfCardsInDeck - 1];
-            numberOfCardsInDeck -= 1;
-            PlayerDeck.deckSize -= 1;
-            cardBack = false;
-            this.tag = "Untagged";
-        }
-
-
     }
-
-
 }
