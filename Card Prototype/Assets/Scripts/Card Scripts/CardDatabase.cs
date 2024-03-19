@@ -33,6 +33,4 @@ public class CardDatabase : MonoBehaviour
         cardList.Add(new Card(19, "None", 0, 0, 0, "None", Resources.Load<Sprite>("placeHolder")));
     }
 
-
-
 }

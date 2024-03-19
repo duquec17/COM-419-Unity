@@ -129,8 +129,6 @@ public class PlayerManager : NetworkBehaviour
         RpcGMChangeState("Compile {}");
     }
 
-    //
-
     //Calls upon CmdPlayCard
     public void PlayCard(GameObject card)
     {
@@ -166,6 +164,13 @@ public class PlayerManager : NetworkBehaviour
         PlayerManager pm = NetworkClient.connection.identity.GetComponent<PlayerManager>();
         pm.IsMyTurn = !pm.IsMyTurn;
         Debug.Log("Ran RpcEndTurn");
+    }
+
+    //Command that initializes combat system
+    [Command]
+    public void CmdCombatSystem()
+    {
+
     }
 
     //Actual function that moves the recently added card to hand and/or drop zone
