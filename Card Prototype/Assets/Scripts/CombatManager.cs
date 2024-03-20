@@ -22,6 +22,7 @@ public class CombatManager : NetworkBehaviour
     // Method to compare power and health values of cards in the first drop zones of both players
     public void CompareCards()
     {
+        
     }
 
 }

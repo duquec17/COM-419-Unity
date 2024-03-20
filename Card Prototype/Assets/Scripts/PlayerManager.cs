@@ -194,7 +194,7 @@ public class PlayerManager : NetworkBehaviour
         {
             if (CardsPlayed == 5)
             {
-                CardsPlayed = 0;
+                CardsPlayed = 5;
             }
 
             if (isOwned)

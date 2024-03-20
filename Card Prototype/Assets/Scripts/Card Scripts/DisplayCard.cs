@@ -40,12 +40,9 @@ public class DisplayCard : MonoBehaviour
         power = displayCard[0].power;
         health = displayCard[0].health;
         cardDescription = displayCard[0].cardDescription;
-        spriteImage = displayCard[9].spriteImage;
+        spriteImage = displayCard[0].spriteImage;
         artImage.sprite = spriteImage;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
+    
 }
