@@ -171,7 +171,7 @@ public class PlayerManager : NetworkBehaviour
     [Command]
     public void CmdCombatSystem()
     {
-        
+        CombatManager.CompareCards();
     }
 
 
