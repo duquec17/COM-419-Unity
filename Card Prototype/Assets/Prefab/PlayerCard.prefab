@@ -148,6 +148,7 @@ MonoBehaviour:
   positionSensitivity: 0.01
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
+
 --- !u!114 &5091304666588150866
 MonoBehaviour:
   m_ObjectHideFlags: 0
