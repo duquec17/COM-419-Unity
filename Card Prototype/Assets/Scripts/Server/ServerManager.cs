@@ -5,34 +5,45 @@ using Mirror;
 
 public class ServerManager : NetworkBehaviour
 {
-    // Reference to the GameManager
-    public GameManager gameManager;
+    private List<Card> cardPool = new List<Card>();
 
-    // Reference to the PlayerManager
-    public PlayerManager playerManager;
+    // List of players connected to the server
+    private List<Player> players = new List<Player>();
 
-    // Start is called before the first frame update
-    void Start()
+    // List of cards in each player's hand
+    private Dictionary<Player, List<Card>> playerHands = new Dictionary<Player, List<Card>>();
+
+    // List of cards on the game board
+    private List<Card> gameBoard = new List<Card>();
+
+    // List of cards in the graveyard
+    private List<Card> graveyard = new List<Card>();
+
+    // Method to initialize the server
+    public void StartServer()
     {
-        // Find references to GameManager and PlayerManager
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
+        // Start the server logic here
     }
 
-    // Method to compare power and health values of cards in the first drop zones of both players
-    public void CompareCards()
+    // Method to handle a player connecting to the server
+    public void OnPlayerConnect(Player player)
     {
-
+        players.Add(player);
+        playerHands[player] = new List<Card>();
+        // Add logic to initialize player's hand, draw cards, etc.
     }
 
-    // Method to notify clients to update the displayed cards after combat
-    [ClientRpc]
-    private void RpcUpdateCombatResult(GameObject cardObject, int newHealth)
+    // Method to handle a player disconnecting from the server
+    public void OnPlayerDisconnect(Player player)
     {
-        // Update the health of the card on the client side
-        Card card = cardObject.GetComponent<Card>();
-        card.health = newHealth;
+        players.Remove(player);
+        // Add logic to handle cleanup, end game if necessary, etc.
+    }
 
-        // Implement logic to update the UI or perform other actions based on the combat result
+    // Method to handle game logic
+    public void HandleGameLogic()
+    {
+        // Implement game logic here
+        // This method could handle card interactions, turn management, etc.
     }
 }
