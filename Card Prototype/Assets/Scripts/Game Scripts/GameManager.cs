@@ -8,8 +8,12 @@ public class GameManager : NetworkBehaviour
     //Variables managing game logic
     public int TurnOrder = 0;
     public string GameState = "Initialize {}";
-    public int AllyMana = 0;
-    public int EnemyMana = 0;
+    public int AllyMana = 2;
+    public int EnemyMana = 2;
+
+    // Reference to the player manager scripts of both players
+    public PlayerManager playerManagerAlly;
+    public PlayerManager playerManagerEnemy;
     public int AllyVariables = 0;
     public int EnemyVariables = 0;
     
@@ -21,6 +25,7 @@ public class GameManager : NetworkBehaviour
         Debug.Log("Current gameState: " + GameState);
     }
 
+    //Checks and Switches which state the game is in
     public void ChangeGameState(string stateRequest)
     {
 

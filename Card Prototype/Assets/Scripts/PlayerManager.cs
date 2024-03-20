@@ -8,8 +8,11 @@ public class PlayerManager : NetworkBehaviour
     //Start of all network shared objects & variables//
     public GameManager GameManager;
     public GameObject PlayerCard;
+    public CombatManager CombatManager;
+
 
     //All ally objects
+    public int AllyHealth;
     public GameObject AllyDropZone1;
     public GameObject AllyDropZone2;
     public GameObject AllyDropZone3;
@@ -19,6 +22,7 @@ public class PlayerManager : NetworkBehaviour
     public GameObject AllyDeck;
     
     //All enemy object
+    public int EnemyHealth;
     public GameObject EnemyDropZone1;
     public GameObject EnemyDropZone2;
     public GameObject EnemyDropZone3;
@@ -163,6 +167,14 @@ public class PlayerManager : NetworkBehaviour
         Debug.Log("Ran RpcEndTurn");
     }
 
+    //Command that initializes combat system
+    [Command]
+    public void CmdCombatSystem()
+    {
+        CombatManager.CompareCards();
+    }
+
+
     //Actual function that moves the recently added card to hand and/or drop zone
     [ClientRpc]
     void RpcShowCard(GameObject card, string type)
@@ -182,7 +194,7 @@ public class PlayerManager : NetworkBehaviour
         {
             if (CardsPlayed == 5)
             {
-                CardsPlayed = 0;
+                CardsPlayed = 5;
             }
 
             if (isOwned)
@@ -197,6 +209,7 @@ public class PlayerManager : NetworkBehaviour
 
             //Increases card counter
             CardsPlayed++;
+            Debug.Log("Card ID: " + card.name);
         }
     }
 
