@@ -1991,7 +1991,7 @@ MonoBehaviour:
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 7489811291349030334, guid: 5f6abc4a856b1aa4e9c2e9ea5072aa73, type: 3}
+  playerPrefab: {fileID: 7564811719708240179, guid: 80a014d6b6ae3d04294ee8a95ed12037, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
   spawnPrefabs:

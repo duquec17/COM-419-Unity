@@ -8,10 +8,10 @@ public class ServerManager : NetworkBehaviour
     private List<Card> cardPool = new List<Card>();
 
     // List of players connected to the server
-    private List<NetworkConnectionToClient> connections = new List<NetworkConnectionToClient>();
+    private List<Player> players = new List<Player>();
 
     // List of cards in each player's hand
-    private Dictionary<NetworkConnectionToClient, List<Card>> playerHands = new Dictionary<NetworkConnectionToClient, List<Card>>();
+    private Dictionary<Player, List<Card>> playerHands = new Dictionary<Player, List<Card>>();
 
     // List of cards on the game board
     private List<Card> gameBoard = new List<Card>();
@@ -20,89 +20,55 @@ public class ServerManager : NetworkBehaviour
     private List<Card> graveyard = new List<Card>();
 
     // Number assigned to each player
-    private Dictionary<NetworkConnectionToClient, int> playerNumbers = new Dictionary<NetworkConnectionToClient, int>();
+    private Dictionary<Player, int> playerNumbers = new Dictionary<Player, int>();
 
-    // Start is called before the first frame update
-    void Start()
+    // Variable to track whose turn it is
+    private bool isMyTurn = false;
+
+    public override void OnStartClient()
     {
-        // Start server when the script starts
-        StartServer();
-    }
+        base.OnStartClient();
 
-    // Method to start the server
-    public void StartServer()
-    {
-        // Start the Mirror server
-        NetworkManager.singleton.StartServer();
+        GameObject playerObject = GameObject.FindWithTag("Player"); // Assuming players are tagged with "Player"
+        Player playerComponent = playerObject.GetComponent<Player>();
 
-        // Log server start
-        Debug.Log("Server started");
-    }
-
-    // Method to stop the server
-    public void StopServer()
-    {
-        // Stop the Mirror server
-        NetworkManager.singleton.StopServer();
-
-        // Log server stop
-        Debug.Log("Server stopped");
-    }
-
-    // Method to handle a player connecting to the server
-    [Server]
-    public void OnServerAddPlayer(NetworkConnectionToClient conn)
-    {
-        // Add the connection to the list of connections
-        connections.Add(conn);
-
-        // Initialize the player's hand as an empty list
-        playerHands[conn] = new List<Card>();
-
-        // Log the player connection
-        Debug.Log("Player connected: " + conn.identity.name);
+        // Add the player to the list of connected players
+        players.Add(playerComponent);
 
         // Assign a player number to the connected player
-        AssignPlayerNumber(conn);
+        AssignPlayerNumber(playerComponent);
+
+        // If this is the first player, set their turn to true
+        if (players.Count == 1)
+        {
+            isMyTurn = true;
+        }
 
         // Add logic to initialize player's hand, draw cards, etc.
     }
 
     // Method to handle a player disconnecting from the server
-    [Server]
-    public void OnServerDisconnect(NetworkConnectionToClient conn)
+    public void OnPlayerDisconnect(Player player)
     {
-        // Remove the connection from the list of connections
-        connections.Remove(conn);
+        // Remove the player from the list of connected players
+        players.Remove(player);
 
-        // Retrieve the player number and remove it from the dictionary
-        int playerNumber = playerNumbers[conn];
-        playerNumbers.Remove(conn);
-
-        // Log the player disconnection
-        Debug.Log("Player disconnected: " + conn.identity.name + " (Player " + playerNumber + ")");
+        // Remove the player number entry
+        playerNumbers.Remove(player);
 
         // Add logic to handle cleanup, end game if necessary, etc.
     }
 
     // Method to assign player number
-    private void AssignPlayerNumber(NetworkConnectionToClient conn)
+    private void AssignPlayerNumber(Player player)
     {
-        // Calculate player number based on the order of connections
-        int playerNumber = connections.IndexOf(conn) + 1;
+        // Calculate player number based on the number of connected players
+        int playerNumber = players.Count;
 
         // Assign player number
-        playerNumbers[conn] = playerNumber;
+        playerNumbers[player] = playerNumber;
 
         // Log the assignment of player number
-        Debug.Log("Player " + conn.identity.name + " assigned number " + playerNumber);
-    }
-
-    // Method to handle game logic
-    public void HandleGameLogic()
-    {
-        Debug.Log("Executing game logic...(TBD)");
-        // Implement game logic here
-        // This method could handle card interactions, turn management, etc.
+        Debug.Log("Player " + player.name + " assigned number " + playerNumber);
     }
 }

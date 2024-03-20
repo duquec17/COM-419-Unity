@@ -18,7 +18,10 @@ public class MyNetworkManager : NetworkBehaviour
     [Server]
     public override void OnStopServer()
     {
+        base.OnStopServer();
 
+        //Tells us that the server is running
+        Debug.Log("OnStartServer was deactivated");
     }
 
     public override void OnStartClient()
