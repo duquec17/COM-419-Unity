@@ -8,6 +8,9 @@ public class Player : MonoBehaviour
     public GameObject PlayerCard;
     public GameObject Hand;
     public GameObject Deck;
+    //Variables used for networking and determining game logic
+    public PlayerManager PlayerManager;
+    public GameManager GameManager;
     public List<GameObject> DropZones = new List<GameObject>();
 
     // Variables for game state
@@ -19,7 +22,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         // Initialize references to game objects
-        Hand = GameObject.Find("Hand");
+        Hand = GameObject.Find("AllyHand");
         Deck = GameObject.Find("Deck");
 
 
@@ -35,7 +38,7 @@ public class Player : MonoBehaviour
         // Draw initial hand of cards
         for (int i = 0; i < 3; i++)
         {
-            DrawCard();
+            PlayerManager.CmdDealCards();
         }
     }
 

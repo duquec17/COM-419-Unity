@@ -30,6 +30,7 @@ public class ServerManager : NetworkBehaviour
     {
         players.Add(player);
         playerHands[player] = new List<Card>();
+
         // Add logic to initialize player's hand, draw cards, etc.
     }
 
