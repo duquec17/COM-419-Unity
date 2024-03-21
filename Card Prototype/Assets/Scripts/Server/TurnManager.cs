@@ -6,10 +6,19 @@ using UnityEngine.Events;
 
 public class TurnManager : NetworkBehaviour
 {
+    // List to hold the identities of players
     List<NetworkIdentity> _identities = new List<NetworkIdentity>();
+
+    // Index of the current player
     private int _currentPlayerIndex = 1;
+
+    // SyncVar to synchronize current player across network
     [SyncVar(hook = nameof(NextTurnEvent))] public uint currentPlayer = 0;
+
+    // UnityEvent to invoke when switching to next player
     public UnityEvent<uint> nextPlayer;
+
+    // UnityEvent to invoke when a player is registered
     public UnityEvent<NetworkIdentity, int> playerRegisteredEvent;
 
     // Track the number of players that have joined
@@ -17,7 +26,10 @@ public class TurnManager : NetworkBehaviour
 
     private void Start()
     {
+        // Set the name of the GameObject to TurnManager
         gameObject.name = "TurnManager";
+
+        // If this instance is a server, add a null entry to the identities list
         if (isServer) _identities.Add(null);
     }
 
@@ -36,8 +48,12 @@ public class TurnManager : NetworkBehaviour
         //Handle here if reconnects can happen
         Debug.LogFormat("Payer added: {0}", connection.identity);
 
+        // Add the player's identity to the identities list
         _identities.Add(connection.identity);
+        
+        // Invoke the playerRegisteredEvent UnityEvent with the player's identity and turn
         playerRegisteredEvent?.Invoke(connection.identity, GetPlayerTurn(connection));
+
 
         // Increment the count of players that have joined
         playersJoined++;
@@ -53,14 +69,20 @@ public class TurnManager : NetworkBehaviour
     [Server]
     public void NextPlayer()
     {
+        // Move to the next player
         _currentPlayerIndex++;
+       
+        // If it exceeds the count of identities, loop back to the second player
         if (_currentPlayerIndex >= _identities.Count) _currentPlayerIndex = 1;
+        
+        // Set the current player to the next player's netId
         currentPlayer = _identities[_currentPlayerIndex].netId;
     }
 
     [Server]
     public bool IsCurrentTurn(NetworkConnectionToClient connection)
     {
+        // Check if the provided connection's identity matches the current player's identity
         if (_identities[_currentPlayerIndex] == connection.identity) return true;
         //Sent a message to the client the action is out of turn
         //_errorManager.TargetErrorMessage(connection, "Not your turn");
@@ -70,22 +92,26 @@ public class TurnManager : NetworkBehaviour
     [Server]
     public int GetCurrentPlayerIndex()
     {
+        // Return the index of the current player
         return _currentPlayerIndex;
     }
 
     [Server]
     public uint GetPlayerByIndex(int index)
     {
+        // Return the netId of the player at the specified index
         return _identities[index].netId;
     }
 
     public int GetPlayerTurn(NetworkConnectionToClient connection)
     {
+        // Return the turn of the player associated with the given connection
         return _identities.IndexOf(connection.identity);
     }
 
     void NextTurnEvent(uint oldPlayer, uint newPlayer)
     {
+        // Invoke the nextPlayer UnityEvent with the new player's netId
         nextPlayer?.Invoke(newPlayer);
     }
 
@@ -93,6 +119,12 @@ public class TurnManager : NetworkBehaviour
     // Function to output the current _identities list
     private void CurrentList()
     {
+        // Output who is going first
+        if (_identities.Count > 1 && _identities[1] != null)
+        {
+            Debug.LogFormat("Going first: {0}", _identities[1].name);
+        }
+
         Debug.Log("Current _identities:");
         foreach (NetworkIdentity identity in _identities)
         {
@@ -102,4 +134,5 @@ public class TurnManager : NetworkBehaviour
             }
         }
     }
+
 }
