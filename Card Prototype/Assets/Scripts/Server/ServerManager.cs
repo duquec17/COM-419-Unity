@@ -1,61 +1,71 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
 public class ServerManager : NetworkBehaviour
 {
-    private List<Card> cardPool = new List<Card>();
+    // SyncVars for game state variables
+    [SyncVar]
     private List<Player> players = new List<Player>();
-    private Dictionary<Player, List<Card>> playerHands = new Dictionary<Player, List<Card>>();
-    private List<Card> gameBoard = new List<Card>();
+
+    [SyncVar]
+    public int playerNum = 0;
+
+    //Reference to the Player
+    public Player player;
+
+    // Reference to the TurnManager
+    public TurnManager turnManager;
+
+    // Other game state variables
+    private List<Card> drawStack = new List<Card>();
+    private List<Card>[] playerHands;
+    private List<Card>[] playerBoard;
     private List<Card> graveyard = new List<Card>();
-    private Dictionary<Player, int> playerNumbers = new Dictionary<Player, int>();
-    private int currentPlayerIndex = 0; // Index of the current player in the players list
+    private int currentPlayerIndex = 0;
 
-    
-
-    // Method to initialize the game
-    [Command]
-    private void InitializeGame()
+    //Starts server (Host + Client)
+    [Server]
+    public override void OnStartServer()
     {
-        // Initialize card pool, players, etc. (Add your initialization logic here)
+        base.OnStartServer();
 
-        // Determine the first player
-        DetermineFirstPlayer();
+        //Tells us that the server is running
+        Debug.Log("OnStartServer was activated");
     }
 
-    // Method to determine the first player
-    private void DetermineFirstPlayer()
+    // Start is called before the first frame update
+    void Start()
     {
-        // Shuffle the list of players
-        ShufflePlayers();
-
-        // Set the first player as the current player
-        currentPlayerIndex = 0;
-        // Optionally, you can inform clients about the first player's turn here
-        // RpcUpdateCurrentPlayerTurn(players[currentPlayerIndex].connectionToClient);
+        // Find a reference to the TurnManager
+        turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
     }
 
-    // Method to shuffle the list of players
-    private void ShufflePlayers()
+    //Runs whens Server stops running
+    [Server]
+    public override void OnStopServer()
     {
-        for (int i = 0; i < players.Count; i++)
-        {
-            Player temp = players[i];
-            int randomIndex = Random.Range(i, players.Count);
-            players[i] = players[randomIndex];
-            players[randomIndex] = temp;
-        }
+        base.OnStopServer();
+
+        //Tells us that the server is running
+        Debug.Log("OnStartServer was deactivated");
     }
 
-    // Method to initialize the game
+    //Starts when client button pressed
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        //Message to show that client is running; appears in console tab
+        Debug.Log("OnStartClient was activated");
 
-    // Method to handle end turn action
+    }
 
-    // Method to move to the next player's turn
+    //Runs when Client disconnects or leaves
+    public override void OnStopClient()
+    {
+        base.OnStopClient();
+        //Message to show that client is not running; appears in console tab
+        Debug.Log("OnStartClient was deactivated");
+    }
 
-    // RPC method to update the current player's turn on all clients
-
-    // Method to handle player actions (e.g., playing a card, attacking, etc.)
 }

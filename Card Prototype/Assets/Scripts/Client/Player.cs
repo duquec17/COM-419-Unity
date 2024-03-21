@@ -5,13 +5,13 @@ using Mirror;
 
 public class Player : NetworkBehaviour
 {
-   // References to game objects
+    // References to game objects
     public GameObject PlayerCard;
+    public TurnManager turnManager;
+
     public GameObject Hand;
     public GameObject Deck;
-    //Variables used for networking and determining game logic
-    public PlayerManager PlayerManager;
-    public GameManager GameManager;
+
     public List<GameObject> DropZones = new List<GameObject>();
 
     // Variables for game state
@@ -22,48 +22,36 @@ public class Player : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Initialize references to game objects
-        Hand = GameObject.Find("AllyHand");
-        Deck = GameObject.Find("Deck");
+        
+            // Initialize references to game objects
+            Hand = GameObject.Find("AllyHand");
+            Deck = GameObject.Find("Deck");
 
 
 
-        // Connect drop zones to the list
-        DropZones.Add(GameObject.Find("AllyDropZone"));
-        DropZones.Add(GameObject.Find("AllyDropZone (1)"));
-        DropZones.Add(GameObject.Find("AllyDropZone (2)"));
-        DropZones.Add(GameObject.Find("AllyDropZone (3)"));
-        DropZones.Add(GameObject.Find("AllyDropZone (4)"));
-        DropZones.Add(GameObject.Find("AllyDropZone (5)"));
+            // Connect drop zones to the list
+            DropZones.Add(GameObject.Find("AllyDropZone"));
+            DropZones.Add(GameObject.Find("AllyDropZone (1)"));
+            DropZones.Add(GameObject.Find("AllyDropZone (2)"));
+            DropZones.Add(GameObject.Find("AllyDropZone (3)"));
+            DropZones.Add(GameObject.Find("AllyDropZone (4)"));
+            DropZones.Add(GameObject.Find("AllyDropZone (5)"));
 
-        // Draw initial hand of cards
-        for (int i = 0; i < 3; i++)
-        {
-            PlayerManager.CmdDealCards();
-        }
+            // Find a reference to the TurnManager
+            turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
     }
 
-    // Method to draw a card into the player's hand
-    public void DrawCard()
+    public override void OnStartClient()
     {
-        GameObject card = Instantiate(PlayerCard, Deck.transform.position, Quaternion.identity);
-        card.transform.SetParent(Hand.transform, false);
+        base.OnStartClient();
+
+        CmdRegisterPlayer();
     }
 
-    // Method to play a card from the player's hand
-    public void PlayCard(GameObject card)
+    [Command]
+    void CmdRegisterPlayer(NetworkConnectionToClient sender = null)
     {
-        // Implement logic to play the card
-        // For example, move it from the hand to the game board
-        card.transform.SetParent(DropZones[CardsPlayed].transform, false);
-        CardsPlayed++;
+        turnManager.RegisterPlayer(sender);
     }
 
-    // Method to end the player's turn
-    public void EndTurn()
-    {
-        // Implement logic to end the turn
-        IsMyTurn = false;
-        // Notify the GameManager or other relevant scripts
-    }
 }
