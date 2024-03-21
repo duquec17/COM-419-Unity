@@ -21,6 +21,15 @@ public class TurnManager : NetworkBehaviour
         if (isServer) _identities.Add(null);
     }
 
+    private void Update()
+    {
+        // Check for the "X" key press
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            CurrentList();
+        }
+    }
+
     [Server]
     public void RegisterPlayer(NetworkConnectionToClient connection)
     {
@@ -78,5 +87,19 @@ public class TurnManager : NetworkBehaviour
     void NextTurnEvent(uint oldPlayer, uint newPlayer)
     {
         nextPlayer?.Invoke(newPlayer);
+    }
+
+    [Server]
+    // Function to output the current _identities list
+    private void CurrentList()
+    {
+        Debug.Log("Current _identities:");
+        foreach (NetworkIdentity identity in _identities)
+        {
+            if (identity != null)
+            {
+                Debug.Log(identity.name);
+            }
+        }
     }
 }

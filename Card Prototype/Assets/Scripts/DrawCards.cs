@@ -6,7 +6,7 @@ using Mirror;
 public class DrawCards : NetworkBehaviour
 {
     //Variables used for networking and determining game logic
-    public PlayerManager PlayerManager;
+    public Player player;
     public GameManager GameManager;
 
     //Searches for object called GameManager and acquires the component with the same name
@@ -19,7 +19,7 @@ public class DrawCards : NetworkBehaviour
     public void OnClick()
     {
         NetworkIdentity networkIdentity = NetworkClient.connection.identity;
-        PlayerManager = networkIdentity.GetComponent<PlayerManager>();
+        player = networkIdentity.GetComponent<Player>();
 
         //Checks current state of game and which version of Click to run
         if(GameManager.GameState == "Initialize {}")
@@ -39,26 +39,18 @@ public class DrawCards : NetworkBehaviour
     //Allows the button to pressed during the initial state of the game
     void InitializeClick()
     {
-        PlayerManager.CmdDealCards();
-        Debug.Log("Executing CmdDealCards");
+        
     }
 
     //Prevents the button from being pressed during other states of the game
     void CompileClick()
     {
-        PlayerManager.GetComponent<PlayerManager>().TurnsEnded++;
-
-        //Toggle the IsMyTurn flag for the current player
-        PlayerManager.CmdEndTurn();
-        Debug.Log("Executing CmdEndTurn & isMyTurn: " + PlayerManager.IsMyTurn);
+       
     }
     
     //Prevents the button from being pressed during other states of the game
     void ExecuteClick()
     {
-        //Have both players Ready up for battle phase
-        PlayerManager.CmdCombatSystem();
 
-        Debug.Log("In BattlePhase: ready up to fight!");
     }
 }

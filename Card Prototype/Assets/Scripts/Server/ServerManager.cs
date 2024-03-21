@@ -67,5 +67,4 @@ public class ServerManager : NetworkBehaviour
         //Message to show that client is not running; appears in console tab
         Debug.Log("OnStartClient was deactivated");
     }
-
 }
