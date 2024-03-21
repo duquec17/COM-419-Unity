@@ -26,13 +26,11 @@ public class Player : NetworkBehaviour
         Hand = GameObject.Find("AllyHand");
         Deck = GameObject.Find("Deck");
 
-        // Connect drop zones to the list
-        DropZones.Add(GameObject.Find("AllyDropZone"));
-        DropZones.Add(GameObject.Find("AllyDropZone (1)"));
-        DropZones.Add(GameObject.Find("AllyDropZone (2)"));
-        DropZones.Add(GameObject.Find("AllyDropZone (3)"));
-        DropZones.Add(GameObject.Find("AllyDropZone (4)"));
-        DropZones.Add(GameObject.Find("AllyDropZone (5)"));
+        // Connect drop zones to the list (you might want to assign these in the inspector)
+        for (int i = 0; i < 6; i++)
+        {
+            DropZones.Add(GameObject.Find("AllyDropZone (" + i + ")"));
+        }
 
         // Find a reference to the TurnManager
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
@@ -51,4 +49,17 @@ public class Player : NetworkBehaviour
         turnManager.RegisterPlayer(sender);
     }
 
+
+    [Command(requiresAuthority = false)]
+    public void CmdEndTurn(NetworkConnectionToClient connection = null)
+    {
+        EndTurn(connection);
+    }
+
+    [Server]
+    private void EndTurn(NetworkConnectionToClient connection)
+    {
+        if (!turnManager.IsCurrentTurn(connection)) return;
+        //code that handles your turn end
+    }
 }

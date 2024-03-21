@@ -41,6 +41,16 @@ public class ServerManager : NetworkBehaviour
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
     }
 
+    private void Update()
+    {
+        // Check for the "N" key press
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            // Call the TestEndTurn method to manually change the current player's turn
+            TestEndTurn();
+        }
+    }
+
     //Runs whens Server stops running
     [Server]
     public override void OnStopServer()
@@ -68,5 +78,18 @@ public class ServerManager : NetworkBehaviour
         Debug.Log("OnStartClient was deactivated");
     }
 
-
+    // Method to test the EndTurn functionality
+    public void TestEndTurn()
+    {
+        // Check if the TurnManager reference is valid
+        if (turnManager != null)
+        {
+            // Call the EndTurn method on the TurnManager
+            turnManager.NextPlayer();
+        }
+        else
+        {
+            Debug.LogError("TurnManager reference is null. Make sure to assign it in the Inspector.");
+        }
+    }
 }

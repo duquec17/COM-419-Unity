@@ -9,17 +9,19 @@ public class DrawCards : NetworkBehaviour
     public Player player;
     public TurnManager turnManager;
     public GameManager GameManager;
+    public ServerManager serverManager;
 
     //Searches for object called GameManager and acquires the component with the same name
     private void Start()
     {
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
+        serverManager = GameObject.Find("ServerManager").GetComponent<ServerManager>();
     }
 
     // Runs code when a click is made on the button
     public void OnClick()
     {
-
+       
     }
 }
