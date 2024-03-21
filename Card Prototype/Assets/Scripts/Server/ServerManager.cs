@@ -6,69 +6,56 @@ using Mirror;
 public class ServerManager : NetworkBehaviour
 {
     private List<Card> cardPool = new List<Card>();
-
-    // List of players connected to the server
     private List<Player> players = new List<Player>();
-
-    // List of cards in each player's hand
     private Dictionary<Player, List<Card>> playerHands = new Dictionary<Player, List<Card>>();
-
-    // List of cards on the game board
     private List<Card> gameBoard = new List<Card>();
-
-    // List of cards in the graveyard
     private List<Card> graveyard = new List<Card>();
-
-    // Number assigned to each player
     private Dictionary<Player, int> playerNumbers = new Dictionary<Player, int>();
+    private int currentPlayerIndex = 0; // Index of the current player in the players list
 
-    // Variable to track whose turn it is
-    private bool isMyTurn = false;
+    
 
-    public override void OnStartClient()
+    // Method to initialize the game
+    [Command]
+    private void InitializeGame()
     {
-        base.OnStartClient();
+        // Initialize card pool, players, etc. (Add your initialization logic here)
 
-        GameObject playerObject = GameObject.FindWithTag("Player"); // Assuming players are tagged with "Player"
-        Player playerComponent = playerObject.GetComponent<Player>();
+        // Determine the first player
+        DetermineFirstPlayer();
+    }
 
-        // Add the player to the list of connected players
-        players.Add(playerComponent);
+    // Method to determine the first player
+    private void DetermineFirstPlayer()
+    {
+        // Shuffle the list of players
+        ShufflePlayers();
 
-        // Assign a player number to the connected player
-        AssignPlayerNumber(playerComponent);
+        // Set the first player as the current player
+        currentPlayerIndex = 0;
+        // Optionally, you can inform clients about the first player's turn here
+        // RpcUpdateCurrentPlayerTurn(players[currentPlayerIndex].connectionToClient);
+    }
 
-        // If this is the first player, set their turn to true
-        if (players.Count == 1)
+    // Method to shuffle the list of players
+    private void ShufflePlayers()
+    {
+        for (int i = 0; i < players.Count; i++)
         {
-            isMyTurn = true;
+            Player temp = players[i];
+            int randomIndex = Random.Range(i, players.Count);
+            players[i] = players[randomIndex];
+            players[randomIndex] = temp;
         }
-
-        // Add logic to initialize player's hand, draw cards, etc.
     }
 
-    // Method to handle a player disconnecting from the server
-    public void OnPlayerDisconnect(Player player)
-    {
-        // Remove the player from the list of connected players
-        players.Remove(player);
+    // Method to initialize the game
 
-        // Remove the player number entry
-        playerNumbers.Remove(player);
+    // Method to handle end turn action
 
-        // Add logic to handle cleanup, end game if necessary, etc.
-    }
+    // Method to move to the next player's turn
 
-    // Method to assign player number
-    private void AssignPlayerNumber(Player player)
-    {
-        // Calculate player number based on the number of connected players
-        int playerNumber = players.Count;
+    // RPC method to update the current player's turn on all clients
 
-        // Assign player number
-        playerNumbers[player] = playerNumber;
-
-        // Log the assignment of player number
-        Debug.Log("Player " + player.name + " assigned number " + playerNumber);
-    }
+    // Method to handle player actions (e.g., playing a card, attacking, etc.)
 }
