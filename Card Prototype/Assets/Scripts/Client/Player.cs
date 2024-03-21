@@ -36,9 +36,6 @@ public class Player : NetworkBehaviour
 
         // Find a reference to the TurnManager
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
-
-        // Subscribe to the event triggered when the turn changes
-        turnManager.nextPlayer.AddListener(ImPlayer);
     }
 
     public override void OnStartClient()
@@ -54,20 +51,17 @@ public class Player : NetworkBehaviour
         turnManager.RegisterPlayer(sender);
     }
 
-    // Event triggered when the turn changes
-    public void ImPlayer(uint playerID)
+    [Command(requiresAuthority = false)]
+    public void CmdEndTurn(NetworkConnectionToClient connection = null)
     {
-        // Check if it's this player's turn based on their network identity
-        IsMyTurn = turnManager.IsCurrentTurn(connectionToClient);
+        EndTurn(connection);
+    }
 
-        // Output debug message indicating whose turn it is
-        if (IsMyTurn)
-        {
-            Debug.Log("It's my turn!");
-        }
-        else
-        {
-            Debug.Log("It's the other player's turn.");
-        }
+    [Server]
+    private void EndTurn(NetworkConnectionToClient connection)
+    {
+        if (!turnManager.IsCurrentTurn(connection)) return;
+    //code that handles your turn end
+    //
     }
 }

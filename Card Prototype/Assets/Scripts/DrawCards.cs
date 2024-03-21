@@ -22,10 +22,4 @@ public class DrawCards : NetworkBehaviour
     {
 
     }
-
-    // Method to simulate drawing cards for the current player
-    void DrawCardsForCurrentPlayer()
-    {
-        // Implement logic to draw cards here
-    }
 }

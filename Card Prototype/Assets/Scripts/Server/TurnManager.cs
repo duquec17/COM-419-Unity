@@ -77,6 +77,8 @@ public class TurnManager : NetworkBehaviour
         
         // Set the current player to the next player's netId
         currentPlayer = _identities[_currentPlayerIndex].netId;
+
+        Debug.Log(currentPlayer + " is the current player");
     }
 
     [Server]
@@ -133,6 +135,8 @@ public class TurnManager : NetworkBehaviour
                 Debug.Log(identity.name);
             }
         }
+
+        Debug.LogFormat("Current turn: {0}", _identities[_currentPlayerIndex].name);
     }
 
 }
