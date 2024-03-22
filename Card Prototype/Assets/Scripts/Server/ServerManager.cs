@@ -81,7 +81,7 @@ public class ServerManager : NetworkBehaviour
         if (turnManager != null)
         {
             // Call the EndTurn method on the TurnManager
-            turnManager.NextPlayer();
+            //turnManager.NextPlayer();
         }
         else
         {
