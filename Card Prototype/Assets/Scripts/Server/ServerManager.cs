@@ -39,12 +39,7 @@ public class ServerManager : NetworkBehaviour
 
     private void Update()
     {
-        // Check for the "N" key press
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            // Call the TestEndTurn method to manually change the current player's turn
-            TestEndTurn();
-        }
+        
     }
 
     //Runs whens Server stops running
@@ -61,6 +56,7 @@ public class ServerManager : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
+
         //Message to show that client is running; appears in console tab
         Debug.Log("OnStartClient was activated");
 
@@ -70,6 +66,7 @@ public class ServerManager : NetworkBehaviour
     public override void OnStopClient()
     {
         base.OnStopClient();
+
         //Message to show that client is not running; appears in console tab
         Debug.Log("OnStartClient was deactivated");
     }

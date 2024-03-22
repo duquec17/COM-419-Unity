@@ -68,6 +68,9 @@ public class TurnManager : NetworkBehaviour
     [Server]
     public void NextPlayer()
     {
+        Debug.LogFormat("Previous turn: {0}", currentPlayer + " player");
+        Debug.Log(currentPlayer + " is the previous player");
+
         // Move to the next player
         _currentPlayerIndex++;
        
@@ -138,5 +141,4 @@ public class TurnManager : NetworkBehaviour
 
         Debug.LogFormat("Current turn: {0}", _identities[_currentPlayerIndex].name);
     }
-
 }

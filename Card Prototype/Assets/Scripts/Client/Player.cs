@@ -49,18 +49,4 @@ public class Player : NetworkBehaviour
         turnManager.RegisterPlayer(sender);
     }
 
-
-    [Command(requiresAuthority = false)]
-    public void CmdEndTurn(NetworkConnectionToClient connection = null)
-    {
-        EndTurn(connection);
-    }
-
-    [Server]
-    private void EndTurn(NetworkConnectionToClient connection)
-    {
-        if (!turnManager.IsCurrentTurn(connection)) return;
-        //code that handles your turn end
-        turnManager.NextPlayer();
-    }
 }
