@@ -18,11 +18,7 @@ public class ServerManager : NetworkBehaviour
     public TurnManager turnManager;
 
     // Other game state variables
-    private List<Card> drawStack = new List<Card>();
-    private List<Card>[] playerHands;
-    private List<Card>[] playerBoard;
-    private List<Card> graveyard = new List<Card>();
-    private int currentPlayerIndex = 0;
+
 
     //Starts server (Host + Client)
     [Server]

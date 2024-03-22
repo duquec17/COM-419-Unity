@@ -5,24 +5,52 @@ using Mirror;
 
 public class DrawCards : NetworkBehaviour
 {
-    //Variables used for networking and determining game logic
-    public Player player;
-    public TurnManager turnManager;
-    public GameManager GameManager;
-    public ServerManager serverManager;
+    [SerializeField] private TurnManager turnManager;
 
-    //Searches for object called GameManager and acquires the component with the same name
     private void Start()
     {
-        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
-        serverManager = GameObject.Find("ServerManager").GetComponent<ServerManager>();
+        // Find a reference to the TurnManager if not set
+        if (turnManager == null)
+            turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
     }
 
-    [Command]
-    // Runs code when a click is made on the button
+    // This method is called when the button is clicked
     public void OnClick()
     {
-        turnManager.NextPlayer();
+        // Ensure that this client has authority to execute the action
+        if (!isOwned)
+        {
+            Debug.LogWarning("You don't have authority to perform this action.");
+            return;
+        }
+
+        // Check if it's the current player's turn
+        if (!IsPlayerTurn())
+        {
+            Debug.LogWarning("It's not your turn.");
+            return;
+        }
+
+        // Call the command on the server to draw cards
+        CmdDrawCards();
+    }
+
+    // Check if it's the current player's turn
+    private bool IsPlayerTurn()
+    {
+        return turnManager.IsCurrentTurn(connectionToClient);
+    }
+
+    // Command to draw cards on the server
+    [Command]
+    private void CmdDrawCards()
+    {
+        // Ensure it's the current player's turn
+        if (!IsPlayerTurn())
+            return;
+
+        // Perform draw cards logic here
+        // For example:
+        // draw cards code
     }
 }

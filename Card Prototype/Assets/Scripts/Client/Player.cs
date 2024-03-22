@@ -44,7 +44,7 @@ public class Player : NetworkBehaviour
     }
 
     [Command]
-    void CmdRegisterPlayer(NetworkConnectionToClient sender = null)
+    public void CmdRegisterPlayer(NetworkConnectionToClient sender = null)
     {
         turnManager.RegisterPlayer(sender);
     }
@@ -61,5 +61,6 @@ public class Player : NetworkBehaviour
     {
         if (!turnManager.IsCurrentTurn(connection)) return;
         //code that handles your turn end
+        turnManager.NextPlayer();
     }
 }
