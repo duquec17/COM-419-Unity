@@ -62,7 +62,6 @@ public class TurnManager : NetworkBehaviour
         if (playersJoined == 2)
         {
             Debug.LogFormat("Both players have joined. Current number of players: {0}", playersJoined);
-            Debug.LogFormat("Current turn: {0}", currentPlayer + " player");
         }
     }
 
@@ -78,6 +77,7 @@ public class TurnManager : NetworkBehaviour
         // Set the current player to the next player's netId
         currentPlayer = _identities[_currentPlayerIndex].netId;
 
+        Debug.LogFormat("Current turn: {0}", currentPlayer + " player");
         Debug.Log(currentPlayer + " is the current player");
     }
 
