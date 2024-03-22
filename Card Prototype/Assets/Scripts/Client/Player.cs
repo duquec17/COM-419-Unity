@@ -8,6 +8,7 @@ public class Player : NetworkBehaviour
     // References to game objects
     public GameObject PlayerCard;
     public TurnManager turnManager;
+    public HandManager handManager;
 
     public GameObject Hand;
     public GameObject Deck;
@@ -40,13 +41,14 @@ public class Player : NetworkBehaviour
     {
         base.OnStartClient();
 
-        CmdRegisterPlayer();
+        CmdRegisterPlayer(); // Command to register the player
     }
 
     [Command]
     public void CmdRegisterPlayer(NetworkConnectionToClient sender = null)
     {
-        turnManager.RegisterPlayer(sender);
+        turnManager.RegisterPlayer(sender); // Register the player with the TurnManager
+        handManager.SetupInitialHand(); // Set up the player's initial hand using the HandManager
     }
 
 }
