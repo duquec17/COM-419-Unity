@@ -19,9 +19,10 @@ public class DrawCards : NetworkBehaviour
         serverManager = GameObject.Find("ServerManager").GetComponent<ServerManager>();
     }
 
+    [Command]
     // Runs code when a click is made on the button
     public void OnClick()
     {
-       
+        turnManager.NextPlayer();
     }
 }
