@@ -14,11 +14,9 @@ GameObject:
   - component: {fileID: 682172252517517314}
   - component: {fileID: -4483896804560677025}
   - component: {fileID: 877641408195868133}
-  - component: {fileID: 5091304666588150866}
   - component: {fileID: 3962577098412413819}
   - component: {fileID: -2281407303463525176}
   - component: {fileID: -1108868879787045650}
-  - component: {fileID: 6256420766528040875}
   m_Layer: 8
   m_Name: PlayerCard
   m_TagString: PlayerCard
@@ -148,25 +146,6 @@ MonoBehaviour:
   positionSensitivity: 0.01
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
-
---- !u!114 &5091304666588150866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1325048244974266444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0adb169777618624788e10766f4d6a6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  GameManager: {fileID: 0}
-  Canvas: {fileID: 0}
-  PlayerManager: {fileID: 0}
 --- !u!114 &3962577098412413819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,9 +163,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 5091304666588150866}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: DragDrop, Assembly-CSharp
-          m_MethodName: StartDrag
+          m_MethodName: 
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -200,9 +179,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 5091304666588150866}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: DragDrop, Assembly-CSharp
-          m_MethodName: EndDrag
+          m_MethodName: 
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -259,70 +238,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 7
---- !u!114 &6256420766528040875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1325048244974266444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72fcf9bae0df33346a89011a74c9752c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  displayCard:
-  - id: 0
-    cardName: 
-    cost: 0
-    power: 0
-    health: 0
-    cardDescription: 
-    spriteImage: {fileID: 0}
-  - id: 0
-    cardName: 
-    cost: 0
-    power: 0
-    health: 0
-    cardDescription: 
-    spriteImage: {fileID: 0}
-  - id: 0
-    cardName: 
-    cost: 0
-    power: 0
-    health: 0
-    cardDescription: 
-    spriteImage: {fileID: 0}
-  - id: 0
-    cardName: 
-    cost: 0
-    power: 0
-    health: 0
-    cardDescription: 
-    spriteImage: {fileID: 0}
-  - id: 0
-    cardName: 
-    cost: 0
-    power: 0
-    health: 0
-    cardDescription: 
-    spriteImage: {fileID: 0}
-  - id: 0
-    cardName: 
-    cost: 0
-    power: 0
-    health: 0
-    cardDescription: 
-    spriteImage: {fileID: 0}
-  displayId: 0
-  id: 0
-  cardName: 
-  cost: 0
-  power: 0
-  health: 0
-  cardDescription: 
-  spriteImage: {fileID: 0}
-  artImage: {fileID: 1325048244974266434}
-  cardBack: 0
-  Hand: {fileID: 0}
-  numberOfCardsInDeck: 10
