@@ -42,6 +42,7 @@ public class HandManager : NetworkBehaviour
         }
     }
 
+    [ClientRpc]
     // Set up the UI of a card based on its data
     void SetupCardUI(GameObject cardUI, Card cardData)
     {
@@ -54,7 +55,7 @@ public class HandManager : NetworkBehaviour
         // cardUI.GetComponent<CardUI>().SetDescription(cardData.cardDescription);
     }
 
-    [Command]
+    [ClientRpc]
     // Method to set up the player's initial hand
     public void SetupInitialHand()
     {
@@ -70,6 +71,7 @@ public class HandManager : NetworkBehaviour
     // Add methods for handling card interactions as needed
 
     // AddCardToHand method for local player (not used in networked version)
+    [ClientRpc]
     public void AddCardToHand(Sprite cardSprite)
     {
         // Instantiate a new card prefab locally

@@ -18,7 +18,6 @@ public class NextTurnButton : NetworkBehaviour
     public void OnClick()
     {
         CmdEndTurn();
-
     }
 
     [Command(requiresAuthority = false)]
@@ -33,14 +32,5 @@ public class NextTurnButton : NetworkBehaviour
         if (!turnManager.IsCurrentTurn(connection)) return;
         //code that handles your turn end
         turnManager.NextPlayer();
-
-        RpcSetupInitialHand();
-    }
-
-    [ClientRpc]
-    private void RpcSetupInitialHand()
-    {
-        // Execute SetupInitialHand() on the client
-        handManager.SetupInitialHand();
     }
 }
