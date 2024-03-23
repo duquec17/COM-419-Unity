@@ -20,6 +20,8 @@ public class TurnManager : NetworkBehaviour
 
     // UnityEvent to invoke when a player is registered
     public UnityEvent<NetworkIdentity, int> playerRegisteredEvent;
+    
+    private HandManager handManager;
 
     // Track the number of players that have joined
     private int playersJoined = 0;

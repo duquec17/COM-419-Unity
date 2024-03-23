@@ -71,12 +71,11 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  PlayerCard: {fileID: 0}
-  turnManager: {fileID: 0}
-  Hand: {fileID: 0}
+  PlayerCard: {fileID: 1325048244974266444, guid: d1446139b5fac0540be126c6557f0462, type: 3}
+  turnManager: {fileID: 556300700970337087, guid: 58ec209afda973c4d84e1a4cc274f2a7, type: 3}
+  handManager: {fileID: 5860037480193385821, guid: 727ef260303e96d47a4ade7c9c7785eb, type: 3}
+  Hand: {fileID: 6501471592668504214, guid: 44d63d050ced37c45a0e82a08856a5b7, type: 3}
   Deck: {fileID: 0}
-  PlayerManager: {fileID: 0}
-  GameManager: {fileID: 0}
   DropZones: []
   Health: 0
   CardsPlayed: 0

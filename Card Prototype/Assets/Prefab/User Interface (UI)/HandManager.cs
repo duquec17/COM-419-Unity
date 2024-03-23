@@ -54,6 +54,7 @@ public class HandManager : NetworkBehaviour
         // cardUI.GetComponent<CardUI>().SetDescription(cardData.cardDescription);
     }
 
+    [Command]
     // Method to set up the player's initial hand
     public void SetupInitialHand()
     {

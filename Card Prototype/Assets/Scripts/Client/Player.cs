@@ -42,13 +42,13 @@ public class Player : NetworkBehaviour
         base.OnStartClient();
 
         CmdRegisterPlayer(); // Command to register the player
+
     }
 
     [Command]
     public void CmdRegisterPlayer(NetworkConnectionToClient sender = null)
     {
         turnManager.RegisterPlayer(sender); // Register the player with the TurnManager
-        handManager.SetupInitialHand(); // Set up the player's initial hand using the HandManager
     }
 
 }
