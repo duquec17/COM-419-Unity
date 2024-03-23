@@ -24,12 +24,13 @@ public class TurnManager : NetworkBehaviour
     private HandManager handManager;
 
     // Track the number of players that have joined
-    private int playersJoined = 0;
+    public int playersJoined = 0;
 
     private void Start()
     {
         // Set the name of the GameObject to TurnManager
         gameObject.name = "TurnManager";
+        handManager = GameObject.Find("HandManager").GetComponent<HandManager>();
 
         // If this instance is a server, add a null entry to the identities list
         if (isServer) _identities.Add(null);
@@ -56,7 +57,6 @@ public class TurnManager : NetworkBehaviour
         // Invoke the playerRegisteredEvent UnityEvent with the player's identity and turn
         playerRegisteredEvent?.Invoke(connection.identity, GetPlayerTurn(connection));
 
-
         // Increment the count of players that have joined
         playersJoined++;
 
@@ -64,15 +64,42 @@ public class TurnManager : NetworkBehaviour
         if (playersJoined == 2)
         {
             Debug.LogFormat("Both players have joined. Current number of players: {0}", playersJoined);
-            handManager.SetupInitialHand();
+            // Call the method to set up the initial hand for both players
+            foreach (NetworkIdentity identity in _identities)
+            {
+                HandManager handManager = identity.GetComponent<HandManager>();
+                // Determine if the player is Player 1 or Player 2 based on their identity
+                bool isPlayer1 = (identity.connectionToClient == _identities[0].connectionToClient);
+                handManager.SetupInitialHand(isPlayer1);
+            }
         }
     }
 
     [Server]
     public void NextPlayer()
     {
+        // Message indicating last player
         Debug.LogFormat("Previous turn: {0}", currentPlayer + " player");
         Debug.Log(currentPlayer + " is the previous player");
+
+        // Log the cards in each player's hand
+        foreach (NetworkIdentity identity in _identities)
+        {
+            if (identity != null)
+            {
+                HandManager handManager = identity.GetComponent<HandManager>();
+                if (handManager != null)
+                {
+                    string playerName = identity.name;
+                    string playerCards = "";
+                    foreach (int cardId in handManager.handCardIds)
+                    {
+                        playerCards += cardId.ToString() + ", ";
+                    }
+                    Debug.LogFormat("{0} hand cards: {1}", playerName, playerCards);
+                }
+            }
+        }
 
         // Move to the next player
         _currentPlayerIndex++;

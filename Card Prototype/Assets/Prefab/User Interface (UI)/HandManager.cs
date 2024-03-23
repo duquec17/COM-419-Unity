@@ -42,7 +42,6 @@ public class HandManager : NetworkBehaviour
         }
     }
 
-    [ClientRpc]
     // Set up the UI of a card based on its data
     void SetupCardUI(GameObject cardUI, Card cardData)
     {
@@ -55,9 +54,9 @@ public class HandManager : NetworkBehaviour
         // cardUI.GetComponent<CardUI>().SetDescription(cardData.cardDescription);
     }
 
-
+    [ClientRpc]
     // Method to set up the player's initial hand
-    public void SetupInitialHand()
+    public void SetupInitialHand(bool isPlayer1)
     {
         Debug.Log("Setting up initial hand...");
 

@@ -35,6 +35,7 @@ public class Player : NetworkBehaviour
 
         // Find a reference to the TurnManager
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
+        handManager = GameObject.Find("HandManager").GetComponent<HandManager>();
     }
 
     public override void OnStartClient()

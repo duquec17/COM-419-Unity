@@ -26,8 +26,6 @@ public class ServerManager : NetworkBehaviour
     {
         base.OnStartServer();
 
-        //Tells us that the server is running
-        Debug.Log("OnStartServer was activated");
     }
 
     // Start is called before the first frame update
@@ -82,7 +80,7 @@ public class ServerManager : NetworkBehaviour
         }
         else
         {
-            Debug.LogError("TurnManager reference is null. Make sure to assign it in the Inspector.");
+
         }
     }
 }
