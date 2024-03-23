@@ -16,9 +16,10 @@ public class Player : NetworkBehaviour
     public List<GameObject> DropZones = new List<GameObject>();
 
     // Variables for game state
+    public string playerName;
     public int Health;
+    public int Mana;
     public int CardsPlayed = 0;
-    public bool IsMyTurn = false;
 
     // Start is called before the first frame update
     void Start()
