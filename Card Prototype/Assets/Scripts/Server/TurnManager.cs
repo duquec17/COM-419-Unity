@@ -31,10 +31,6 @@ public class TurnManager : NetworkBehaviour
         // Set the name of the GameObject to TurnManager
         gameObject.name = "TurnManager";
         handManager = GameObject.Find("HandManager").GetComponent<HandManager>();
-
-        // If this instance is a server, add a null entry to the identities list
-        if (isServer) _identities.Add(null);
-
     }
 
     private void Update()
@@ -58,13 +54,10 @@ public class TurnManager : NetworkBehaviour
         // Invoke the playerRegisteredEvent UnityEvent with the player's identity and turn
         playerRegisteredEvent?.Invoke(connection.identity, GetPlayerTurn(connection));
 
-        // Increment the count of players that have joined
-        playersJoined++;
-
         // If all players have joined, print the current number of players and whose turn it is
-        if (playersJoined == 2)
+        if (currentPlayer == 2)
         {
-            Debug.LogFormat("Both players have joined. Current number of players: {0}", playersJoined);
+            Debug.LogFormat("Both players have joined. Current number of players: {0}", currentPlayer);
         }
     }
 
