@@ -64,6 +64,7 @@ public class TurnManager : NetworkBehaviour
         if (playersJoined == 2)
         {
             Debug.LogFormat("Both players have joined. Current number of players: {0}", playersJoined);
+            handManager.SetupInitialHand();
         }
     }
 

@@ -64,8 +64,8 @@ public class HandManager : NetworkBehaviour
         // Randomly select cards from the database and add them to the player's hand
         for (int i = 0; i < 3; i++)
         {
-            int randomCardId = Random.Range(0, CardDatabase.cardList.Count);
-            handCardIds.Add(randomCardId);
+            GameObject card = Instantiate(PlayerCard, new Vector2(0,0), Quaternion.identity);
+            card.transform.SetParent(handPanel.transform, false);
         }
 
         Debug.Log("Initial hand setup complete.");
