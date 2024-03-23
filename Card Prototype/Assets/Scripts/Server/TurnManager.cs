@@ -45,6 +45,8 @@ public class TurnManager : NetworkBehaviour
     [Server]
     public void RegisterPlayer(NetworkConnectionToClient connection)
     {
+        if (_identities.Contains(connection.identity)) return;
+
         //Handle here if reconnects can happen
         Debug.LogFormat("Payer added: {0}", connection.identity);
 
