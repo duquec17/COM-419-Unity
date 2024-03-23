@@ -65,22 +65,6 @@ public class TurnManager : NetworkBehaviour
         if (playersJoined == 2)
         {
             Debug.LogFormat("Both players have joined. Current number of players: {0}", playersJoined);
-            // Call the method to set up the initial hand for both players
-            foreach (NetworkIdentity identity in _identities)
-            {
-                if(identity!= null)
-                {
-                    HandManager handManager = identity.GetComponent<HandManager>();
-                    // Determine if the player is Player 1 or Player 2 based on their identity
-                    bool isPlayer1 = (identity.connectionToClient == _identities[0].connectionToClient);
-                    handManager.SetupInitialHand(isPlayer1);
-                }
-                else
-                {
-                    Debug.LogError("Identity object is null.");
-                    continue;
-                }
-            }
         }
     }
 

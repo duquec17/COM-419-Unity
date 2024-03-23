@@ -75,29 +75,23 @@ public class HandManager : NetworkBehaviour
         // cardUI.GetComponent<CardUI>().SetDescription(cardData.cardDescription);
     }
 
-    [ClientRpc]
+    [Server]
     // Method to set up the player's initial hand
-    public void SetupInitialHand(bool isPlayer1)
+    public void SetupInitialHand(Player player)
     {
         Debug.Log("Setting up initial hand...");
 
         // Randomly select cards from the database and add them to the player's hand
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 3; i++)
         {
             int randomCardId = Random.Range(0, CardDatabase.cardList.Count);
             
             // Create the card object
             Card card = CardDatabase.GetCardById(randomCardId);
-            
-            // Assign ownership based on player identity
-            card.owner = isPlayer1 ? 1 : 2;
-            
-            // Add the card ID to the hand
-            handCardIds.Add(randomCardId);
+            player.handCards.Add(card);
         }
 
         Debug.Log("Initial hand setup complete.");
-        Debug.Log("Local player: " + isLocalPlayer);
     }
 
     // Handle interactions with the cards in the hand (e.g., clicking or dragging)

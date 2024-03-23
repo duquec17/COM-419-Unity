@@ -14,6 +14,7 @@ public class Player : NetworkBehaviour
     public GameObject Deck;
 
     public List<GameObject> DropZones = new List<GameObject>();
+    public List<Card> handCards = new List<Card>();
 
     // Variables for game state
     public string playerName;
