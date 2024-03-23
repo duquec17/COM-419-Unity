@@ -49,10 +49,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   playerNum: 0
-  player: {fileID: 0}
+  player: {fileID: 3253080640103789538, guid: 80a014d6b6ae3d04294ee8a95ed12037, type: 3}
   turnManager: {fileID: 0}
-  gameManager: {fileID: 0}
-  playerManager: {fileID: 0}
 --- !u!114 &264128045991939813
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class HandManager : NetworkBehaviour
 {
-    public Transform handPanel; // Reference to the panel where cards will be displayed
+    public GameObject handPanel; // Reference to the panel where cards will be displayed
     public GameObject PlayerCard; // Reference to the prefab for the card UI
 
     // Networked list to store card IDs in the hand
@@ -23,7 +23,7 @@ public class HandManager : NetworkBehaviour
     void UpdateHandUI()
     {
         // Clear the hand panel
-        foreach (Transform child in handPanel)
+        foreach (Transform child in handPanel.transform)
         {
             Destroy(child.gameObject);
         }
@@ -35,7 +35,7 @@ public class HandManager : NetworkBehaviour
             Card cardData = CardDatabase.GetCardById(cardId);
             if (cardData != null)
             {
-                GameObject newCard = Instantiate(PlayerCard, handPanel);
+                GameObject newCard = Instantiate(PlayerCard, handPanel.transform);
                 // Set up the card UI based on the card data
                 SetupCardUI(newCard, cardData);
             }
@@ -55,16 +55,21 @@ public class HandManager : NetworkBehaviour
         // cardUI.GetComponent<CardUI>().SetDescription(cardData.cardDescription);
     }
 
-    [ClientRpc]
+
     // Method to set up the player's initial hand
     public void SetupInitialHand()
     {
+        Debug.Log("Setting up initial hand...");
+
         // Randomly select cards from the database and add them to the player's hand
         for (int i = 0; i < 3; i++)
         {
             int randomCardId = Random.Range(0, CardDatabase.cardList.Count);
             handCardIds.Add(randomCardId);
         }
+
+        Debug.Log("Initial hand setup complete.");
+
     }
 
     // Handle interactions with the cards in the hand (e.g., clicking or dragging)
@@ -74,10 +79,7 @@ public class HandManager : NetworkBehaviour
     [ClientRpc]
     public void AddCardToHand(Sprite cardSprite)
     {
-        // Instantiate a new card prefab locally
-        GameObject newCard = Instantiate(PlayerCard, handPanel);
-        // Set the sprite of the card UI
-        newCard.GetComponent<Image>().sprite = cardSprite;
+
     }
 
 }

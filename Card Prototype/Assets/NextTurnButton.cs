@@ -15,8 +15,11 @@ public class NextTurnButton : NetworkBehaviour
         button.onClick.AddListener(OnClick);
     }
 
+    // NextTurnButton.cs
     public void OnClick()
     {
+        Debug.Log("End turn button clicked.");
+
         CmdEndTurn();
     }
 

@@ -49,11 +49,5 @@ public class Player : NetworkBehaviour
     public void CmdRegisterPlayer(NetworkConnectionToClient sender = null)
     {
         turnManager.RegisterPlayer(sender); // Register the player with the TurnManager
-        SetupInitialHand(); // Set up the initial hand for the player
-    }
-
-    void SetupInitialHand()
-    {
-        handManager.SetupInitialHand(); // Call the method to set up the initial hand
     }
 }
