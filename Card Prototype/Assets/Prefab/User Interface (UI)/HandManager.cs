@@ -78,5 +78,4 @@ public class HandManager : NetworkBehaviour
         newCard.GetComponent<Image>().sprite = cardSprite;
     }
 
-
 }
