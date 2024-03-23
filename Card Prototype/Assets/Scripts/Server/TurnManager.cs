@@ -34,6 +34,7 @@ public class TurnManager : NetworkBehaviour
 
         // If this instance is a server, add a null entry to the identities list
         if (isServer) _identities.Add(null);
+
     }
 
     private void Update()
@@ -67,10 +68,18 @@ public class TurnManager : NetworkBehaviour
             // Call the method to set up the initial hand for both players
             foreach (NetworkIdentity identity in _identities)
             {
-                HandManager handManager = identity.GetComponent<HandManager>();
-                // Determine if the player is Player 1 or Player 2 based on their identity
-                bool isPlayer1 = (identity.connectionToClient == _identities[0].connectionToClient);
-                handManager.SetupInitialHand(isPlayer1);
+                if(identity!= null)
+                {
+                    HandManager handManager = identity.GetComponent<HandManager>();
+                    // Determine if the player is Player 1 or Player 2 based on their identity
+                    bool isPlayer1 = (identity.connectionToClient == _identities[0].connectionToClient);
+                    handManager.SetupInitialHand(isPlayer1);
+                }
+                else
+                {
+                    Debug.LogError("Identity object is null.");
+                    continue;
+                }
             }
         }
     }
@@ -85,9 +94,10 @@ public class TurnManager : NetworkBehaviour
         // Log the cards in each player's hand
         foreach (NetworkIdentity identity in _identities)
         {
+            HandManager handManager = identity.GetComponent<HandManager>();
+            
             if (identity != null)
             {
-                HandManager handManager = identity.GetComponent<HandManager>();
                 if (handManager != null)
                 {
                     string playerName = identity.name;
@@ -97,6 +107,10 @@ public class TurnManager : NetworkBehaviour
                         playerCards += cardId.ToString() + ", ";
                     }
                     Debug.LogFormat("{0} hand cards: {1}", playerName, playerCards);
+                }
+                else
+                {
+                    Debug.LogWarning("HandManager component not found on " + identity.name);
                 }
             }
         }
@@ -120,7 +134,7 @@ public class TurnManager : NetworkBehaviour
         // Check if the provided connection's identity matches the current player's identity
         if (_identities[_currentPlayerIndex] == connection.identity) return true;
         //Sent a message to the client the action is out of turn
-        //_errorManager.TargetErrorMessage(connection, "Not your turn");
+        Debug.Log("Action attempted out of turn.");
         return false;
     }
 

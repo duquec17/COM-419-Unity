@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class HandManager : NetworkBehaviour
 {
-    public GameObject handPanel; // Reference to the panel where cards will be displayed
+    public Transform handPanel; // Reference to the panel where cards will be displayed
     public GameObject PlayerCard; // Reference to the prefab for the card UI
 
     // Networked list to store card IDs in the hand
@@ -29,15 +29,36 @@ public class HandManager : NetworkBehaviour
         }
 
         // Instantiate card UI prefabs for each card ID in the hand
-        foreach (int cardId in handCardIds)
+        for (int i = 0; i < handCardIds.Count; i++)
         {
             // Find the card data based on the card ID from the card database
-            Card cardData = CardDatabase.GetCardById(cardId);
+            Card cardData = CardDatabase.GetCardById(handCardIds[i]);
             if (cardData != null)
             {
-                GameObject newCard = Instantiate(PlayerCard, handPanel.transform);
+                GameObject newCard = Instantiate(PlayerCard, handPanel);
                 // Set up the card UI based on the card data
                 SetupCardUI(newCard, cardData);
+
+                // Determine the owner of the card
+                int owner = cardData.owner;
+
+                // Determine the index where the card should be placed in the hand panel
+                int cardIndex = i;
+                if (owner == 1 && !isLocalPlayer)
+                {
+                    // If the card is owned by Player 1 and the local player is not Player 1,
+                    // place the card at the bottom of the hand panel
+                    cardIndex = handCardIds.Count - 1 - i;
+                }
+                else if (owner == 2 && isLocalPlayer)
+                {
+                    // If the card is owned by Player 2 and the local player is Player 1,
+                    // place the card at the top of the hand panel
+                    cardIndex = i;
+                }
+
+                // Reposition the card in the hand panel based on its index
+                newCard.transform.SetSiblingIndex(cardIndex);
             }
         }
     }
@@ -61,14 +82,22 @@ public class HandManager : NetworkBehaviour
         Debug.Log("Setting up initial hand...");
 
         // Randomly select cards from the database and add them to the player's hand
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 2; i++)
         {
-            GameObject card = Instantiate(PlayerCard, new Vector2(0,0), Quaternion.identity);
-            card.transform.SetParent(handPanel.transform, false);
+            int randomCardId = Random.Range(0, CardDatabase.cardList.Count);
+            
+            // Create the card object
+            Card card = CardDatabase.GetCardById(randomCardId);
+            
+            // Assign ownership based on player identity
+            card.owner = isPlayer1 ? 1 : 2;
+            
+            // Add the card ID to the hand
+            handCardIds.Add(randomCardId);
         }
 
         Debug.Log("Initial hand setup complete.");
-
+        Debug.Log("Local player: " + isLocalPlayer);
     }
 
     // Handle interactions with the cards in the hand (e.g., clicking or dragging)

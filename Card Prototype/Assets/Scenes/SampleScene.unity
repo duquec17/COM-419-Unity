@@ -393,11 +393,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6501471592668504213, guid: 44d63d050ced37c45a0e82a08856a5b7, type: 3}
   m_PrefabInstance: {fileID: 296850780}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &296850782 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6501471592668504214, guid: 44d63d050ced37c45a0e82a08856a5b7, type: 3}
-  m_PrefabInstance: {fileID: 296850780}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &323748237
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3045,7 +3040,7 @@ PrefabInstance:
     - target: {fileID: 5860037480193385821, guid: 727ef260303e96d47a4ade7c9c7785eb, type: 3}
       propertyPath: handPanel
       value: 
-      objectReference: {fileID: 296850782}
+      objectReference: {fileID: 296850781}
     - target: {fileID: 5860037480193385821, guid: 727ef260303e96d47a4ade7c9c7785eb, type: 3}
       propertyPath: PlayerCard
       value: 
