@@ -76,7 +76,12 @@ MonoBehaviour:
   handManager: {fileID: 5860037480193385821, guid: 727ef260303e96d47a4ade7c9c7785eb, type: 3}
   Hand: {fileID: 6501471592668504214, guid: 44d63d050ced37c45a0e82a08856a5b7, type: 3}
   Deck: {fileID: 0}
-  DropZones: []
+  DropZones:
+  - {fileID: 7875592528286856203, guid: 62d36af4927cfcc4aa3e92b181f68c9b, type: 3}
+  - {fileID: 7532209865781003508, guid: 32ffcb3a58bc0e140aedcc0b420c06d2, type: 3}
+  - {fileID: 9000123704214848439, guid: 4bdf24f02851a5c4993a8f11aa3b5d06, type: 3}
+  - {fileID: 2984804467110797970, guid: 71109a2775c2344469ecdd81068b3d6c, type: 3}
+  - {fileID: 274755762948742840, guid: 7ef1941c390f3584baee6d9c889dfe96, type: 3}
   Health: 0
   CardsPlayed: 0
   IsMyTurn: 0

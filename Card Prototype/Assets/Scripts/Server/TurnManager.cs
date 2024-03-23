@@ -87,10 +87,6 @@ public class TurnManager : NetworkBehaviour
     [Server]
     public void NextPlayer()
     {
-        // Message indicating last player
-        Debug.LogFormat("Previous turn: {0}", currentPlayer + " player");
-        Debug.Log(currentPlayer + " is the previous player");
-
         // Log the cards in each player's hand
         foreach (NetworkIdentity identity in _identities)
         {
@@ -124,7 +120,7 @@ public class TurnManager : NetworkBehaviour
         // Set the current player to the next player's netId
         currentPlayer = _identities[_currentPlayerIndex].netId;
 
-        Debug.LogFormat("Current turn: {0}", currentPlayer + " player");
+        Debug.LogFormat("Current turn: {0} player", currentPlayer);
         Debug.Log(currentPlayer + " is the current player");
     }
 

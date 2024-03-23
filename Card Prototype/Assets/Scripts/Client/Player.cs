@@ -27,12 +27,6 @@ public class Player : NetworkBehaviour
         Hand = GameObject.Find("AllyHand");
         Deck = GameObject.Find("Deck");
 
-        // Connect drop zones to the list (you might want to assign these in the inspector)
-        for (int i = 0; i < 6; i++)
-        {
-            DropZones.Add(GameObject.Find("AllyDropZone (" + i + ")"));
-        }
-
         // Find a reference to the TurnManager
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
         handManager = GameObject.Find("HandManager").GetComponent<HandManager>();
