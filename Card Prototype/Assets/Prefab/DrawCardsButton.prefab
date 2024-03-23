@@ -306,7 +306,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   button: {fileID: 8384968389857561958}
-  turnManager: {fileID: 556300700970337087, guid: 58ec209afda973c4d84e1a4cc274f2a7, type: 3}
+  turnManager: {fileID: 0}
   handManager: {fileID: 5860037480193385821, guid: 727ef260303e96d47a4ade7c9c7785eb, type: 3}
 --- !u!114 &650488427
 MonoBehaviour:
@@ -324,5 +324,5 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   playerNum: 0
-  player: {fileID: 0}
-  turnManager: {fileID: 0}
+  player: {fileID: 3253080640103789538, guid: 80a014d6b6ae3d04294ee8a95ed12037, type: 3}
+  turnManager: {fileID: 556300700970337087, guid: 58ec209afda973c4d84e1a4cc274f2a7, type: 3}

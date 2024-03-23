@@ -1981,19 +1981,8 @@ MonoBehaviour:
   spawnPrefabs:
   - {fileID: 6501471592668504214, guid: 44d63d050ced37c45a0e82a08856a5b7, type: 3}
   - {fileID: 8384968389857561952, guid: 563bff3530c0faf4a8b653077d744382, type: 3}
-  - {fileID: 3751917294523771784, guid: e278a435f0ce7ab478e5324d8cad5c12, type: 3}
-  - {fileID: 5947115346296771923, guid: 7294bf32084191c4c982edaee8c9865e, type: 3}
-  - {fileID: 7152971164058033356, guid: 6d27e0ed050ca1d4b9fdf9895e0b112b, type: 3}
-  - {fileID: 6731537674048678941, guid: c365926dcfe5d8e488b6cd0b9f6f6195, type: 3}
-  - {fileID: 6854576339912750664, guid: 6ff56e27afeea3444a442c3c94e832d1, type: 3}
-  - {fileID: 8257739611076864503, guid: 2317e89799db4914ab2cb1a6a9cf0192, type: 3}
   - {fileID: 893894855865603246, guid: 51bf89e4fc52c4741aea8f92f35e62e6, type: 3}
-  - {fileID: 6342577326833218943, guid: fbe7ef270c0e89e4aab4d634bea897f2, type: 3}
-  - {fileID: 1716364065265216422, guid: 727ef260303e96d47a4ade7c9c7785eb, type: 3}
   - {fileID: 1325048244974266444, guid: d1446139b5fac0540be126c6557f0462, type: 3}
-  - {fileID: 7489811291349030334, guid: 5f6abc4a856b1aa4e9c2e9ea5072aa73, type: 3}
-  - {fileID: 8129794836792347678, guid: 4805cf7646c24aa4c91b6620e9d1222a, type: 3}
-  - {fileID: 556300700970337085, guid: 58ec209afda973c4d84e1a4cc274f2a7, type: 3}
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2
@@ -2851,14 +2840,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1414836695}
     m_Modifications:
-    - target: {fileID: 650488427, guid: 563bff3530c0faf4a8b653077d744382, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 3253080640103789538, guid: 80a014d6b6ae3d04294ee8a95ed12037, type: 3}
-    - target: {fileID: 650488427, guid: 563bff3530c0faf4a8b653077d744382, type: 3}
-      propertyPath: turnManager
-      value: 
-      objectReference: {fileID: 556300700970337087, guid: 58ec209afda973c4d84e1a4cc274f2a7, type: 3}
     - target: {fileID: 8384968389857561952, guid: 563bff3530c0faf4a8b653077d744382, type: 3}
       propertyPath: m_Name
       value: DrawCardsButton
