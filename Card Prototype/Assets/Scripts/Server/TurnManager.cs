@@ -10,7 +10,7 @@ public class TurnManager : NetworkBehaviour
     List<NetworkIdentity> _identities = new List<NetworkIdentity>();
 
     // Index of the current player
-    private int _currentPlayerIndex = 1;
+    private int _currentPlayerIndex = 0;
 
     // SyncVar to synchronize current player across network
     [SyncVar(hook = nameof(NextTurnEvent))] public uint currentPlayer = 0;
@@ -61,48 +61,24 @@ public class TurnManager : NetworkBehaviour
         if (_identities.Count == 2)
         {
             Debug.Log("Both players have joined. Current number of players: " + _identities.Count);
-            foreach (NetworkIdentity identity in _identities)
-            {
-                HandManager handManager = identity.GetComponent<HandManager>();
-                handManager.SetupInitialHand(player);
-            }
         }
     }
 
     [Server]
     public void NextPlayer()
     {
-        // Log the cards in each player's hand
-        foreach (NetworkIdentity identity in _identities)
-        {
-            HandManager handManager = identity.GetComponent<HandManager>();
-
-            if (handManager != null)
-            {
-                string playerName = identity.name;
-                string playerCards = "";
-                foreach (int cardId in handManager.handCardIds)
-                {
-                    playerCards += cardId.ToString() + ", ";
-                }
-                Debug.LogFormat("{0} hand cards: {1}", playerName, playerCards);
-            }
-            else
-            {
-                Debug.LogWarning("HandManager component not found on " + identity.name);
-            }
-        }
+        Debug.Log("Previous turn: " + currentPlayer + " player");
 
         // Move to the next player
         _currentPlayerIndex++;
-       
+
         // If it exceeds the count of identities, loop back to the second player
-        if (_currentPlayerIndex >= _identities.Count) _currentPlayerIndex = 1;
-        
+        if (_currentPlayerIndex >= _identities.Count) _currentPlayerIndex = 0;
+
         // Set the current player to the next player's netId
         currentPlayer = _identities[_currentPlayerIndex].netId;
 
-        Debug.LogFormat("Current turn: {0} player", currentPlayer);
+        Debug.LogFormat("Current turn: {0} player", _currentPlayerIndex);
         Debug.Log(currentPlayer + " is the current player");
     }
 
@@ -111,6 +87,7 @@ public class TurnManager : NetworkBehaviour
     {
         // Check if the provided connection's identity matches the current player's identity
         if (_identities[_currentPlayerIndex] == connection.identity) return true;
+        
         //Sent a message to the client the action is out of turn
         Debug.Log("Action attempted out of turn.");
         return false;
