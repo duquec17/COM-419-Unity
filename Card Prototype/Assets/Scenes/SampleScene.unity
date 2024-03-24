@@ -393,28 +393,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6501471592668504213, guid: 44d63d050ced37c45a0e82a08856a5b7, type: 3}
   m_PrefabInstance: {fileID: 296850780}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &296850782 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6501471592668504214, guid: 44d63d050ced37c45a0e82a08856a5b7, type: 3}
-  m_PrefabInstance: {fileID: 296850780}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &296850783
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 296850782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2576730625b1632468cbcbfe5e721f88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  teamId: 01
-  forceShown: 1
 --- !u!1001 &323748237
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2003,9 +1981,6 @@ MonoBehaviour:
   playerSpawnMethod: 0
   spawnPrefabs:
   - {fileID: 1325048244974266444, guid: d1446139b5fac0540be126c6557f0462, type: 3}
-  - {fileID: 6501471592668504214, guid: 44d63d050ced37c45a0e82a08856a5b7, type: 3}
-  - {fileID: 893894855865603246, guid: 51bf89e4fc52c4741aea8f92f35e62e6, type: 3}
-  - {fileID: 8384968389857561952, guid: 563bff3530c0faf4a8b653077d744382, type: 3}
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2
@@ -2457,6 +2432,66 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7875592528286856244, guid: 62d36af4927cfcc4aa3e92b181f68c9b, type: 3}
   m_PrefabInstance: {fileID: 1629497824}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1677680190
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1677680192}
+  - component: {fileID: 1677680191}
+  m_Layer: 0
+  m_Name: LocationManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1677680191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1677680190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea617a25eb8d9f94c882b72529ecb2bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AllyDropZone1: {fileID: 0}
+  AllyDropZone2: {fileID: 0}
+  AllyDropZone3: {fileID: 0}
+  AllyDropZone4: {fileID: 0}
+  AllyDropZone5: {fileID: 0}
+  AllyHand: {fileID: 0}
+  AllyDeck: {fileID: 0}
+  AllyGrave: {fileID: 0}
+  EnemyDropZone1: {fileID: 0}
+  EnemyDropZone2: {fileID: 0}
+  EnemyDropZone3: {fileID: 0}
+  EnemyDropZone4: {fileID: 0}
+  EnemyDropZone5: {fileID: 0}
+  EnemyHand: {fileID: 0}
+  EnemyDeck: {fileID: 0}
+  EnemyGrave: {fileID: 0}
+--- !u!4 &1677680192
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1677680190}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 966.4041, y: 515.2442, z: 3.7380326}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1682903027 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 556300700970337087, guid: 58ec209afda973c4d84e1a4cc274f2a7, type: 3}
@@ -2875,10 +2910,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1414836695}
     m_Modifications:
-    - target: {fileID: 235032622368446116, guid: 563bff3530c0faf4a8b653077d744382, type: 3}
-      propertyPath: forceShown
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8384968389857561952, guid: 563bff3530c0faf4a8b653077d744382, type: 3}
       propertyPath: m_Name
       value: DrawCardsButton
@@ -2975,7 +3006,8 @@ PrefabInstance:
       propertyPath: turnManager
       value: 
       objectReference: {fileID: 1682903027}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 563bff3530c0faf4a8b653077d744382, type: 3}
 --- !u!1001 &8775224349433828083
 PrefabInstance:
