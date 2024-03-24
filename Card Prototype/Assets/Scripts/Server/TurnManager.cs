@@ -25,6 +25,7 @@ public class TurnManager : NetworkBehaviour
 
     // Track the number of players that have joined
     public int playersJoined = 0;
+    private Player player;
 
     private void Start()
     {
@@ -60,6 +61,11 @@ public class TurnManager : NetworkBehaviour
         if (currentPlayer == 2)
         {
             Debug.LogFormat("Both players have joined. Current number of players: {0}", currentPlayer);
+            foreach (NetworkIdentity identity in _identities)
+            {
+                HandManager handManager = identity.GetComponent<HandManager>();
+                handManager.SetupInitialHand(player);
+            }
         }
     }
 
@@ -70,23 +76,20 @@ public class TurnManager : NetworkBehaviour
         foreach (NetworkIdentity identity in _identities)
         {
             HandManager handManager = identity.GetComponent<HandManager>();
-            
-            if (identity != null)
+
+            if (handManager != null)
             {
-                if (handManager != null)
+                string playerName = identity.name;
+                string playerCards = "";
+                foreach (int cardId in handManager.handCardIds)
                 {
-                    string playerName = identity.name;
-                    string playerCards = "";
-                    foreach (int cardId in handManager.handCardIds)
-                    {
-                        playerCards += cardId.ToString() + ", ";
-                    }
-                    Debug.LogFormat("{0} hand cards: {1}", playerName, playerCards);
+                    playerCards += cardId.ToString() + ", ";
                 }
-                else
-                {
-                    Debug.LogWarning("HandManager component not found on " + identity.name);
-                }
+                Debug.LogFormat("{0} hand cards: {1}", playerName, playerCards);
+            }
+            else
+            {
+                Debug.LogWarning("HandManager component not found on " + identity.name);
             }
         }
 
