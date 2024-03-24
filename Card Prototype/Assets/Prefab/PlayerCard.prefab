@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3962577098412413819}
   - component: {fileID: -2281407303463525176}
   - component: {fileID: -1108868879787045650}
+  - component: {fileID: 6327641122129580701}
   m_Layer: 8
   m_Name: PlayerCard
   m_TagString: PlayerCard
@@ -238,3 +239,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 7
+--- !u!114 &6327641122129580701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1325048244974266444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2576730625b1632468cbcbfe5e721f88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  teamId: 01
+  forceShown: 1

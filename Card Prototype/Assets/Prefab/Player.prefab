@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5590766734933797765}
   - component: {fileID: 6765049192446333083}
   - component: {fileID: 3253080640103789538}
+  - component: {fileID: 493533404284898125}
   m_Layer: 5
   m_Name: Player
   m_TagString: Player
@@ -82,6 +83,25 @@ MonoBehaviour:
   - {fileID: 9000123704214848439, guid: 4bdf24f02851a5c4993a8f11aa3b5d06, type: 3}
   - {fileID: 2984804467110797970, guid: 71109a2775c2344469ecdd81068b3d6c, type: 3}
   - {fileID: 274755762948742840, guid: 7ef1941c390f3584baee6d9c889dfe96, type: 3}
+  handCards: []
+  playerName: 
   Health: 0
+  Mana: 0
   CardsPlayed: 0
-  IsMyTurn: 0
+--- !u!114 &493533404284898125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7564811719708240179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2576730625b1632468cbcbfe5e721f88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  teamId: 01
+  forceShown: 1

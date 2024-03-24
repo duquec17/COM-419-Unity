@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 8384968389857561962}
   - component: {fileID: 9211287859030526549}
   - component: {fileID: 650488427}
+  - component: {fileID: 235032622368446116}
   m_Layer: 5
   m_Name: DrawCardsButton
   m_TagString: Untagged
@@ -326,3 +327,20 @@ MonoBehaviour:
   playerNum: 0
   player: {fileID: 3253080640103789538, guid: 80a014d6b6ae3d04294ee8a95ed12037, type: 3}
   turnManager: {fileID: 556300700970337087, guid: 58ec209afda973c4d84e1a4cc274f2a7, type: 3}
+--- !u!114 &235032622368446116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8384968389857561952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2576730625b1632468cbcbfe5e721f88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  teamId: 01
+  forceShown: 0
