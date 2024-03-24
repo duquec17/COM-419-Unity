@@ -55,6 +55,8 @@ MonoBehaviour:
   playerRegisteredEvent:
     m_PersistentCalls:
       m_Calls: []
+  playersJoined: 0
+  player: {fileID: 3253080640103789538, guid: 80a014d6b6ae3d04294ee8a95ed12037, type: 3}
 --- !u!114 &556300700970337086
 MonoBehaviour:
   m_ObjectHideFlags: 0

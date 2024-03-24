@@ -24,8 +24,8 @@ public class TurnManager : NetworkBehaviour
     private HandManager handManager;
 
     // Track the number of players that have joined
-    public int playersJoined = 0;
-    private Player player;
+
+    public Player player;
 
     private void Start()
     {
@@ -58,9 +58,9 @@ public class TurnManager : NetworkBehaviour
         playerRegisteredEvent?.Invoke(connection.identity, GetPlayerTurn(connection));
 
         // If all players have joined, print the current number of players and whose turn it is
-        if (currentPlayer == 2)
+        if (_identities.Count == 2)
         {
-            Debug.LogFormat("Both players have joined. Current number of players: {0}", currentPlayer);
+            Debug.Log("Both players have joined. Current number of players: " + _identities.Count);
             foreach (NetworkIdentity identity in _identities)
             {
                 HandManager handManager = identity.GetComponent<HandManager>();
