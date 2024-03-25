@@ -22,6 +22,7 @@ public class TurnManager : NetworkBehaviour
     public UnityEvent<NetworkIdentity, int> playerRegisteredEvent;
     
     private HandManager handManager;
+    private Player player;
 
     // Track the number of players that have joined
 
@@ -59,6 +60,27 @@ public class TurnManager : NetworkBehaviour
         if (_identities.Count == 2)
         {
             Debug.Log("Both players have joined. Current number of players: " + _identities.Count);
+
+            // Initialize the player variable
+            foreach (NetworkIdentity identity in _identities)
+            {
+                Player playerComponent = identity.GetComponent<Player>();
+                if (playerComponent != null)
+                {
+                    player = playerComponent;
+                    break;
+                }
+            }
+
+            // Call the SetupInitialHand method
+            if (player != null)
+            {
+                handManager.SetupInitialHand(player);
+            }
+            else
+            {
+                Debug.Log("Failed to find player component.");
+            }
         }
     }
 
