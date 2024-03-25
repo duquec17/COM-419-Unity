@@ -25,8 +25,6 @@ public class TurnManager : NetworkBehaviour
 
     // Track the number of players that have joined
 
-    public Player player;
-
     private void Start()
     {
         // Set the name of the GameObject to TurnManager
