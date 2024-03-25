@@ -9,6 +9,7 @@ public class NextTurnButton : NetworkBehaviour
     public Button button;
     public TurnManager turnManager;
     public HandManager handManager;
+    public Player player;
 
     private void Start()
     {
@@ -21,6 +22,7 @@ public class NextTurnButton : NetworkBehaviour
         Debug.Log("End turn button clicked.");
 
         CmdEndTurn();
+        handManager.SetupInitialHand(player);
     }
 
     [Command(requiresAuthority = false)]
