@@ -2832,6 +2832,18 @@ PrefabInstance:
       propertyPath: sceneId
       value: 393560506
       objectReference: {fileID: 0}
+    - target: {fileID: 556300700970337087, guid: 58ec209afda973c4d84e1a4cc274f2a7, type: 3}
+      propertyPath: playerRegisteredEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 556300700970337087, guid: 58ec209afda973c4d84e1a4cc274f2a7, type: 3}
+      propertyPath: playerRegisteredEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 556300700970337087, guid: 58ec209afda973c4d84e1a4cc274f2a7, type: 3}
+      propertyPath: playerRegisteredEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58ec209afda973c4d84e1a4cc274f2a7, type: 3}
 --- !u!1001 &8129794836384075694

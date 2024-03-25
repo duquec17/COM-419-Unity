@@ -81,6 +81,9 @@ public class HandManager : NetworkBehaviour
     {
         Debug.Log("Setting up initial hand...");
 
+        // Log to track which cards are added to the player's hand
+        List<int> addedCardIds = new List<int>();
+
         // Randomly select cards from the database and add them to the player's hand
         for (int i = 0; i < 3; i++)
         {
@@ -88,8 +91,16 @@ public class HandManager : NetworkBehaviour
             
             // Create the card object
             Card card = CardDatabase.GetCardById(randomCardId);
+
+            // Assign the card to the player's hand
             player.handCards.Add(card);
+
+            // Log the added card ID
+            addedCardIds.Add(randomCardId);
         }
+
+        // Log the added card IDs
+        Debug.Log("Cards added to player's hand: " + string.Join(", ", addedCardIds));
 
         Debug.Log("Initial hand setup complete.");
     }
