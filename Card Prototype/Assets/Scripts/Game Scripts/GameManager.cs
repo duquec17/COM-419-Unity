@@ -8,8 +8,8 @@ public class GameManager : NetworkBehaviour
     //Variables managing game logic
     public int TurnOrder = 0;
     public string GameState = "Initialize {}";
-    public int AllyMana = 2;
-    public int EnemyMana = 2;
+    public int MaxHealth = 20;
+    public int MaxMana = 10;
 
     // Reference to the player manager scripts of both players
     public PlayerManager playerManagerAlly;

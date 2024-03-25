@@ -97,19 +97,6 @@ public class PlayerManager : NetworkBehaviour
         {
             IsMyTurn = true;
         }
-
-        //Message to show that client is running; appears in console tab
-        Debug.Log("OnStartClient was activated");
-    }
-
-    //Starts server (Host + Client)
-    [Server]
-    public override void OnStartServer()
-    {
-        base.OnStartServer();
-        
-        //Tells us that the server is running
-        Debug.Log("OnStartServer was activated");
     }
 
     //Command that adds cards to players hands and grants authority

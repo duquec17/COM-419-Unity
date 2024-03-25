@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class Card 
 {
-    
     public int id;
     public string cardName;
     public int cost;
@@ -14,11 +13,13 @@ public class Card
     public int health;
     public string cardDescription;
     public Sprite spriteImage;
+    public int owner; // New field to indicate the ownwer of the card
+
     
     public Card(){
     }
 
-    public Card(int Id, string CardName, int Cost, int Power, int Health, string CardDescription, Sprite SpriteImage)
+    public Card(int Id, string CardName, int Cost, int Power, int Health, string CardDescription, Sprite SpriteImage, int Owner)
     {
         id = Id;
         cardName = CardName;
@@ -26,7 +27,7 @@ public class Card
         power = Power;
         cardDescription = CardDescription;
         health = Health;
-        
         spriteImage = SpriteImage;
+        owner = Owner; // Default owner is empty
     }
 }
