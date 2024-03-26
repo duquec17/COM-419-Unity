@@ -61,6 +61,8 @@ public class HandManager : NetworkBehaviour
                 newCard.transform.SetSiblingIndex(cardIndex);
             }
         }
+
+        
     }
 
     // Set up the UI of a card based on its data
@@ -97,6 +99,7 @@ public class HandManager : NetworkBehaviour
 
             // Log the added card ID
             addedCardIds.Add(randomCardId);
+
         }
 
         // Log the added card IDs

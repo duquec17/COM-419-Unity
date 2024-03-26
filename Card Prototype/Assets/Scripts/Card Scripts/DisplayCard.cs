@@ -18,8 +18,14 @@ public class DisplayCard : MonoBehaviour
     public int power;
     public int health;
     public string cardDescription;
-    public Sprite spriteImage;
-    public Image artImage;
+    //public Sprite spriteImage;
+    //public Image artImage;
+
+    public TMP_Text nameText;
+    public TMP_Text costText;
+    public TMP_Text powerText;
+    public TMP_Text healthText;
+    public TMP_Text descriptionText;
 
     public bool cardBack;
     public static bool staticCardBack;
@@ -32,16 +38,29 @@ public class DisplayCard : MonoBehaviour
     void Start()
     {
         // numberOfCardsInDeck = PlayerDeck.deckSize;
-        displayCard[0] = CardDatabase.cardList[0];
+        displayCard[0] = CardDatabase.cardList[displayId];
 
+      
+    }
+
+    void Update()
+    {
         id = displayCard[0].id;
         cardName = displayCard[0].cardName;
         cost = displayCard[0].cost;
         power = displayCard[0].power;
         health = displayCard[0].health;
         cardDescription = displayCard[0].cardDescription;
-        spriteImage = displayCard[0].spriteImage;
-        artImage.sprite = spriteImage;
+        //spriteImage = displayCard[0].spriteImage;
+        //artImage.sprite = spriteImage;
+
+        nameText.text = " " + cardName;
+        costText.text = " " + cost;
+        powerText.text = " " + power;
+        descriptionText.text = " " + cardDescription;
+        healthText.text = " " + health;
+
+        staticCardBack = cardBack;
     }
 
     

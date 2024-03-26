@@ -19,7 +19,7 @@ public class Card
     public Card(){
     }
 
-    public Card(int Id, string CardName, int Cost, int Power, int Health, string CardDescription, Sprite SpriteImage, int Owner)
+    public Card(int Id, string CardName, int Cost, int Power, int Health, string CardDescription)
     {
         id = Id;
         cardName = CardName;
@@ -27,7 +27,7 @@ public class Card
         power = Power;
         cardDescription = CardDescription;
         health = Health;
-        spriteImage = SpriteImage;
-        owner = Owner; // Default owner is empty
+        //spriteImage = SpriteImage;
+        //owner = Owner; // Default owner is empty
     }
 }

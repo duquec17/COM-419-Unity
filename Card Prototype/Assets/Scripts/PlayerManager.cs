@@ -111,6 +111,7 @@ public class PlayerManager : NetworkBehaviour
 
             //Sets current status of the card to "Dealt" which makes it appear in hand for the Server
             RpcShowCard(card, "Dealt");
+
         }
 
         //Changes game manager current state
