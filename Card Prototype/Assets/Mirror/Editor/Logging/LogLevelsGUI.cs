@@ -21,7 +21,6 @@ namespace Mirror.EditorScripts.Logging
         {
             using (EditorGUI.ChangeCheckScope scope = new EditorGUI.ChangeCheckScope())
             {
-
                 if (LogFactory.loggers.Count == 0)
                 {
                     EditorGUILayout.LabelField("No Keys found in LogFactory.loggers\nPlay the game for default log values to be added to LogFactory", EditorStyles.wordWrappedLabel);
@@ -41,7 +40,6 @@ namespace Mirror.EditorScripts.Logging
                         settings.SaveFromDictionary(LogFactory.loggers);
                     }
                 }
-                
             }
         }
 
