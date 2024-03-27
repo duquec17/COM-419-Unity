@@ -1,24 +1,36 @@
 using System;
-using System.Runtime.CompilerServices;
+using UnityEngine;
 
 namespace Mirror
 {
     public class NetworkConnectionToServer : NetworkConnection
     {
-        // Send stage three: hand off to transport
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override void SendToTransport(ArraySegment<byte> segment, int channelId = Channels.Reliable) =>
-            Transport.active.ClientSend(segment, channelId);
+        static readonly ILogger logger = LogFactory.GetLogger<NetworkConnectionToServer>();
 
-        /// <summary>Disconnects this connection.</summary>
+        public override string address => "";
+
+        internal override bool Send(ArraySegment<byte> segment, int channelId = Channels.DefaultReliable)
+        {
+            if (logger.LogEnabled()) logger.Log("ConnectionSend " + this + " bytes:" + BitConverter.ToString(segment.Array, segment.Offset, segment.Count));
+
+            // validate packet size first.
+            if (ValidatePacketSize(segment, channelId))
+            {
+                return Transport.activeTransport.ClientSend(channelId, segment);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Disconnects this connection.
+        /// </summary>
         public override void Disconnect()
         {
             // set not ready and handle clientscene disconnect in any case
             // (might be client or host mode here)
-            // TODO remove redundant state. have one source of truth for .ready!
             isReady = false;
-            NetworkClient.ready = false;
-            Transport.active.ClientDisconnect();
+            ClientScene.HandleClientDisconnect(this);
+            Transport.activeTransport.ClientDisconnect();
         }
     }
 }

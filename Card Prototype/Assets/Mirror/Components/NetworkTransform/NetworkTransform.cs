@@ -1,8 +1,12 @@
-using System;
+using UnityEngine;
 
 namespace Mirror
 {
-    // DEPRECATED 2023-06-15
-    [Obsolete("NetworkTransform was renamed to NetworkTransformUnreliable.\nYou can easily swap the component's script by going into the Unity Inspector debug mode:\n1. Click the vertical dots on the top right in the Inspector tab.\n2. Find your NetworkTransform component\n3. Drag NetworkTransformUnreliable into the 'Script' field in the Inspector.\n4. Find the three dots and return to Normal mode.")]
-    public class NetworkTransform : NetworkTransformUnreliable {}
+    [DisallowMultipleComponent]
+    [AddComponentMenu("Network/NetworkTransform")]
+    [HelpURL("https://mirror-networking.com/docs/Components/NetworkTransform.html")]
+    public class NetworkTransform : NetworkTransformBase
+    {
+        protected override Transform targetComponent => transform;
+    }
 }

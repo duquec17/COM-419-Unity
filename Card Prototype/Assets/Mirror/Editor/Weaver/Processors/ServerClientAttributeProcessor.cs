@@ -1,112 +1,75 @@
-// Injects server/client active checks for [Server/Client] attributes
 using Mono.CecilX;
 using Mono.CecilX.Cil;
 
 namespace Mirror.Weaver
 {
+    /// <summary>
+    /// processes SyncVars, Cmds, Rpcs, etc. of NetworkBehaviours
+    /// </summary>
     static class ServerClientAttributeProcessor
     {
-        public static bool Process(WeaverTypes weaverTypes, Logger Log, TypeDefinition td, ref bool WeavingFailed)
-        {
-            bool modified = false;
-            foreach (MethodDefinition md in td.Methods)
-            {
-                modified |= ProcessSiteMethod(weaverTypes, Log, md, ref WeavingFailed);
-            }
-
-            foreach (TypeDefinition nested in td.NestedTypes)
-            {
-                modified |= Process(weaverTypes, Log, nested, ref WeavingFailed);
-            }
-            return modified;
-        }
-
-        static bool ProcessSiteMethod(WeaverTypes weaverTypes, Logger Log, MethodDefinition md, ref bool WeavingFailed)
-        {
-            if (md.Name == ".cctor" ||
-                md.Name == NetworkBehaviourProcessor.ProcessedFunctionName ||
-                md.Name.StartsWith(Weaver.InvokeRpcPrefix))
-                return false;
-
-            if (md.IsAbstract)
-            {
-                if (HasServerClientAttribute(md))
-                {
-                    Log.Error("Server or Client Attributes can't be added to abstract method. Server and Client Attributes are not inherited so they need to be applied to the override methods instead.", md);
-                    WeavingFailed = true;
-                }
-                return false;
-            }
-
-            if (md.Body != null && md.Body.Instructions != null)
-            {
-                return ProcessMethodAttributes(weaverTypes, md);
-            }
-            return false;
-        }
-
-        public static bool HasServerClientAttribute(MethodDefinition md)
+        public static void ProcessMethodAttributes(TypeDefinition td, MethodDefinition md)
         {
             foreach (CustomAttribute attr in md.CustomAttributes)
             {
                 switch (attr.Constructor.DeclaringType.ToString())
                 {
                     case "Mirror.ServerAttribute":
+                        InjectServerGuard(td, md, true);
+                        break;
                     case "Mirror.ServerCallbackAttribute":
+                        InjectServerGuard(td, md, false);
+                        break;
                     case "Mirror.ClientAttribute":
+                        InjectClientGuard(td, md, true);
+                        break;
                     case "Mirror.ClientCallbackAttribute":
-                        return true;
+                        InjectClientGuard(td, md, false);
+                        break;
                     default:
                         break;
                 }
             }
-            return false;
         }
 
-        public static bool ProcessMethodAttributes(WeaverTypes weaverTypes, MethodDefinition md)
+        static void InjectServerGuard(TypeDefinition td, MethodDefinition md, bool logWarning)
         {
-            if (md.HasCustomAttribute<ServerAttribute>())
-                InjectServerGuard(weaverTypes, md, true);
-            else if (md.HasCustomAttribute<ServerCallbackAttribute>())
-                InjectServerGuard(weaverTypes, md, false);
-            else if (md.HasCustomAttribute<ClientAttribute>())
-                InjectClientGuard(weaverTypes, md, true);
-            else if (md.HasCustomAttribute<ClientCallbackAttribute>())
-                InjectClientGuard(weaverTypes, md, false);
-            else
-                return false;
-
-            return true;
-        }
-
-        static void InjectServerGuard(WeaverTypes weaverTypes, MethodDefinition md, bool logWarning)
-        {
+            if (!Weaver.IsNetworkBehaviour(td))
+            {
+                Weaver.Error($"Server method {md.Name} must be declared in a NetworkBehaviour", md);
+                return;
+            }
             ILProcessor worker = md.Body.GetILProcessor();
             Instruction top = md.Body.Instructions[0];
 
-            worker.InsertBefore(top, worker.Create(OpCodes.Call, weaverTypes.NetworkServerGetActive));
+            worker.InsertBefore(top, worker.Create(OpCodes.Call, Weaver.NetworkServerGetActive));
             worker.InsertBefore(top, worker.Create(OpCodes.Brtrue, top));
             if (logWarning)
             {
-                worker.InsertBefore(top, worker.Create(OpCodes.Ldstr, $"[Server] function '{md.FullName}' called when server was not active"));
-                worker.InsertBefore(top, worker.Create(OpCodes.Call, weaverTypes.logWarningReference));
+                worker.InsertBefore(top, worker.Create(OpCodes.Ldstr, "[Server] function '" + md.FullName + "' called on client"));
+                worker.InsertBefore(top, worker.Create(OpCodes.Call, Weaver.logWarningReference));
             }
             InjectGuardParameters(md, worker, top);
             InjectGuardReturnValue(md, worker, top);
             worker.InsertBefore(top, worker.Create(OpCodes.Ret));
         }
 
-        static void InjectClientGuard(WeaverTypes weaverTypes, MethodDefinition md, bool logWarning)
+        static void InjectClientGuard(TypeDefinition td, MethodDefinition md, bool logWarning)
         {
+            if (!Weaver.IsNetworkBehaviour(td))
+            {
+                Weaver.Error($"Client method {md.Name} must be declared in a NetworkBehaviour", md);
+                return;
+            }
             ILProcessor worker = md.Body.GetILProcessor();
             Instruction top = md.Body.Instructions[0];
 
-            worker.InsertBefore(top, worker.Create(OpCodes.Call, weaverTypes.NetworkClientGetActive));
+            worker.InsertBefore(top, worker.Create(OpCodes.Call, Weaver.NetworkClientGetActive));
             worker.InsertBefore(top, worker.Create(OpCodes.Brtrue, top));
             if (logWarning)
             {
-                worker.InsertBefore(top, worker.Create(OpCodes.Ldstr, $"[Client] function '{md.FullName}' called when client was not active"));
-                worker.InsertBefore(top, worker.Create(OpCodes.Call, weaverTypes.logWarningReference));
+                worker.InsertBefore(top, worker.Create(OpCodes.Ldstr, "[Client] function '" + md.FullName + "' called on server"));
+                worker.InsertBefore(top, worker.Create(OpCodes.Call, Weaver.logWarningReference));
             }
 
             InjectGuardParameters(md, worker, top);
@@ -123,25 +86,24 @@ namespace Mirror.Weaver
                 ParameterDefinition param = md.Parameters[index];
                 if (param.IsOut)
                 {
-                    // this causes IL2CPP build issues with generic out parameters:
-                    // https://github.com/MirrorNetworking/Mirror/issues/3482
-                    // TypeReference elementType = param.ParameterType.GetElementType();
-                    //
-                    // instead we need to use ElementType not GetElementType()
-                    //   GetElementType() will get the element type of the inner elementType
-                    //   which will return wrong type for arrays and generic
-                    // credit: JamesFrowen
-                    ByReferenceType byRefType = (ByReferenceType)param.ParameterType;
-                    TypeReference elementType = byRefType.ElementType;
+                    TypeReference elementType = param.ParameterType.GetElementType();
+                    if (elementType.IsPrimitive)
+                    {
+                        worker.InsertBefore(top, worker.Create(OpCodes.Ldarg, index + offset));
+                        worker.InsertBefore(top, worker.Create(OpCodes.Ldc_I4_0));
+                        worker.InsertBefore(top, worker.Create(OpCodes.Stind_I4));
+                    }
+                    else
+                    {
+                        md.Body.Variables.Add(new VariableDefinition(elementType));
+                        md.Body.InitLocals = true;
 
-                    md.Body.Variables.Add(new VariableDefinition(elementType));
-                    md.Body.InitLocals = true;
-
-                    worker.InsertBefore(top, worker.Create(OpCodes.Ldarg, index + offset));
-                    worker.InsertBefore(top, worker.Create(OpCodes.Ldloca_S, (byte)(md.Body.Variables.Count - 1)));
-                    worker.InsertBefore(top, worker.Create(OpCodes.Initobj, elementType));
-                    worker.InsertBefore(top, worker.Create(OpCodes.Ldloc, md.Body.Variables.Count - 1));
-                    worker.InsertBefore(top, worker.Create(OpCodes.Stobj, elementType));
+                        worker.InsertBefore(top, worker.Create(OpCodes.Ldarg, index + offset));
+                        worker.InsertBefore(top, worker.Create(OpCodes.Ldloca_S, (byte)(md.Body.Variables.Count - 1)));
+                        worker.InsertBefore(top, worker.Create(OpCodes.Initobj, elementType));
+                        worker.InsertBefore(top, worker.Create(OpCodes.Ldloc, md.Body.Variables.Count - 1));
+                        worker.InsertBefore(top, worker.Create(OpCodes.Stobj, elementType));
+                    }
                 }
             }
         }
@@ -149,14 +111,21 @@ namespace Mirror.Weaver
         // this is required to early-out from a function with a return value.
         static void InjectGuardReturnValue(MethodDefinition md, ILProcessor worker, Instruction top)
         {
-            if (!md.ReturnType.Is(typeof(void)))
+            if (md.ReturnType.FullName != Weaver.voidType.FullName)
             {
-                md.Body.Variables.Add(new VariableDefinition(md.ReturnType));
-                md.Body.InitLocals = true;
+                if (md.ReturnType.IsPrimitive)
+                {
+                    worker.InsertBefore(top, worker.Create(OpCodes.Ldc_I4_0));
+                }
+                else
+                {
+                    md.Body.Variables.Add(new VariableDefinition(md.ReturnType));
+                    md.Body.InitLocals = true;
 
-                worker.InsertBefore(top, worker.Create(OpCodes.Ldloca_S, (byte)(md.Body.Variables.Count - 1)));
-                worker.InsertBefore(top, worker.Create(OpCodes.Initobj, md.ReturnType));
-                worker.InsertBefore(top, worker.Create(OpCodes.Ldloc, md.Body.Variables.Count - 1));
+                    worker.InsertBefore(top, worker.Create(OpCodes.Ldloca_S, (byte)(md.Body.Variables.Count - 1)));
+                    worker.InsertBefore(top, worker.Create(OpCodes.Initobj, md.ReturnType));
+                    worker.InsertBefore(top, worker.Create(OpCodes.Ldloc, md.Body.Variables.Count - 1));
+                }
             }
         }
     }

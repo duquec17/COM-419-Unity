@@ -6,173 +6,52 @@ using UnityEngine;
 namespace Mirror
 {
     // a transport that can listen to multiple underlying transport at the same time
-    [DisallowMultipleComponent]
-    public class MultiplexTransport : Transport, PortTransport
+    public class MultiplexTransport : Transport
     {
         public Transport[] transports;
 
         Transport available;
 
-        // underlying transport connectionId to multiplexed connectionId lookup.
-        //
-        // originally we used a formula to map the connectionId:
-        //   connectionId * transportAmount + transportId
-        //
-        // if we have 3 transports, then
-        //   transport 0 will produce connection ids [0, 3, 6, 9, ...]
-        //   transport 1 will produce connection ids [1, 4, 7, 10, ...]
-        //   transport 2 will produce connection ids [2, 5, 8, 11, ...]
-        //
-        // however, some transports like kcp may give very large connectionIds.
-        // if they are near int.max, then "* transprotAmount + transportIndex"
-        // will overflow, resulting in connIds which can't be projected back.
-        //   https://github.com/vis2k/Mirror/issues/3280
-        //
-        // instead, use a simple lookup with 0-indexed ids.
-        // with initial capacity to avoid runtime allocations.
-
-        // (original connectionId, transport#) to multiplexed connectionId
-        readonly Dictionary<KeyValuePair<int, int>, int> originalToMultiplexedId =
-            new Dictionary<KeyValuePair<int, int>, int>(100);
-
-        // multiplexed connectionId to (original connectionId, transport#)
-        readonly Dictionary<int, KeyValuePair<int, int>> multiplexedToOriginalId =
-            new Dictionary<int, KeyValuePair<int, int>>(100);
-
-        // next multiplexed id counter. start at 1 because 0 is reserved for host.
-        int nextMultiplexedId = 1;
-
-        // prevent log flood from OnGUI or similar per-frame updates
-        bool alreadyWarned;
-
-        public ushort Port
-        {
-            get
-            {
-                foreach (Transport transport in transports)
-                    if (transport.Available() && transport is PortTransport portTransport)
-                        return portTransport.Port;
-
-                return 0;
-            }
-            set
-            {
-                if (Utils.IsHeadless() && !alreadyWarned)
-                {
-                    // prevent log flood from OnGUI or similar per-frame updates
-                    alreadyWarned = true;
-                    Debug.LogWarning($"MultiplexTransport: Server cannot set the same listen port for all transports! Set them directly instead.");
-                }
-
-                else
-                {
-                    // We can't set the same port for all transports because
-                    // listen ports have to be different for each transport
-                    // so we just set the first available one.
-                    // This depends on the selected build platform.
-                    foreach (Transport transport in transports)
-                        if (transport.Available() && transport is PortTransport portTransport)
-                        {
-                            portTransport.Port = value;
-                            break;
-                        }
-                }
-            }
-        }
-
-        // add to bidirection lookup. returns the multiplexed connectionId.
-        public int AddToLookup(int originalConnectionId, int transportIndex)
-        {
-            // add to both
-            KeyValuePair<int, int> pair = new KeyValuePair<int, int>(originalConnectionId, transportIndex);
-            int multiplexedId = nextMultiplexedId++;
-
-            originalToMultiplexedId[pair] = multiplexedId;
-            multiplexedToOriginalId[multiplexedId] = pair;
-
-            return multiplexedId;
-        }
-
-        public void RemoveFromLookup(int originalConnectionId, int transportIndex)
-        {
-            // remove from both
-            KeyValuePair<int, int> pair = new KeyValuePair<int, int>(originalConnectionId, transportIndex);
-            int multiplexedId = originalToMultiplexedId[pair];
-
-            originalToMultiplexedId.Remove(pair);
-            multiplexedToOriginalId.Remove(multiplexedId);
-        }
-
-        public void OriginalId(int multiplexId, out int originalConnectionId, out int transportIndex)
-        {
-            KeyValuePair<int, int> pair = multiplexedToOriginalId[multiplexId];
-            originalConnectionId = pair.Key;
-            transportIndex       = pair.Value;
-        }
-
-        public int MultiplexId(int originalConnectionId, int transportIndex)
-        {
-            KeyValuePair<int, int> pair = new KeyValuePair<int, int>(originalConnectionId, transportIndex);
-            return originalToMultiplexedId[pair];
-        }
-
-        ////////////////////////////////////////////////////////////////////////
+        // used to partition recipients for each one of the base transports
+        // without allocating a new list every time
+        List<int>[] recipientsCache;
 
         public void Awake()
         {
             if (transports == null || transports.Length == 0)
             {
-                Debug.LogError("[Multiplexer] Multiplex transport requires at least 1 underlying transport");
+                Debug.LogError("Multiplex transport requires at least 1 underlying transport");
             }
-        }
-
-        public override void ClientEarlyUpdate()
-        {
-            foreach (Transport transport in transports)
-                transport.ClientEarlyUpdate();
-        }
-
-        public override void ServerEarlyUpdate()
-        {
-            foreach (Transport transport in transports)
-                transport.ServerEarlyUpdate();
-        }
-
-        public override void ClientLateUpdate()
-        {
-            foreach (Transport transport in transports)
-                transport.ClientLateUpdate();
-        }
-
-        public override void ServerLateUpdate()
-        {
-            foreach (Transport transport in transports)
-                transport.ServerLateUpdate();
-        }
-
-        void OnEnable()
-        {
-            foreach (Transport transport in transports)
-                transport.enabled = true;
-        }
-
-        void OnDisable()
-        {
-            foreach (Transport transport in transports)
-                transport.enabled = false;
+            InitClient();
+            InitServer();
         }
 
         public override bool Available()
         {
             // available if any of the transports is available
             foreach (Transport transport in transports)
+            {
                 if (transport.Available())
+                {
                     return true;
-
+                }
+            }
             return false;
         }
 
         #region Client
+        // clients always pick the first transport
+        void InitClient()
+        {
+            // wire all the base transports to my events
+            foreach (Transport transport in transports)
+            {
+                transport.OnClientConnected.AddListener(OnClientConnected.Invoke);
+                transport.OnClientDataReceived.AddListener(OnClientDataReceived.Invoke);
+                transport.OnClientError.AddListener(OnClientError.Invoke);
+                transport.OnClientDisconnected.AddListener(OnClientDisconnected.Invoke);
+            }
+        }
 
         public override void ClientConnect(string address)
         {
@@ -181,15 +60,11 @@ namespace Mirror
                 if (transport.Available())
                 {
                     available = transport;
-                    transport.OnClientConnected = OnClientConnected;
-                    transport.OnClientDataReceived = OnClientDataReceived;
-                    transport.OnClientError = OnClientError;
-                    transport.OnClientDisconnected = OnClientDisconnected;
                     transport.ClientConnect(address);
                     return;
                 }
             }
-            throw new ArgumentException("[Multiplexer] No transport suitable for this platform");
+            throw new Exception("No transport suitable for this platform");
         }
 
         public override void ClientConnect(Uri uri)
@@ -200,12 +75,8 @@ namespace Mirror
                 {
                     try
                     {
-                        available = transport;
-                        transport.OnClientConnected = OnClientConnected;
-                        transport.OnClientDataReceived = OnClientDataReceived;
-                        transport.OnClientError = OnClientError;
-                        transport.OnClientDisconnected = OnClientDisconnected;
                         transport.ClientConnect(uri);
+                        available = transport;
                         return;
                     }
                     catch (ArgumentException)
@@ -214,7 +85,7 @@ namespace Mirror
                     }
                 }
             }
-            throw new ArgumentException("[Multiplexer] No transport suitable for this platform");
+            throw new Exception("No transport suitable for this platform");
         }
 
         public override bool ClientConnected()
@@ -228,119 +99,146 @@ namespace Mirror
                 available.ClientDisconnect();
         }
 
-        public override void ClientSend(ArraySegment<byte> segment, int channelId)
+        public override bool ClientSend(int channelId, ArraySegment<byte> segment)
         {
-            available.ClientSend(segment, channelId);
+            return available.ClientSend(channelId, segment);
         }
 
         #endregion
 
         #region Server
-        void AddServerCallbacks()
+        // connection ids get mapped to base transports
+        // if we have 3 transports,  then
+        // transport 0 will produce connection ids [0, 3, 6, 9, ...]
+        // transport 1 will produce connection ids [1, 4, 7, 10, ...]
+        // transport 2 will produce connection ids [2, 5, 8, 11, ...]
+        int FromBaseId(int transportId, int connectionId)
         {
-            // all underlying transports should call the multiplex transport's events
+            return connectionId * transports.Length + transportId;
+        }
+
+        int ToBaseId(int connectionId)
+        {
+            return connectionId / transports.Length;
+        }
+
+        int ToTransportId(int connectionId)
+        {
+            return connectionId % transports.Length;
+        }
+
+        void InitServer()
+        {
+            recipientsCache = new List<int>[transports.Length];
+
+            // wire all the base transports to my events
             for (int i = 0; i < transports.Length; i++)
             {
-                // this is required for the handlers, if I use i directly
+                recipientsCache[i] = new List<int>();
+
+                // this is required for the handlers,  if I use i directly
                 // then all the handlers will use the last i
-                int transportIndex = i;
+                int locali = i;
                 Transport transport = transports[i];
 
-                transport.OnServerConnected = (originalConnectionId =>
+                transport.OnServerConnected.AddListener(baseConnectionId =>
                 {
-                    // invoke Multiplex event with multiplexed connectionId
-                    int multiplexedId = AddToLookup(originalConnectionId, transportIndex);
-                    OnServerConnected.Invoke(multiplexedId);
+                    OnServerConnected.Invoke(FromBaseId(locali, baseConnectionId));
                 });
 
-                transport.OnServerDataReceived = (originalConnectionId, data, channel) =>
+                transport.OnServerDataReceived.AddListener((baseConnectionId, data, channel) =>
                 {
-                    // invoke Multiplex event with multiplexed connectionId
-                    int multiplexedId = MultiplexId(originalConnectionId, transportIndex);
-                    OnServerDataReceived.Invoke(multiplexedId, data, channel);
-                };
+                    OnServerDataReceived.Invoke(FromBaseId(locali, baseConnectionId), data, channel);
+                });
 
-                transport.OnServerError = (originalConnectionId, error, reason) =>
+                transport.OnServerError.AddListener((baseConnectionId, error) =>
                 {
-                    // invoke Multiplex event with multiplexed connectionId
-                    int multiplexedId = MultiplexId(originalConnectionId, transportIndex);
-                    OnServerError.Invoke(multiplexedId, error, reason);
-                };
-
-                transport.OnServerDisconnected = originalConnectionId =>
+                    OnServerError.Invoke(FromBaseId(locali, baseConnectionId), error);
+                });
+                transport.OnServerDisconnected.AddListener(baseConnectionId =>
                 {
-                    // invoke Multiplex event with multiplexed connectionId
-                    int multiplexedId = MultiplexId(originalConnectionId, transportIndex);
-                    OnServerDisconnected.Invoke(multiplexedId);
-                    RemoveFromLookup(originalConnectionId, transportIndex);
-                };
+                    OnServerDisconnected.Invoke(FromBaseId(locali, baseConnectionId));
+                });
             }
         }
 
         // for now returns the first uri,
         // should we return all available uris?
-        public override Uri ServerUri() =>
-            transports[0].ServerUri();
+        public override Uri ServerUri()
+        {
+            return transports[0].ServerUri();
+        }
+
 
         public override bool ServerActive()
         {
             // avoid Linq.All allocations
             foreach (Transport transport in transports)
+            {
                 if (!transport.ServerActive())
+                {
                     return false;
-
+                }
+            }
             return true;
         }
 
         public override string ServerGetClientAddress(int connectionId)
         {
-            // convert multiplexed connectionId to original id & transport index
-            OriginalId(connectionId, out int originalConnectionId, out int transportIndex);
-            return transports[transportIndex].ServerGetClientAddress(originalConnectionId);
+            int baseConnectionId = ToBaseId(connectionId);
+            int transportId = ToTransportId(connectionId);
+            return transports[transportId].ServerGetClientAddress(baseConnectionId);
         }
 
-        public override void ServerDisconnect(int connectionId)
+        public override bool ServerDisconnect(int connectionId)
         {
-            // convert multiplexed connectionId to original id & transport index
-            OriginalId(connectionId, out int originalConnectionId, out int transportIndex);
-            transports[transportIndex].ServerDisconnect(originalConnectionId);
+            int baseConnectionId = ToBaseId(connectionId);
+            int transportId = ToTransportId(connectionId);
+            return transports[transportId].ServerDisconnect(baseConnectionId);
         }
 
-        public override void ServerSend(int connectionId, ArraySegment<byte> segment, int channelId)
+        public override bool ServerSend(List<int> connectionIds, int channelId, ArraySegment<byte> segment)
         {
-            // convert multiplexed connectionId to original transport + connId
-            OriginalId(connectionId, out int originalConnectionId, out int transportIndex);
-            transports[transportIndex].ServerSend(originalConnectionId, segment, channelId);
+            // the message may be for different transports,
+            // partition the recipients by transport
+            foreach (List<int> list in recipientsCache)
+            {
+                list.Clear();
+            }
+
+            foreach (int connectionId in connectionIds)
+            {
+                int baseConnectionId = ToBaseId(connectionId);
+                int transportId = ToTransportId(connectionId);
+                recipientsCache[transportId].Add(baseConnectionId);
+            }
+
+            bool result = true;
+            for (int i = 0; i < transports.Length; ++i)
+            {
+                List<int> baseRecipients = recipientsCache[i];
+                if (baseRecipients.Count > 0)
+                {
+                    result &= transports[i].ServerSend(baseRecipients, channelId, segment);
+                }
+            }
+            return result;
         }
 
         public override void ServerStart()
         {
-            AddServerCallbacks();
-
             foreach (Transport transport in transports)
             {
                 transport.ServerStart();
-
-                if (transport is PortTransport portTransport)
-                {
-                    if (Utils.IsHeadless())
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"Server listening on port {portTransport.Port}");
-                        Console.ResetColor();
-                    }
-                    else
-                    {
-                        Debug.Log($"Server listening on port {portTransport.Port}");
-                    }
-                }
             }
         }
 
         public override void ServerStop()
         {
             foreach (Transport transport in transports)
+            {
                 transport.ServerStop();
+            }
         }
         #endregion
 
@@ -369,17 +267,18 @@ namespace Mirror
         public override void Shutdown()
         {
             foreach (Transport transport in transports)
+            {
                 transport.Shutdown();
+            }
         }
 
         public override string ToString()
         {
             StringBuilder builder = new StringBuilder();
-            builder.Append("Multiplexer:");
-
             foreach (Transport transport in transports)
-                builder.Append($" {transport}");
-
+            {
+                builder.AppendLine(transport.ToString());
+            }
             return builder.ToString().Trim();
         }
     }

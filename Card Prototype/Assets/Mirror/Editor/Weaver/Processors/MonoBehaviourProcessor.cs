@@ -2,53 +2,71 @@ using Mono.CecilX;
 
 namespace Mirror.Weaver
 {
-    // only shows warnings in case we use SyncVars etc. for MonoBehaviour.
+    /// <summary>
+    /// only shows warnings in case we use SyncVars etc. for MonoBehaviour.
+    /// </summary>
     static class MonoBehaviourProcessor
     {
-        public static void Process(Logger Log, TypeDefinition td, ref bool WeavingFailed)
+        public static void Process(TypeDefinition td)
         {
-            ProcessSyncVars(Log, td, ref WeavingFailed);
-            ProcessMethods(Log, td, ref WeavingFailed);
+            ProcessSyncVars(td);
+            ProcessMethods(td);
         }
 
-        static void ProcessSyncVars(Logger Log, TypeDefinition td, ref bool WeavingFailed)
+        static void ProcessSyncVars(TypeDefinition td)
         {
             // find syncvars
             foreach (FieldDefinition fd in td.Fields)
             {
-                if (fd.HasCustomAttribute<SyncVarAttribute>())
-                {
-                    Log.Error($"SyncVar {fd.Name} must be inside a NetworkBehaviour.  {td.Name} is not a NetworkBehaviour", fd);
-                    WeavingFailed = true;
-                }
+                if (fd.HasCustomAttribute(Weaver.SyncVarType))
+                    Weaver.Error($"SyncVar {fd.Name} must be inside a NetworkBehaviour.  {td.Name} is not a NetworkBehaviour", fd);
 
                 if (SyncObjectInitializer.ImplementsSyncObject(fd.FieldType))
                 {
-                    Log.Error($"{fd.Name} is a SyncObject and must be inside a NetworkBehaviour.  {td.Name} is not a NetworkBehaviour", fd);
-                    WeavingFailed = true;
+                    Weaver.Error($"{fd.Name} is a SyncObject and must be inside a NetworkBehaviour.  {td.Name} is not a NetworkBehaviour", fd);
                 }
             }
         }
 
-        static void ProcessMethods(Logger Log, TypeDefinition td, ref bool WeavingFailed)
+        static void ProcessMethods(TypeDefinition td)
         {
             // find command and RPC functions
             foreach (MethodDefinition md in td.Methods)
             {
-                if (md.HasCustomAttribute<CommandAttribute>())
+                foreach (CustomAttribute ca in md.CustomAttributes)
                 {
-                    Log.Error($"Command {md.Name} must be declared inside a NetworkBehaviour", md);
-                    WeavingFailed = true;
-                }
-                if (md.HasCustomAttribute<ClientRpcAttribute>())
-                {
-                    Log.Error($"ClientRpc {md.Name} must be declared inside a NetworkBehaviour", md);
-                    WeavingFailed = true;
-                }
-                if (md.HasCustomAttribute<TargetRpcAttribute>())
-                {
-                    Log.Error($"TargetRpc {md.Name} must be declared inside a NetworkBehaviour", md);
-                    WeavingFailed = true;
+                    if (ca.AttributeType.FullName == Weaver.CommandType.FullName)
+                    {
+                        Weaver.Error($"Command {md.Name} must be declared inside a NetworkBehaviour", md);
+                    }
+
+                    if (ca.AttributeType.FullName == Weaver.ClientRpcType.FullName)
+                    {
+                        Weaver.Error($"ClientRpc {md.Name} must be declared inside a NetworkBehaviour", md);
+                    }
+
+                    if (ca.AttributeType.FullName == Weaver.TargetRpcType.FullName)
+                    {
+                        Weaver.Error($"TargetRpc {md.Name} must be declared inside a NetworkBehaviour", md);
+                    }
+
+                    string attributeName = ca.Constructor.DeclaringType.ToString();
+
+                    switch (attributeName)
+                    {
+                        case "Mirror.ServerAttribute":
+                            Weaver.Error($"Server method {md.Name} must be declared inside a NetworkBehaviour", md);
+                            break;
+                        case "Mirror.ServerCallbackAttribute":
+                            Weaver.Error($"ServerCallback method {md.Name} must be declared inside a NetworkBehaviour", md);
+                            break;
+                        case "Mirror.ClientAttribute":
+                            Weaver.Error($"Client method {md.Name} must be declared inside a NetworkBehaviour", md);
+                            break;
+                        case "Mirror.ClientCallbackAttribute":
+                            Weaver.Error($"ClientCallback method {md.Name} must be declared inside a NetworkBehaviour", md);
+                            break;
+                    }
                 }
             }
         }

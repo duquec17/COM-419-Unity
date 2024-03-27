@@ -1,26 +1,20 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Mirror.Authenticators
 {
-    [AddComponentMenu("Network/ Authenticators/Basic Authenticator")]
-    [HelpURL("https://mirror-networking.gitbook.io/docs/components/network-authenticators/basic-authenticator")]
+    [AddComponentMenu("Network/Authenticators/BasicAuthenticator")]
     public class BasicAuthenticator : NetworkAuthenticator
     {
-        [Header("Server Credentials")]
-        public string serverUsername;
-        public string serverPassword;
+        static readonly ILogger logger = LogFactory.GetLogger(typeof(BasicAuthenticator));
 
-        [Header("Client Credentials")]
+        [Header("Custom Properties")]
+
+        // set these in the inspector
         public string username;
         public string password;
 
-        readonly HashSet<NetworkConnection> connectionsPendingDisconnect = new HashSet<NetworkConnection>();
-
-        #region Messages
-
-        public struct AuthRequestMessage : NetworkMessage
+        public class AuthRequestMessage : MessageBase
         {
             // use whatever credentials make sense for your game
             // for example, you might want to pass the accessToken if using oauth
@@ -28,58 +22,46 @@ namespace Mirror.Authenticators
             public string authPassword;
         }
 
-        public struct AuthResponseMessage : NetworkMessage
+        public class AuthResponseMessage : MessageBase
         {
             public byte code;
             public string message;
         }
 
-        #endregion
-
-        #region Server
-
-        /// <summary>
-        /// Called on server from StartServer to initialize the Authenticator
-        /// <para>Server message handlers should be registered in this method.</para>
-        /// </summary>
         public override void OnStartServer()
         {
             // register a handler for the authentication request we expect from client
             NetworkServer.RegisterHandler<AuthRequestMessage>(OnAuthRequestMessage, false);
         }
 
-        /// <summary>
-        /// Called on server from StopServer to reset the Authenticator
-        /// <para>Server message handlers should be unregistered in this method.</para>
-        /// </summary>
-        public override void OnStopServer()
+        public override void OnStartClient()
         {
-            // unregister the handler for the authentication request
-            NetworkServer.UnregisterHandler<AuthRequestMessage>();
+            // register a handler for the authentication response we expect from server
+            NetworkClient.RegisterHandler<AuthResponseMessage>(OnAuthResponseMessage, false);
         }
 
-        /// <summary>
-        /// Called on server from OnServerConnectInternal when a client needs to authenticate
-        /// </summary>
-        /// <param name="conn">Connection to client.</param>
-        public override void OnServerAuthenticate(NetworkConnectionToClient conn)
+        public override void OnServerAuthenticate(NetworkConnection conn)
         {
             // do nothing...wait for AuthRequestMessage from client
         }
 
-        /// <summary>
-        /// Called on server when the client's AuthRequestMessage arrives
-        /// </summary>
-        /// <param name="conn">Connection to client.</param>
-        /// <param name="msg">The message payload</param>
-        public void OnAuthRequestMessage(NetworkConnectionToClient conn, AuthRequestMessage msg)
+        public override void OnClientAuthenticate(NetworkConnection conn)
         {
-            //Debug.Log($"Authentication Request: {msg.authUsername} {msg.authPassword}");
+            AuthRequestMessage authRequestMessage = new AuthRequestMessage
+            {
+                authUsername = username,
+                authPassword = password
+            };
 
-            if (connectionsPendingDisconnect.Contains(conn)) return;
+            conn.Send(authRequestMessage);
+        }
+
+        public void OnAuthRequestMessage(NetworkConnection conn, AuthRequestMessage msg)
+        {
+            if (logger.LogEnabled()) logger.LogFormat(LogType.Log, "Authentication Request: {0} {1}", msg.authUsername, msg.authPassword);
 
             // check the credentials by calling your web server, database table, playfab api, or any method appropriate.
-            if (msg.authUsername == serverUsername && msg.authPassword == serverPassword)
+            if (msg.authUsername == username && msg.authPassword == password)
             {
                 // create and send msg to client so it knows to proceed
                 AuthResponseMessage authResponseMessage = new AuthResponseMessage
@@ -90,13 +72,11 @@ namespace Mirror.Authenticators
 
                 conn.Send(authResponseMessage);
 
-                // Accept the successful authentication
-                ServerAccept(conn);
+                // Invoke the event to complete a successful authentication
+                OnServerAuthenticated.Invoke(conn);
             }
             else
             {
-                connectionsPendingDisconnect.Add(conn);
-
                 // create and send msg to client so it knows to disconnect
                 AuthResponseMessage authResponseMessage = new AuthResponseMessage
                 {
@@ -110,83 +90,35 @@ namespace Mirror.Authenticators
                 conn.isAuthenticated = false;
 
                 // disconnect the client after 1 second so that response message gets delivered
-                StartCoroutine(DelayedDisconnect(conn, 1f));
+                StartCoroutine(DelayedDisconnect(conn, 1));
             }
         }
 
-        IEnumerator DelayedDisconnect(NetworkConnectionToClient conn, float waitTime)
+        public IEnumerator DelayedDisconnect(NetworkConnection conn, float waitTime)
         {
             yield return new WaitForSeconds(waitTime);
-
-            // Reject the unsuccessful authentication
-            ServerReject(conn);
-
-            yield return null;
-
-            // remove conn from pending connections
-            connectionsPendingDisconnect.Remove(conn);
+            conn.Disconnect();
         }
 
-        #endregion
-
-        #region Client
-
-        /// <summary>
-        /// Called on client from StartClient to initialize the Authenticator
-        /// <para>Client message handlers should be registered in this method.</para>
-        /// </summary>
-        public override void OnStartClient()
-        {
-            // register a handler for the authentication response we expect from server
-            NetworkClient.RegisterHandler<AuthResponseMessage>(OnAuthResponseMessage, false);
-        }
-
-        /// <summary>
-        /// Called on client from StopClient to reset the Authenticator
-        /// <para>Client message handlers should be unregistered in this method.</para>
-        /// </summary>
-        public override void OnStopClient()
-        {
-            // unregister the handler for the authentication response
-            NetworkClient.UnregisterHandler<AuthResponseMessage>();
-        }
-
-        /// <summary>
-        /// Called on client from OnClientConnectInternal when a client needs to authenticate
-        /// </summary>
-        public override void OnClientAuthenticate()
-        {
-            AuthRequestMessage authRequestMessage = new AuthRequestMessage
-            {
-                authUsername = username,
-                authPassword = password
-            };
-
-            NetworkClient.Send(authRequestMessage);
-        }
-
-        /// <summary>
-        /// Called on client when the server's AuthResponseMessage arrives
-        /// </summary>
-        /// <param name="msg">The message payload</param>
-        public void OnAuthResponseMessage(AuthResponseMessage msg)
+        public void OnAuthResponseMessage(NetworkConnection conn, AuthResponseMessage msg)
         {
             if (msg.code == 100)
             {
-                //Debug.Log($"Authentication Response: {msg.message}");
+                if (logger.LogEnabled()) logger.LogFormat(LogType.Log, "Authentication Response: {0}", msg.message);
 
-                // Authentication has been accepted
-                ClientAccept();
+                // Invoke the event to complete a successful authentication
+                OnClientAuthenticated.Invoke(conn);
             }
             else
             {
-                Debug.LogError($"Authentication Response: {msg.message}");
+                logger.LogFormat(LogType.Error, "Authentication Response: {0}", msg.message);
 
-                // Authentication has been rejected
-                ClientReject();
+                // Set this on the client for local reference
+                conn.isAuthenticated = false;
+
+                // disconnect the client
+                conn.Disconnect();
             }
         }
-
-        #endregion
     }
 }

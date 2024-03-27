@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Mirror
@@ -7,33 +6,36 @@ namespace Mirror
     /// Component that will display the clients ping in milliseconds
     /// </summary>
     [DisallowMultipleComponent]
-    [AddComponentMenu("Network/Network Ping Display")]
-    [HelpURL("https://mirror-networking.gitbook.io/docs/components/network-ping-display")]
+    [AddComponentMenu("Network/NetworkPingDisplay")]
+    [HelpURL("https://mirror-networking.com/docs/Components/NetworkPingDisplay.html")]
     public class NetworkPingDisplay : MonoBehaviour
     {
-        public Color color = Color.white;
-        public int padding = 2;
-        public int width = 150;
-        public int height = 25;
+        [SerializeField] bool showPing = true;
+        [SerializeField] Vector2 position = new Vector2(200, 0);
+        [SerializeField] int fontSize = 24;
+        [SerializeField] Color textColor = new Color32(255, 255, 255, 80);
+
+        GUIStyle style;
+
+        void Awake()
+        {
+            style = new GUIStyle();
+            style.alignment = TextAnchor.UpperLeft;
+            style.fontSize = fontSize;
+            style.normal.textColor = textColor;
+        }
 
         void OnGUI()
         {
-            // only while client is active
-            if (!NetworkClient.active) return;
+            if (!showPing) { return; }
 
-            // show stats in bottom right corner, right aligned
-            GUI.color = color;
-            Rect rect = new Rect(Screen.width - width - padding, Screen.height - height - padding, width, height);
-            GUILayout.BeginArea(rect);
-            GUIStyle style = GUI.skin.GetStyle("Label");
-            style.alignment = TextAnchor.MiddleRight;
-            GUILayout.BeginHorizontal(style);
-                GUILayout.Label($"RTT: {Math.Round(NetworkTime.rtt * 1000)}ms");
-                GUI.color = NetworkClient.connectionQuality.ColorCode();
-                GUILayout.Label($"Q: {new string('-', (int)NetworkClient.connectionQuality)}");
-            GUILayout.EndHorizontal();
-            GUILayout.EndArea();
-            GUI.color = Color.white;
+            string text = string.Format("{0}ms", (int)(NetworkTime.rtt * 1000));
+
+            int width = Screen.width;
+            int height = Screen.height;
+            Rect rect = new Rect(position.x, position.y, width - 200, height * 2 / 100);
+
+            GUI.Label(rect, text, style);
         }
     }
 }
